@@ -1,5 +1,6 @@
 package com.car.contractcar.myapplication.ui.randomLayout;
 
+import android.animation.ValueAnimator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -9,7 +10,7 @@ import android.view.animation.ScaleAnimation;
 
 public class AnimationUtil {
 
-    private static final long MEDIUM = 500;
+    private static final long MEDIUM = 1000;
 
     /**
      * 创建一个淡入放大的动画
@@ -31,6 +32,14 @@ public class AnimationUtil {
         return ret;
     }
 
+    public static Animation createZoom(){
+        Animation anim;
+        // 创建一个淡入的动画
+        anim = new AlphaAnimation(0f, 1f);
+        anim.setDuration(MEDIUM);
+        anim.setInterpolator(new LinearInterpolator());
+        return anim;
+    }
     /**
      * 创建一个淡出放大的动画
      */
@@ -138,5 +147,16 @@ public class AnimationUtil {
         ret.addAnimation(anim);
 
         return ret;
+    }
+
+    /**
+     * 创建值动画
+     * @return
+     */
+    public static ValueAnimator createValueAnim(int beginvalue,int endvalue){
+        ValueAnimator animator = ValueAnimator.ofFloat(beginvalue,endvalue);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.setDuration(1000).start();
+        return animator;
     }
 }
