@@ -92,4 +92,7 @@
     <!--shenbei_充值button-->
     <color name="bg">#ccc</color>
     <color name="bg_text">#999</color>
+
+
+    <color name="line">#999</color>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,6 +17,8 @@ import com.car.contractcar.myapplication.fragment.BuycarFragment;
 import com.car.contractcar.myapplication.fragment.FindFragment;
 import com.car.contractcar.myapplication.fragment.KeepcarFragment;
 import com.car.contractcar.myapplication.fragment.MeFragment;
+
+import okhttp3.Call;
 
 
 public class MainActivity extends FragmentActivity {
@@ -46,7 +49,9 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initView();
+
         setSelect(0);
 
     }

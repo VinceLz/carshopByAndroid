@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
+import com.car.contractcar.myapplication.http.HttpUtil;
+
+
 /**
  * Created by Administrator on 2015/12/11.
  */
@@ -24,5 +27,8 @@ public class MyApplication extends Application {
         mainThread = Thread.currentThread();
         mainThreadId = android.os.Process.myTid();
 //        CrashHandler.getInstance().init(this);
+        new HttpUtil(this);
+
+
     }
 }
