@@ -19,4 +19,8 @@ public class JsonUtils {
         List objects = JSON.parseArray(json, Order);
         return objects;
     }
+
+    public static String bean2Json(Object object) {
+        return JSON.toJSONString(object);
+    }
 }

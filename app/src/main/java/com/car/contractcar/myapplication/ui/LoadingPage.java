@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.utils.UIUtils;
@@ -89,6 +90,16 @@ public abstract class LoadingPage extends FrameLayout {
     private void showPage() {
         loadingView.setVisibility(PAGE_CURRENT_STATE == PAGE_LOADING_STATE ? View.VISIBLE : View.GONE);
         errorView.setVisibility(PAGE_CURRENT_STATE == PAGE_ERROR_STATE ? View.VISIBLE : View.GONE);
+
+        LinearLayout linearLayout = (LinearLayout) errorView.findViewById(R.id.ly_err);
+        linearLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSafePage();
+                show();
+            }
+        });
+
         emptyView.setVisibility(PAGE_CURRENT_STATE == PAGE_EMPTY_STATE ? View.VISIBLE : View.GONE);
         if (successView == null) {
             successView = View.inflate(mConext, LayoutId(), null);

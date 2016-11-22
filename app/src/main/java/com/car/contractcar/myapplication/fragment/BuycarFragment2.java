@@ -3,9 +3,14 @@ package com.car.contractcar.myapplication.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,20 +27,23 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.activity.SpecActivity;
-import com.car.contractcar.myapplication.entity.BuyCarIndex;
-import com.car.contractcar.myapplication.entity.SelectData;
+import com.car.contractcar.myapplication.entity.BuyCarIndex2;
 import com.car.contractcar.myapplication.http.HttpUtil;
+import com.car.contractcar.myapplication.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.ui.LoadingPage;
-import com.car.contractcar.myapplication.ui.MyGridView;
 import com.car.contractcar.myapplication.utils.Constant;
 import com.car.contractcar.myapplication.utils.JsonUtils;
 import com.car.contractcar.myapplication.utils.UIUtils;
+import com.hanks.htextview.HTextView;
+import com.hanks.htextview.HTextViewType;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.loopj.android.http.RequestParams;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,7 +56,7 @@ import static com.car.contractcar.myapplication.MyApplication.context;
  * Created by macmini2 on 16/11/5.
  */
 
-public class BuycarFragment extends Fragment {
+public class BuycarFragment2 extends Fragment {
 
 
     @BindView(R.id.view_pages_carousel)
@@ -57,45 +65,65 @@ public class BuycarFragment extends Fragment {
     ListView carList;
     @BindView(R.id.sc_test)
     ScrollView scTest;
+    @BindView(R.id.text_search)
+    EduSohoIconView textSearch;
     @BindView(R.id.lay_search)
     LinearLayout laySearch;
-    @BindView(R.id.ly_Programme)
-    LinearLayout lyProgramme;
-    @BindView(R.id.home_active)
-    MyGridView homeActiveVIew;
-
-    private BuyCarIndex buyCArIndex;
-    int x = 0;
-    int y = 0;
-    private List<BuyCarIndex.HomeImageBean> homeImage;
-    private List<BuyCarIndex.HomeCarBean> homeCar;
-    private List<BuyCarIndex.HomeActiveBean> homeActive;
+    @BindView(R.id.select_ok)
+    LinearLayout selectOk;
+    @BindView(R.id.htext)
+    HTextView hTextView;
+    private BuyCarIndex2 buyCArIndex2;
+    private List<BuyCarIndex2.HomeImageBean> homeImage;
+    private List<BuyCarIndex2.CarstoreBean> homeCarstore;
+    private List<BuyCarIndex2.HomeActiveBean> homeActive;
     private LoadingPage loadingPage;
     private int statusBarHeight2;
+    private static int count = 0;
+    private boolean isContinue;
+
+
+    private Thread myThread;
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 0:
+                    hTextView.animateText(homeActive.get(count % homeActive.size()).getTitle());
+                    count++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        ;
+    };
+    private Location location;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        MainActivity activity = (MainActivity) getActivity();
+        location = activity.getLocation();
         loadingPage.show();
+
     }
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
-        //                View view =  View.inflate(getActivity(), R.layout.fragment_index, null);
         loadingPage = new LoadingPage(getActivity()) {
             @Override
             public int LayoutId() {
-                return R.layout.fragment_index;
+                return R.layout.fragment_index2;
             }
 
             @Override
             protected void OnSuccess(ResultState resultState, View successView) {
-//                View view =  View.inflate(getActivity(), R.layout.fragment_index, null);
-                ButterKnife.bind(BuycarFragment.this, successView);
+                ButterKnife.bind(BuycarFragment2.this, successView);
                 if (!TextUtils.isEmpty(resultState.getContent())) {
-
-                    buyCArIndex = (BuyCarIndex) JsonUtils.json2Bean(resultState.getContent(), BuyCarIndex.class);
+                    buyCArIndex2 = (BuyCarIndex2) JsonUtils.json2Bean(resultState.getContent(), BuyCarIndex2.class);
                     initView();
                     refreshView();
                 }
@@ -103,12 +131,18 @@ public class BuycarFragment extends Fragment {
 
             @Override
             protected RequestParams params() {
+
                 return null;
             }
 
             @Override
             protected String url() {
-                return Constant.HTTP_BASE + Constant.HTTP_HOME;
+                if (location != null) {
+                    return Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude();
+                } else {
+                    return Constant.HTTP_BASE + Constant.HTTP_HOME;
+                }
+
             }
         };
 
@@ -136,12 +170,13 @@ public class BuycarFragment extends Fragment {
         //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         mRollViewPager.setHintView(new ColorPointHintView(getActivity(), Color.WHITE, Color.parseColor("#aacccccc")));
 
-        carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {//// TODO: 16/11/22  
+        carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UIUtils.Toast(homeCar.get(position).getGname() + "", false);
+                UIUtils.Toast(homeCarstore.get(position).getBname() + "", false);
             }
         });
+
         statusBarHeight2 = -1;
         try {
             Class<?> clazz = Class.forName("com.android.internal.R$dimen");
@@ -153,7 +188,6 @@ public class BuycarFragment extends Fragment {
             e.printStackTrace();
         }
         Log.e("WangJ", "状态栏-方法2:" + statusBarHeight2);
-
 
 
         scTest.setOnTouchListener(new View.OnTouchListener() {
@@ -173,17 +207,19 @@ public class BuycarFragment extends Fragment {
             }
         });
 
+        hTextView.setAnimateType(HTextViewType.ANVIL);
+
     }
 
     /**
      * 刷新UI
      */
     private void refreshView() {
-        if (buyCArIndex != null) {
+        if (buyCArIndex2 != null) {
             //设置适配器
-            homeImage = buyCArIndex.getHomeImage();
-            homeCar = buyCArIndex.getHomeCar();
-            homeActive = buyCArIndex.getHomeActive();
+            homeImage = buyCArIndex2.getHomeImage();
+            homeCarstore = buyCArIndex2.getCarstore();
+            homeActive = buyCArIndex2.getHomeActive();
 
             mRollViewPager.setAdapter(new StaticPagerAdapter() {
 
@@ -204,33 +240,18 @@ public class BuycarFragment extends Fragment {
 
             carList.setAdapter(new MyListAdapter());
 
-            homeActiveVIew.setAdapter(new BaseAdapter() {
-                @Override
-                public int getCount() {
-                    return homeActive.size();
-                }
-
-                @Override
-                public Object getItem(int position) {
-                    return null;
-                }
-
-                @Override
-                public long getItemId(int position) {
-                    return position;
-                }
-
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    View view = UIUtils.getXmlView(R.layout.keep_car_item);
-                    ImageView imageView = (ImageView) view.findViewById(R.id.iv_item);
-                    TextView textView = (TextView) view.findViewById(R.id.tv_item);
-                    textView.setText(homeActive.get(position).getTitle());
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeActive.get(position).getImage())).into(imageView);
-                    return view;
-                }
-            });
             setListViewHeight(carList);
+            isContinue = true;
+            // 每隔一秒 发一个空消息 滚动一次
+            myThread = new Thread() {
+                public void run() {
+                    while (isContinue) {
+                        SystemClock.sleep(2500);
+                        handler.sendEmptyMessage(0);// 每隔一秒 发一个空消息 滚动一次
+                    }
+                }
+            };
+            myThread.start();
         }
     }
 
@@ -262,32 +283,21 @@ public class BuycarFragment extends Fragment {
     }
 
 
-    @OnClick(R.id.ly_Programme)
+    @OnClick(R.id.select_ok)
     public void selectProgramme(View view) {
         //UIUtils.Toast("测试", false);
-        startActivityForResult(new Intent(getActivity(), SpecActivity.class), 0);
+        startActivity(new Intent(getActivity(), SpecActivity.class));
+        getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
     }
 
-    static class ViewHolder {
-        @BindView(R.id.car_item_img)
-        ImageView carItemImg;
-        @BindView(R.id.text_name)
-        TextView textName;
-        @BindView(R.id.text_price)
-        TextView textPrice;
-
-        ViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
-    }
 
     /**
      * listView的适配器
      */
-    class MyListAdapter extends BaseAdapter{
+    class MyListAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return homeCar.size();
+            return homeCarstore.size();
         }
 
         @Override
@@ -305,39 +315,52 @@ public class BuycarFragment extends Fragment {
 
             ViewHolder holderView = null;
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.list_item_car, null);
+                convertView = LayoutInflater.from(context).inflate(R.layout.car_item, null);
                 holderView = new ViewHolder(convertView);
                 convertView.setTag(holderView);
             } else {
                 holderView = (ViewHolder) convertView.getTag();
             }
-            holderView.textName.setText(homeCar.get(position).getGname());
-            holderView.textPrice.setText(homeCar.get(position).getGprice() + "");
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCar.get(position).getGfirstimage())).into(holderView.carItemImg);
+            holderView.storeAddress.setText(homeCarstore.get(position).getBaddress());
+            holderView.storeName.setText(homeCarstore.get(position).getBname());
+            holderView.carOwner.setText("主营车型 : " + homeCarstore.get(position).getMajorbusiness());
+            float a = (float) (Integer.parseInt(homeCarstore.get(position).getDistance())/1000000);
+            DecimalFormat fnum  =   new  DecimalFormat("##.0");
+            String   dd=fnum.format(a);
+            holderView.distance.setText(dd + "Km");
+            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCarstore.get(position).getBimage())).into(holderView.carImg);
             return convertView;
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0 && resultCode == 1) {
-            final String data1 = data.getStringExtra("data");
-            if (!TextUtils.isEmpty(data1)){
-                final SelectData selectData = (SelectData) JsonUtils.json2Bean(data1, SelectData.class);
-                List<BuyCarIndex.HomeCarBean> list = selectData.getList();
-                homeCar = list;
-                UIUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ListAdapter adapter = carList.getAdapter();
-                        adapter = null;
-                        carList.setAdapter(new MyListAdapter());
-                        setListViewHeight(carList);
-                    }
-                });
+    static class ViewHolder {
+        @BindView(R.id.car_img)
+        ImageView carImg;
+        @BindView(R.id.store_name)
+        TextView storeName;
+        @BindView(R.id.store_address)
+        TextView storeAddress;
+        @BindView(R.id.car_owner)
+        TextView carOwner;
+        @BindView(R.id.distance)
+        TextView distance;
 
-            }
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
         }
     }
 
+
+    /**
+     * 在销毁的时候干掉线程
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isContinue = false;
+        if (myThread != null && myThread.isAlive()) {
+            myThread.interrupt();
+        }
+        count = 0;
+    }
 }

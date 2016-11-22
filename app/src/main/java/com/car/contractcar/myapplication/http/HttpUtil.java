@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.serializer.StringCodec;
 import com.car.contractcar.myapplication.utils.LocalUtil;
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.NetworkPolicy;
@@ -120,9 +122,73 @@ public class HttpUtil {
                         Set<String> item = map.keySet();
 
                         for (String str : item) {
+
                             Log.v("----------", str);
                             Log.v("--------++", "" + map.get(str));
                             body.add(str, "" + map.get(str));
+                        }
+                    }
+
+                    FormBody formbody = body.build();
+                    Request request = new Request.Builder()
+                            .url(Url)
+                            .post(formbody)
+                            .build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            callb.err();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (callb != null) {
+                                String stre = response.body().string();
+                                Log.v("####reslut", stre);
+                                JSONObject obj = null;
+                                try {
+                                    obj = new JSONObject(stre);
+                                    int reCode = obj.getInt("status");
+                                    if (1 == reCode) {
+                                        callb.succcess(stre);
+                                    } else {
+                                        callb.fail(stre);
+                                    }
+                                } catch (JSONException e) {
+                                    callb.fail(stre);
+                                }
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.v("####POSTError", "" + e.toString());
+                }
+            }
+
+        });
+
+
+    }
+
+    public static void postJson(final String Url, final Map<String, Object> map, final callBlack callb) {
+
+        Log.d("#######", "post调用了");
+        sExecutorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FormBody.Builder body = new FormBody.Builder();
+                    if (map != null) {
+                        Set<String> item = map.keySet();
+
+                        for (String str : item) {
+                            JSONArray jsonArray = (JSONArray) map.get(str);
+                            if (jsonArray.size() > 0) {
+
+                                Log.v("----------", str);
+                                Log.v("--------++", "" + map.get(str));
+                                body.add(str, "" + map.get(str));
+                            }
                         }
                     }
 
@@ -292,6 +358,7 @@ public class HttpUtil {
 
     /**
      * get方法
+     *
      * @param url
      * @param call
      * @param isCache

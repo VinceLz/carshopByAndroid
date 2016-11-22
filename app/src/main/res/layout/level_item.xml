@@ -4,30 +4,34 @@
     android:layout_height="match_parent"
     android:layout_margin="0.0dip">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/car_level_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_centerInParent="true"
-        android:background="@drawable/br_gv"
-        android:padding="12dp" >
+        android:padding="8dp" >
 
         <ImageView
-            android:id="@+id/iv_item"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="@string/app_name" />
+            android:id="@+id/car_icon"
+            android:layout_width="40dp"
+            android:src="@mipmap/car_bgn"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true" />
 
         <TextView
-            android:id="@+id/tv_item"
+            android:id="@+id/car_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_item"
             android:layout_centerHorizontal="true"
             android:textColor="#999"
             android:layout_marginTop="5dp"
+            android:text="大卡车"
             android:maxLines="1"
-            android:textSize="18sp" />
-    </RelativeLayout>
+            android:textSize="10sp" />
+    </LinearLayout>
 
 </RelativeLayout>
