@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.car.contractcar.myapplication.R;
-import com.car.contractcar.myapplication.fragment.BuycarFragment;
 import com.car.contractcar.myapplication.fragment.BuycarFragment2;
 import com.car.contractcar.myapplication.fragment.FindFragment;
 import com.car.contractcar.myapplication.fragment.KeepcarFragment;
@@ -26,8 +25,6 @@ import com.car.contractcar.myapplication.fragment.MeFragment;
 import com.car.contractcar.myapplication.utils.UIUtils;
 
 import java.util.List;
-
-import okhttp3.Call;
 
 
 public class MainActivity extends FragmentActivity {

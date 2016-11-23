@@ -99,6 +99,8 @@ public class BuycarFragment2 extends Fragment {
         ;
     };
     private Location location;
+    private String dd;
+    private DecimalFormat fnum;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -324,10 +326,15 @@ public class BuycarFragment2 extends Fragment {
             holderView.storeAddress.setText(homeCarstore.get(position).getBaddress());
             holderView.storeName.setText(homeCarstore.get(position).getBname());
             holderView.carOwner.setText("主营车型 : " + homeCarstore.get(position).getMajorbusiness());
-            float a = (float) (Integer.parseInt(homeCarstore.get(position).getDistance())/1000000);
-            DecimalFormat fnum  =   new  DecimalFormat("##.0");
-            String   dd=fnum.format(a);
-            holderView.distance.setText(dd + "Km");
+            int f = Integer.parseInt(homeCarstore.get(position).getDistance());
+            if (f<1000){
+                holderView.distance.setText(f + "m");
+            }else {
+                float a = (float) f/1000;
+                fnum = new DecimalFormat("##.0");
+                dd = fnum.format(a);
+                holderView.distance.setText(dd + "Km");
+            }
             HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCarstore.get(position).getBimage())).into(holderView.carImg);
             return convertView;
         }

@@ -200,7 +200,7 @@ public class SpecActivity extends AppCompatActivity {
                     } else {
                         selectDatas.remove(keys[dataPosition] + ":" + textView.getText().toString());
                         textView.setBackgroundResource(R.drawable.condition_bgn);
-                        textView.setTextColor(Color.parseColor("#999999"));
+                        textView.setTextColor(Color.parseColor("#666666"));
                     }
                 }
             });

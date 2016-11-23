@@ -40,7 +40,6 @@ public class KeepcarFragment extends Fragment {
     ListView keepCarList;
     private KeepCar keepCar;
     private List<KeepCar.ActiveBean> active;
-    private List<KeepCar.CarstoreBean> carstore;
     private LoadingPage loadingPage;
 
     @Override
@@ -124,7 +123,7 @@ public class KeepcarFragment extends Fragment {
     private void refreshView() {
         if (keepCar != null) {
             active = keepCar.getActive();
-            carstore = keepCar.getCarstore();
+//            carstore = keepCar.getCarstore();
             keepCarActive.setAdapter(new BaseAdapter() {
                 @Override
                 public int getCount() {
@@ -152,39 +151,39 @@ public class KeepcarFragment extends Fragment {
                 }
             });
 
-            keepCarList.setAdapter(new BaseAdapter() {
-                @Override
-                public int getCount() {
-                    return carstore.size();
-                }
-
-                @Override
-                public Object getItem(int position) {
-                    return null;
-                }
-
-                @Override
-                public long getItemId(int position) {
-                    return position;
-                }
-
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    ViewHolder viewHolder = null;
-                    if (convertView == null) {
-                        convertView = View.inflate(getActivity(), R.layout.list_item_keepcar, null);
-                        viewHolder = new ViewHolder(convertView);
-                        convertView.setTag(viewHolder);
-                    } else {
-                        viewHolder = (ViewHolder) convertView.getTag();
-                    }
-                    viewHolder.textAddress.setText(carstore.get(position).getBaddress());
-                    viewHolder.shopName.setText(carstore.get(position).getBname());
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(carstore.get(position).getBimage())).into(viewHolder.keepcarItemImg);
-
-                    return convertView;
-                }
-            });
+//            keepCarList.setAdapter(new BaseAdapter() {
+//                @Override
+//                public int getCount() {
+//                    return carstore.size();
+//                }
+//
+//                @Override
+//                public Object getItem(int position) {
+//                    return null;
+//                }
+//
+//                @Override
+//                public long getItemId(int position) {
+//                    return position;
+//                }
+//
+//                @Override
+//                public View getView(int position, View convertView, ViewGroup parent) {
+//                    ViewHolder viewHolder = null;
+//                    if (convertView == null) {
+//                        convertView = View.inflate(getActivity(), R.layout.list_item_keepcar, null);
+//                        viewHolder = new ViewHolder(convertView);
+//                        convertView.setTag(viewHolder);
+//                    } else {
+//                        viewHolder = (ViewHolder) convertView.getTag();
+//                    }
+//                    viewHolder.textAddress.setText(carstore.get(position).getBaddress());
+//                    viewHolder.shopName.setText(carstore.get(position).getBname());
+//                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(carstore.get(position).getBimage())).into(viewHolder.keepcarItemImg);
+//
+//                    return convertView;
+//                }
+//            });
 
             setListViewHeight(keepCarList);
         }
