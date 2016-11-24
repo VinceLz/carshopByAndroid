@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.MainActivity;
+import com.car.contractcar.myapplication.activity.ShopInfoActivity;
 import com.car.contractcar.myapplication.activity.SpecActivity;
 import com.car.contractcar.myapplication.entity.BuyCarIndex2;
 import com.car.contractcar.myapplication.http.HttpUtil;
@@ -175,7 +176,11 @@ public class BuycarFragment2 extends Fragment {
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UIUtils.Toast(homeCarstore.get(position).getBname() + "", false);
+                Intent intent = new Intent(getActivity(),ShopInfoActivity.class);
+                intent.putExtra("bid",homeCarstore.get(position).getBid());
+                intent.putExtra("distance",Integer.parseInt(homeCarstore.get(position).getDistance()));
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
             }
         });
 
@@ -327,10 +332,10 @@ public class BuycarFragment2 extends Fragment {
             holderView.storeName.setText(homeCarstore.get(position).getBname());
             holderView.carOwner.setText("主营车型 : " + homeCarstore.get(position).getMajorbusiness());
             int f = Integer.parseInt(homeCarstore.get(position).getDistance());
-            if (f<1000){
+            if (f < 1000) {
                 holderView.distance.setText(f + "m");
-            }else {
-                float a = (float) f/1000;
+            } else {
+                float a = (float) f / 1000;
                 fnum = new DecimalFormat("##.0");
                 dd = fnum.format(a);
                 holderView.distance.setText(dd + "Km");
