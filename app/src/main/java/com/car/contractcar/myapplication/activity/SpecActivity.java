@@ -189,8 +189,9 @@ public class SpecActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = UIUtils.getXmlView(R.layout.car_condition_item);
+            LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.select_lay);
             final TextView textView = (TextView) view.findViewById(R.id.select_content);
-            textView.setOnClickListener(new View.OnClickListener() {
+            linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!isSelect(keys[dataPosition] + ":" + textView.getText().toString())) {
@@ -261,8 +262,8 @@ public class SpecActivity extends AppCompatActivity {
             }
         }
         selectDataList = new SelectDataList(countrieslist, outputtist, drivelist, fuellist, transmissionCaselist, productionlist, structurelist, seatlist, levellist);
-        selectDataList.setMaxprice(!TextUtils.isEmpty(carMaxprice.getText().toString())?Integer.parseInt(carMaxprice.getText().toString()):-1);
-        selectDataList.setMinprice(!TextUtils.isEmpty(carMinprice.getText().toString())?Integer.parseInt(carMinprice.getText().toString()):-1);
+        selectDataList.setMaxprice(!TextUtils.isEmpty(carMaxprice.getText().toString()) ? Integer.parseInt(carMaxprice.getText().toString()) : -1);
+        selectDataList.setMinprice(!TextUtils.isEmpty(carMinprice.getText().toString()) ? Integer.parseInt(carMinprice.getText().toString()) : -1);
         String jsonString = JSON.toJSONString(selectDataList);
         JSONObject jsonObject = JSON.parseObject(jsonString);
         Log.e(TAG, "select_ok: " + Constant.HTTP_BASE + Constant.HTTP_SELECT + "/" + jsonString + ".action");
@@ -271,9 +272,9 @@ public class SpecActivity extends AppCompatActivity {
             @Override
             public void succcess(String code) {
                 Log.e(TAG, "succcess: " + code);
-                Intent intent = new Intent();
+                Intent intent = new Intent(SpecActivity.this, CarModelsActivity.class);
                 intent.putExtra("data", code);
-                setResult(1, intent);
+                SpecActivity.this.startActivity(intent);
                 SpecActivity.this.finish();
             }
 

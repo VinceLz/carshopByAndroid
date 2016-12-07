@@ -318,26 +318,5 @@ public class BuycarFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0 && resultCode == 1) {
-            final String data1 = data.getStringExtra("data");
-            if (!TextUtils.isEmpty(data1)){
-                final SelectData selectData = (SelectData) JsonUtils.json2Bean(data1, SelectData.class);
-                List<BuyCarIndex.HomeCarBean> list = selectData.getList();
-                homeCar = list;
-                UIUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ListAdapter adapter = carList.getAdapter();
-                        adapter = null;
-                        carList.setAdapter(new MyListAdapter());
-                        setListViewHeight(carList);
-                    }
-                });
-
-            }
-        }
-    }
 
 }

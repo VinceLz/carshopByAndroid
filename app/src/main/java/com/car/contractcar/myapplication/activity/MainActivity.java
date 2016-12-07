@@ -62,7 +62,7 @@ public class MainActivity extends FragmentActivity {
         this.location = location;
     }
 
-    private Location location;
+    private Location location = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

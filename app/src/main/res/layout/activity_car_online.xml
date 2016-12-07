@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_car_online"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="#ececec"
+    tools:context="com.car.contractcar.myapplication.activity.CarOnlineActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#42A4B2"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <com.car.contractcar.myapplication.ui.EduSohoIconView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/car_online_back"
+            android:text="@string/fback"
+            android:textColor="#fff" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/fprice" />
+        </LinearLayout>
+
+        <com.car.contractcar.myapplication.ui.EduSohoIconView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/fmore"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+    <ImageView
+        android:background="#fff"
+        android:padding="10dp"
+        android:src="@mipmap/exhibition_img"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" />
+</LinearLayout>

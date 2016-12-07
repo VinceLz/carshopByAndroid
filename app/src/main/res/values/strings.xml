@@ -3,4 +3,6 @@
     <string name="icons">&#xe677;</string>
     <string name="search">&#xe60a; 搜索你想要的车辆</string>
     <string name="into_text">&#xe627;</string>
+    <string name="fback">&#xe626; 返回</string>
+    <string name="fmore">&#xe601;</string>
 </resources>

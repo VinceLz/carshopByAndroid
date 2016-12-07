@@ -5,19 +5,11 @@
     android:background="#fff"
     android:orientation="horizontal"
     android:padding="8dp">
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="5"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <ImageView
-            android:id="@+id/shop_car_img"
+            android:id="@+id/car_models_list_item_img"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:src="@mipmap/textimg" />
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -26,7 +18,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/shop_car_name"
+                android:id="@+id/car_models_list_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="宝马7系"
@@ -34,7 +26,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/shop_car_price"
+                android:id="@+id/car_models_list_item_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -44,7 +36,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/shop_car_title"
+                android:id="@+id/car_models_list_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -52,23 +44,4 @@
                 android:textColor="#D44960"
                 android:textSize="12sp" />
         </LinearLayout>
-    </LinearLayout>
-   <LinearLayout
-       android:layout_weight="1"
-       android:layout_width="0dp"
-       android:gravity="center_horizontal"
-       android:orientation="vertical"
-       android:layout_height="match_parent">
-       <ImageView
-           android:layout_width="30dp"
-           android:layout_height="30dp"
-           android:src="@mipmap/bystages"/>
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:padding="5dp"
-           android:text="分期政策"
-           android:textColor="#D44960"
-           android:textSize="10sp"/>
-   </LinearLayout>
 </LinearLayout>

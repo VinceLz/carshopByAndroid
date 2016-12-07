@@ -14,6 +14,8 @@ public class Constant {
     public static final String HTTP_KEEP_CAR = "home/case.action";
 
     public static final String HTTP_SHOP_INFO = "store/getall.action?bid=";
+    public static final String HTTP_CAR_INFO = "car/getModels.action?gid=";
+    public static final String HTTP_CAR_DETAIL = "car/models/get.action?mid=";
 
     public static final String HTTP_SELECT = "home/car";
     public static final String [] TransmissionCase= {"手动","自动"};

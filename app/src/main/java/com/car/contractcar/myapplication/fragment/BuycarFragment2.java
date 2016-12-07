@@ -4,6 +4,7 @@ package com.car.contractcar.myapplication.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +28,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.activity.CarModelsActivity;
 import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.activity.ShopInfoActivity;
 import com.car.contractcar.myapplication.activity.SpecActivity;
@@ -74,6 +76,8 @@ public class BuycarFragment2 extends Fragment {
     LinearLayout selectOk;
     @BindView(R.id.htext)
     HTextView hTextView;
+    @BindView(R.id.car_models)
+    LinearLayout carModels;
     private BuyCarIndex2 buyCArIndex2;
     private List<BuyCarIndex2.HomeImageBean> homeImage;
     private List<BuyCarIndex2.CarstoreBean> homeCarstore;
@@ -82,7 +86,7 @@ public class BuycarFragment2 extends Fragment {
     private int statusBarHeight2;
     private static int count = 0;
     private boolean isContinue;
-
+    private Intent intent = new Intent(Intent.ACTION_CALL);
 
     private Thread myThread;
     private Handler handler = new Handler() {
@@ -102,6 +106,8 @@ public class BuycarFragment2 extends Fragment {
     private Location location;
     private String dd;
     private DecimalFormat fnum;
+    private int[] position1;
+    private int f;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -159,6 +165,7 @@ public class BuycarFragment2 extends Fragment {
      * 初始化ui
      */
     private void initView() {
+
         //设置播放时间间隔
         mRollViewPager.setPlayDelay(2500);
         //设置透明度
@@ -176,9 +183,9 @@ public class BuycarFragment2 extends Fragment {
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(),ShopInfoActivity.class);
-                intent.putExtra("bid",homeCarstore.get(position).getBid());
-                intent.putExtra("distance",Integer.parseInt(homeCarstore.get(position).getDistance()));
+                Intent intent = new Intent(getActivity(), ShopInfoActivity.class);
+                intent.putExtra("bid", homeCarstore.get(position).getBid());
+                intent.putExtra("distance", f);
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
             }
@@ -196,25 +203,72 @@ public class BuycarFragment2 extends Fragment {
         }
         Log.e("WangJ", "状态栏-方法2:" + statusBarHeight2);
 
-
         scTest.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                int[] position = new int[2];
+//                mRollViewPager.getLocationOnScreen(position);
+//                position[1] -= statusBarHeight2;
+//                int a = 0 - position[1] / 2 > 255 ? 255 : 0 - position[1] / 2;
+//                laySearch.setBackgroundColor(Color.argb(0 - position[1] / 2 > 255 ? 255 : 0 - position[1] / 2, 255, 255, 255));
+//                return false;
+//            }
+//
+//
+
+            private int lastY = 0;
+            private int touchEventId = -9983761;
+            Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    View scroller = (View) msg.obj;
+
+                    if (msg.what == touchEventId) {
+                        if (lastY == scroller.getScrollY()) {
+                            return;
+
+                        } else {
+
+                            mRollViewPager.getLocationOnScreen(position1);
+                            position1[1] -= statusBarHeight2;
+                            int a = 0 - position1[1] / 2 > 255 ? 255 : 0 - position1[1] / 2;
+                            laySearch.setBackgroundColor(Color.argb(0 - position1[1] / 2 > 255 ? 255 : 0 - position1[1] / 2, 255, 255, 255));
+                            handler.sendMessageDelayed(handler.obtainMessage(touchEventId, scroller), 1);
+                            lastY = scroller.getScrollY();
+                        }
+                    }
+                }
+            };
+
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                int[] position = new int[2];
-                mRollViewPager.getLocationOnScreen(position);
-                position[1] = position[1] - statusBarHeight2;
-                Log.e(TAG, "getLocationOnScreen: " + position[1]);
-                int[] position1 = new int[2];
-//                mRollViewPager.getLocationInWindow(position1);
-//                Log.e(TAG, "getLocationInWindow: "+position1[0]+":"+position1[1]);
-                int a = 0 - position[1] / 2 > 255 ? 255 : 0 - position[1] / 2;
-                Log.e(TAG, "getLocationOnScreen: " + a);
-                laySearch.setBackgroundColor(Color.argb(0 - position[1] / 2 > 255 ? 255 : 0 - position[1] / 2, 255, 0, 0));
+                //isScoll = false;
+                int eventAction = event.getAction();
+                int y = (int) event.getRawY();
+                switch (eventAction) {
+                    case MotionEvent.ACTION_UP:
+
+                        handler.sendMessageDelayed(handler.obtainMessage(touchEventId, v), 5);
+
+                        break;
+                    default:
+                        position1 = new int[2];
+                        mRollViewPager.getLocationOnScreen(position1);
+                        position1[1] -= statusBarHeight2;
+                        int a = 0 - position1[1] / 2 > 255 ? 255 : 0 - position1[1] / 2;
+                        laySearch.setBackgroundColor(Color.argb(0 - position1[1] / 2 > 255 ? 255 : 0 - position1[1] / 2, 255, 255, 255));
+                        break;
+                }
                 return false;
             }
+
         });
 
+
         hTextView.setAnimateType(HTextViewType.ANVIL);
+
 
     }
 
@@ -298,6 +352,13 @@ public class BuycarFragment2 extends Fragment {
     }
 
 
+    @OnClick(R.id.car_models)
+    public void carModels(View view) {
+        //UIUtils.Toast("测试", false);
+        startActivity(new Intent(getActivity(), CarModelsActivity.class));
+        getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+    }
+
     /**
      * listView的适配器
      */
@@ -318,7 +379,7 @@ public class BuycarFragment2 extends Fragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             ViewHolder holderView = null;
             if (convertView == null) {
@@ -331,7 +392,8 @@ public class BuycarFragment2 extends Fragment {
             holderView.storeAddress.setText(homeCarstore.get(position).getBaddress());
             holderView.storeName.setText(homeCarstore.get(position).getBname());
             holderView.carOwner.setText("主营车型 : " + homeCarstore.get(position).getMajorbusiness());
-            int f = Integer.parseInt(homeCarstore.get(position).getDistance());
+            f = Integer.parseInt(homeCarstore.get(position).getDistance() != null ?
+                    homeCarstore.get(position).getDistance() : "0");
             if (f < 1000) {
                 holderView.distance.setText(f + "m");
             } else {
@@ -340,9 +402,40 @@ public class BuycarFragment2 extends Fragment {
                 dd = fnum.format(a);
                 holderView.distance.setText(dd + "Km");
             }
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCarstore.get(position).getBimage())).into(holderView.carImg);
+            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCarstore.get(position).getShowImage())).into(holderView.carImg);
+
+            //电话
+            ImageView car_call = (ImageView) convertView.findViewById(R.id.car_call);
+            car_call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent.setData(Uri.parse("tel:" + homeCarstore.get(position).getBphone()));
+                    startActivity(intent);
+                }
+            });
+
+            //位置导航
+            ImageView car_location = (ImageView) convertView.findViewById(R.id.car_location);
+            car_location.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UIUtils.Toast("还未开发", false);// TODO: 16/11/29
+                    locationShop(position);
+                }
+            });
+
+
             return convertView;
         }
+    }
+
+
+    /**
+     * 百度地图导航
+     *
+     * @param position
+     */
+    private void locationShop(int position) {
     }
 
     static class ViewHolder {

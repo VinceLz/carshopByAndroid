@@ -8,8 +8,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.car.contractcar.myapplication.MyApplication.context;
 
@@ -48,6 +51,8 @@ public class ShopInfoActivity extends AppCompatActivity {
     TextView shopOwner;
     @BindView(R.id.shop_distance)
     TextView shopDistance;
+    @BindView(R.id.shop_back)
+    ImageView shopBack;
     private int bid;
     private ShopInfo shopInfo;
     private List<ShopInfo.BusinessBean.ChildsBean> cars;
@@ -61,6 +66,27 @@ public class ShopInfoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView();
         initData();
+
+        shopCarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShopInfo.BusinessBean.ChildsBean childsBean = cars.get(position);
+                int gid = childsBean.getGid();
+                int minprice = childsBean.getMinprice();
+                int maxprice = childsBean.getMaxprice();
+                String gname = childsBean.getGname();
+                String title = childsBean.getTitle();
+                Intent intent = new Intent(ShopInfoActivity.this, CarInfoActivity.class);
+                intent.putExtra("gid", gid);
+                intent.putExtra("minprice", 0);
+                intent.putExtra("maxprice", 0);
+                intent.putExtra("gname", gname);
+                intent.putExtra("title", title);
+                startActivity(intent);
+                //    右往左推出效果
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
     }
 
     private void initView() {
@@ -174,7 +200,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder = null;
             if (convertView == null) {
                 convertView = UIUtils.getXmlView(R.layout.shop_cars_list);
@@ -184,11 +210,10 @@ public class ShopInfoActivity extends AppCompatActivity {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getGlastimage())).into(viewHolder.shopCarImg);
-            viewHolder.shopCarMode.setText(cars.get(position).getModel());
+
+            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getShowImage())).into(viewHolder.shopCarImg);
             viewHolder.shopCarName.setText(cars.get(position).getGname());
-            viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getGprice() + "");
-            viewHolder.shopCarUidegprice.setText("参考价: " + cars.get(position).getGuidegprice() + "");
+            viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getMinprice() + "~" + cars.get(position).getMaxprice());
             String title = cars.get(position).getTitle();
             if (!TextUtils.isEmpty(title)) {
                 viewHolder.shopCarTitle.setText(title);
@@ -197,13 +222,26 @@ public class ShopInfoActivity extends AppCompatActivity {
             }
             return convertView;
         }
+
+
     }
 
+    @OnClick(R.id.shop_back)
+    public void back(View view) {
+        this.onBackPressed();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
 
     /**
      * 重新计算listview的高度
      *
-     * @param listView
+     * @param
      */
     public void setListViewHeight(ListView listView) {
 
@@ -232,12 +270,8 @@ public class ShopInfoActivity extends AppCompatActivity {
         ImageView shopCarImg;
         @BindView(R.id.shop_car_name)
         TextView shopCarName;
-        @BindView(R.id.shop_car_mode)
-        TextView shopCarMode;
         @BindView(R.id.shop_car_price)
         TextView shopCarPrice;
-        @BindView(R.id.shop_car_uidegprice)
-        TextView shopCarUidegprice;
         @BindView(R.id.shop_car_title)
         TextView shopCarTitle;
 
@@ -245,4 +279,5 @@ public class ShopInfoActivity extends AppCompatActivity {
             ButterKnife.bind(this, view);
         }
     }
+
 }

@@ -12,8 +12,8 @@ public class BuyCarIndex2 {
     /**
      * status : 1
      * homeImage : [{"image":"/img/menu_viewpager_5.png","url":"http://www.baidu.com"},{"image":"/img/menu_viewpager_4.png","url":"http://www.taobao.com"},{"image":"/img/menu_viewpager_1.png","url":"http://www.qq.com"}]
-     * homeActive : [{"title":"优惠1","url":"http://www.baidu.com"},{"title":"优惠2","url":"http://www.qq.com"},{"title":"优惠3","url":"http://www.qq.com"},{"title":"优惠4","url":"http://www.qq.com"},{"title":"优惠5","url":"http://www.qq.com"},{"title":"优惠6","url":"http://www.qq.com"}]
-     * carstore : [{"baddress":"陕西省西安市","bid":1,"bimage":"/img/menu_viewpager_1.png","bname":"某某4S经销店","bphone":"18292882168","distance":"0","majorbusiness":"玩玩","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":2,"bimage":"/img/menu_viewpager_1.png","bname":"某某4S经销店","bphone":"18292882168","distance":"0","majorbusiness":"跑车","title1":"进店就有小礼包","title2":"购车享1000元直补"}]
+     * homeActive : [{"title":"今日优惠互动","url":"http://www.baidu.com"},{"title":"买房送车","url":"http://www.qq.com"},{"title":"买车送放","url":"http://www.qq.com"},{"title":"买车买房送媳妇","url":"http://www.qq.com"},{"title":"哈哈","url":"http://www.qq.com"},{"title":"嘻嘻","url":"http://www.qq.com"}]
+     * carstore : [{"baddress":"陕西省西安市","bid":2,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10045541","majorbusiness":"跑车","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":3,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10045737","majorbusiness":"hah ","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":4,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10046257","majorbusiness":"跑车","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":1,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10046490","majorbusiness":"玩玩","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"}]
      */
 
     private int status;
@@ -24,19 +24,20 @@ public class BuyCarIndex2 {
 
     private List<HomeImageBean> homeImage;
     /**
-     * title : 优惠1
+     * title : 今日优惠互动
      * url : http://www.baidu.com
      */
 
     private List<HomeActiveBean> homeActive;
     /**
      * baddress : 陕西省西安市
-     * bid : 1
-     * bimage : /img/menu_viewpager_1.png
+     * bid : 2
+     * bimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
      * bname : 某某4S经销店
      * bphone : 18292882168
-     * distance : 0
-     * majorbusiness : 玩玩
+     * distance : 10045541
+     * majorbusiness : 跑车
+     * showImage : /img/menu_viewpager_1.png
      * title1 : 进店就有大礼包
      * title2 : 购车享1000元直补
      */
@@ -120,13 +121,14 @@ public class BuyCarIndex2 {
     public static class CarstoreBean {
         private String baddress;
         private int bid;
-        private String bimage;
         private String bname;
         private String bphone;
         private String distance;
         private String majorbusiness;
+        private String showImage;
         private String title1;
         private String title2;
+        private List<String> bimage;
 
         public String getBaddress() {
             return baddress;
@@ -142,14 +144,6 @@ public class BuyCarIndex2 {
 
         public void setBid(int bid) {
             this.bid = bid;
-        }
-
-        public String getBimage() {
-            return bimage;
-        }
-
-        public void setBimage(String bimage) {
-            this.bimage = bimage;
         }
 
         public String getBname() {
@@ -184,6 +178,14 @@ public class BuyCarIndex2 {
             this.majorbusiness = majorbusiness;
         }
 
+        public String getShowImage() {
+            return showImage;
+        }
+
+        public void setShowImage(String showImage) {
+            this.showImage = showImage;
+        }
+
         public String getTitle1() {
             return title1;
         }
@@ -198,6 +200,14 @@ public class BuyCarIndex2 {
 
         public void setTitle2(String title2) {
             this.title2 = title2;
+        }
+
+        public List<String> getBimage() {
+            return bimage;
+        }
+
+        public void setBimage(List<String> bimage) {
+            this.bimage = bimage;
         }
     }
 }

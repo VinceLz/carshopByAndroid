@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".MyApplication"
@@ -41,8 +42,13 @@
         <activity android:name=".activity.GuideActivity" />
         <activity
             android:name=".activity.SpecActivity"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
-        <activity android:name=".activity.ShopInfoActivity"></activity>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity android:name=".activity.ShopInfoActivity" />
+        <activity android:name=".activity.FloorPriceActivity" />
+        <activity android:name=".activity.CarModelsActivity" />
+        <activity android:name=".activity.CarInfoActivity" />
+        <activity android:name=".activity.CarDetailActivity" />
+        <activity android:name=".activity.CarOnlineActivity"></activity>
     </application>
 
 </manifest>
