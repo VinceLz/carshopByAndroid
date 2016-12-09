@@ -1,11 +1,13 @@
 package com.car.contractcar.myapplication.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,6 +19,9 @@ import com.car.contractcar.myapplication.http.HttpUtil;
 import com.car.contractcar.myapplication.utils.Constant;
 import com.car.contractcar.myapplication.utils.JsonUtils;
 import com.car.contractcar.myapplication.utils.UIUtils;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.adapter.StaticPagerAdapter;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
 
 import java.util.List;
 
@@ -30,7 +35,7 @@ public class CarDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "XUZI";
     @BindView(R.id.car_detail_img)
-    ImageView carDetailImg;
+    RollPagerView carDetailImg;
     @BindView(R.id.car_detail_name)
     TextView carDetailName;
     @BindView(R.id.car_detail_price)
@@ -66,7 +71,19 @@ public class CarDetailActivity extends AppCompatActivity {
     private void initView() {
         Intent intent = getIntent();
         mid = intent.getIntExtra("mid", 1);
-        Log.e(TAG, "initView: " + Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + 1);
+        //设置播放时间间隔
+        carDetailImg.setPlayDelay(2500);
+        //设置透明度
+        carDetailImg.setAnimationDurtion(500);
+
+
+        //设置指示器（顺序依次）
+        //自定义指示器图片
+        //设置圆点指示器颜色
+        //设置文字指示器
+        //隐藏指示器
+        //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
+        carDetailImg.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
     }
 
     private void initData() {
@@ -99,11 +116,29 @@ public class CarDetailActivity extends AppCompatActivity {
     private void refreshView() {
         if (carDetail != null) {
             car = carDetail.getCar();
+
+            carDetailImg.setAdapter(new StaticPagerAdapter() {
+
+                @Override
+                public View getView(ViewGroup container, int position) {
+                    ImageView imageView = new ImageView(container.getContext());
+                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(car.getMimage().get(position))).into(imageView);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    return imageView;
+                }
+
+                @Override
+                public int getCount() {
+                    return car.getMimage().size();
+                }
+            });
+
+
             carDetailName.setText(car.getGname() + " " + car.getMname());
             carDetailPrice.setText("价格 : " + car.getGuidegprice());
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(car.getShowImage())).into(carDetailImg);
-            if (!TextUtils.isEmpty(car.getTitle())) {
-                carDetailTitle.setText(car.getTitle());
+            if (!TextUtils.isEmpty(car.getMtitle())) {
+                carDetailTitle.setText(car.getMtitle());
             } else {
                 carDetailTitle.setVisibility(View.INVISIBLE);
             }
@@ -116,8 +151,8 @@ public class CarDetailActivity extends AppCompatActivity {
                     LinearLayout recommendItemView = (LinearLayout) UIUtils.getXmlView(R.layout.car_detail_recommend_item);
                     ImageView recommendItemImg = (ImageView) recommendItemView.findViewById(R.id.car_detail_recommend_item_img);
                     TextView recommendItemTitle = (TextView) recommendItemView.findViewById(R.id.car_detail_recommend_item_title);
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(recommendBean.getMimage().split(",")[0])).into(recommendItemImg);
-                    recommendItemTitle.setText(recommendBean.getGname() + " " + recommendBean.getMname() + "\n" + "指导价 : " + recommendBean.getGuidegprice() + "\n" + recommendBean.getTitle());
+                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(recommendBean.getMshowImage())).into(recommendItemImg);
+                    recommendItemTitle.setText(recommendBean.getGname() + " " + recommendBean.getMname() + "\n" + "指导价 : " + recommendBean.getGuidegprice() + "\n" + recommendBean.getMtitle());
                     carDetailHscrollview.addView(recommendItemView);
                 }
 

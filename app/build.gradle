@@ -6,7 +6,7 @@ android {
     buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "com.car.contractcar.myapplication"
-        minSdkVersion 19
+        minSdkVersion 18
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -36,4 +36,5 @@ dependencies {
     compile project(':library')
     compile 'org.xutils:xutils:3.3.38'
     compile 'hanks.xyz:htextview-library:0.1.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

@@ -15,11 +15,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="vertical">
             <!--轮播图-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                 <com.jude.rollviewpager.RollPagerView
                     android:id="@+id/view_pages_shopimg"
@@ -40,7 +42,8 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="5"
-                        android:layout_height="100dp"
+                        android:layout_height="80dp"
+                        android:paddingLeft="10dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -113,9 +116,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="10dp"
-                    android:background="#ececec"
                     android:id="@+id/shop_back"
-                    />
+                    android:src="@mipmap/back_top"/>
 
             </RelativeLayout>
 

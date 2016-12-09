@@ -8,10 +8,11 @@ import java.util.List;
 
 public class CarDetail {
 
+
     /**
      * status : 1
-     * car : {"gid":1,"gname":"123","guidegprice":123,"mid":1,"mimage":"/img/menu_viewpager_1.png,/img/menu_viewpager_1.png","mname":"1","showImage":"/img/menu_viewpager_1.png","title":"1"}
-     * recommend : [{"gid":1,"gname":"123","guidegprice":123,"mid":2,"mimage":"/img/menu_viewpager_1.png,/img/menu_viewpager_1.png","mname":"2","title":"1"},{"gid":2,"gname":"123","guidegprice":123,"mid":3,"mimage":"/img/menu_viewpager_1.png,/img/menu_viewpager_1.png","mname":"3","title":"1"}]
+     * car : {"gid":1,"gname":"123","guidegprice":123,"mid":1,"mimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"mname":"1","mtitle":"优惠1000"}
+     * recommend : [{"gid":1,"gname":"123","guidegprice":123,"mid":2,"mname":"2","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"},{"gid":2,"gname":"123","guidegprice":123,"mid":3,"mname":"3","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"}]
      */
 
     private int status;
@@ -20,10 +21,9 @@ public class CarDetail {
      * gname : 123
      * guidegprice : 123
      * mid : 1
-     * mimage : /img/menu_viewpager_1.png,/img/menu_viewpager_1.png
+     * mimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
      * mname : 1
-     * showImage : /img/menu_viewpager_1.png
-     * title : 1
+     * mtitle : 优惠1000
      */
 
     private CarBean car;
@@ -32,9 +32,9 @@ public class CarDetail {
      * gname : 123
      * guidegprice : 123
      * mid : 2
-     * mimage : /img/menu_viewpager_1.png,/img/menu_viewpager_1.png
      * mname : 2
-     * title : 1
+     * mshowImage : /img/menu_viewpager_1.png
+     * mtitle : 优惠1000
      */
 
     private List<RecommendBean> recommend;
@@ -68,10 +68,9 @@ public class CarDetail {
         private String gname;
         private int guidegprice;
         private int mid;
-        private String mimage;
         private String mname;
-        private String showImage;
-        private String title;
+        private String mtitle;
+        private List<String> mimage;
 
         public int getGid() {
             return gid;
@@ -105,14 +104,6 @@ public class CarDetail {
             this.mid = mid;
         }
 
-        public String getMimage() {
-            return mimage;
-        }
-
-        public void setMimage(String mimage) {
-            this.mimage = mimage;
-        }
-
         public String getMname() {
             return mname;
         }
@@ -121,20 +112,20 @@ public class CarDetail {
             this.mname = mname;
         }
 
-        public String getShowImage() {
-            return showImage;
+        public String getMtitle() {
+            return mtitle;
         }
 
-        public void setShowImage(String showImage) {
-            this.showImage = showImage;
+        public void setMtitle(String mtitle) {
+            this.mtitle = mtitle;
         }
 
-        public String getTitle() {
-            return title;
+        public List<String> getMimage() {
+            return mimage;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setMimage(List<String> mimage) {
+            this.mimage = mimage;
         }
     }
 
@@ -143,9 +134,9 @@ public class CarDetail {
         private String gname;
         private int guidegprice;
         private int mid;
-        private String mimage;
         private String mname;
-        private String title;
+        private String mshowImage;
+        private String mtitle;
 
         public int getGid() {
             return gid;
@@ -179,14 +170,6 @@ public class CarDetail {
             this.mid = mid;
         }
 
-        public String getMimage() {
-            return mimage;
-        }
-
-        public void setMimage(String mimage) {
-            this.mimage = mimage;
-        }
-
         public String getMname() {
             return mname;
         }
@@ -195,12 +178,20 @@ public class CarDetail {
             this.mname = mname;
         }
 
-        public String getTitle() {
-            return title;
+        public String getMshowImage() {
+            return mshowImage;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setMshowImage(String mshowImage) {
+            this.mshowImage = mshowImage;
+        }
+
+        public String getMtitle() {
+            return mtitle;
+        }
+
+        public void setMtitle(String mtitle) {
+            this.mtitle = mtitle;
         }
     }
 }

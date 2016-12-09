@@ -85,6 +85,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:layout_weight="1"
             android:gravity="center">
 
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:textColor="#277640"
-                android:text="寻低价  "
+                android:text="寻低价"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -123,6 +124,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/car_info_online_buy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -131,7 +133,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@mipmap/online" />
+                android:src="@mipmap/online_buy_car" />
 
             <TextView
                 android:layout_width="wrap_content"

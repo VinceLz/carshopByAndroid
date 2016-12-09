@@ -11,20 +11,34 @@ public class SelectData {
 
     /**
      * status : 1
-     * list : [{"gid":1,"glastimage":"/img/car.png","gname":"宝马","maxprice":444444,"minprice":123,"title":"直降500"},{"gid":2,"glastimage":"/img/car.png","gname":"宝马1","maxprice":11,"minprice":0,"title":"直降500"}]
+     * params : {"pageNo":1,"pageSize":10}
+     * result : [{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":3,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44444,"minprice":44444,"title":"直降500"},{"gid":4,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":1,"minprice":1,"title":"直降500"}]
+     * image : [{"image":"/img/menu_viewpager_5.png","url":"http://www.qq.com"},{"image":"/img/menu_viewpager_5.png","url":"http://www.qq.com"},{"image":"/img/menu_viewpager_5.png","url":"http://www.qq.com"}]
      */
 
     private int status;
     /**
+     * pageNo : 1
+     * pageSize : 10
+     */
+
+    private ParamsBean params;
+    /**
      * gid : 1
-     * glastimage : /img/car.png
      * gname : 宝马
-     * maxprice : 444444
+     * gshowImage : /img/menu_viewpager_1.png
+     * maxprice : 123
      * minprice : 123
      * title : 直降500
      */
 
-    private List<ListBean> list;
+    private List<ResultBean> result;
+    /**
+     * image : /img/menu_viewpager_5.png
+     * url : http://www.qq.com
+     */
+
+    private List<ImageBean> image;
 
     public int getStatus() {
         return status;
@@ -34,18 +48,55 @@ public class SelectData {
         this.status = status;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public ParamsBean getParams() {
+        return params;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setParams(ParamsBean params) {
+        this.params = params;
     }
 
-    public static class ListBean {
+    public List<ResultBean> getResult() {
+        return result;
+    }
+
+    public void setResult(List<ResultBean> result) {
+        this.result = result;
+    }
+
+    public List<ImageBean> getImage() {
+        return image;
+    }
+
+    public void setImage(List<ImageBean> image) {
+        this.image = image;
+    }
+
+    public static class ParamsBean {
+        private int pageNo;
+        private int pageSize;
+
+        public int getPageNo() {
+            return pageNo;
+        }
+
+        public void setPageNo(int pageNo) {
+            this.pageNo = pageNo;
+        }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
+    }
+
+    public static class ResultBean {
         private int gid;
-        private String glastimage;
         private String gname;
+        private String gshowImage;
         private int maxprice;
         private int minprice;
         private String title;
@@ -58,20 +109,20 @@ public class SelectData {
             this.gid = gid;
         }
 
-        public String getGlastimage() {
-            return glastimage;
-        }
-
-        public void setGlastimage(String glastimage) {
-            this.glastimage = glastimage;
-        }
-
         public String getGname() {
             return gname;
         }
 
         public void setGname(String gname) {
             this.gname = gname;
+        }
+
+        public String getGshowImage() {
+            return gshowImage;
+        }
+
+        public void setGshowImage(String gshowImage) {
+            this.gshowImage = gshowImage;
         }
 
         public int getMaxprice() {
@@ -96,6 +147,27 @@ public class SelectData {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+    }
+
+    public static class ImageBean {
+        private String image;
+        private String url;
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 }

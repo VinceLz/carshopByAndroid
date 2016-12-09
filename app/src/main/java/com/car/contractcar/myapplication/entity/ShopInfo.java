@@ -11,7 +11,7 @@ public class ShopInfo {
 
     /**
      * status : 1
-     * business : {"baddress":"陕西省西安市","bid":1,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","childs":[{"gid":1,"gimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"gname":"宝马","maxprice":123,"minprice":123,"showImage":"/img/menu_viewpager_1.png","title":"直降500"},{"gid":2,"gimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"gname":"宝马1","maxprice":123,"minprice":12,"showImage":"/img/menu_viewpager_1.png","title":"直降500"},{"gid":9,"gimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"gname":"宝马1","maxprice":44,"minprice":2,"showImage":"/img/menu_viewpager_1.png","title":"直降500"}],"majorbusiness":"玩玩","title1":"进店就有大礼包 ","title2":"购车享1000元直补"}
+     * business : {"baddress":"陕西省西安市","bid":1,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","childs":[{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":9,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44,"minprice":2,"title":"直降500"}],"majorbusiness":"玩玩","title1":"进店就有大礼包 ","title2":"购车享1000元直补"}
      */
 
     private int status;
@@ -21,7 +21,7 @@ public class ShopInfo {
      * bimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
      * bname : 某某4S经销店
      * bphone : 18292882168
-     * childs : [{"gid":1,"gimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"gname":"宝马","maxprice":123,"minprice":123,"showImage":"/img/menu_viewpager_1.png","title":"直降500"},{"gid":2,"gimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"gname":"宝马1","maxprice":123,"minprice":12,"showImage":"/img/menu_viewpager_1.png","title":"直降500"},{"gid":9,"gimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"gname":"宝马1","maxprice":44,"minprice":2,"showImage":"/img/menu_viewpager_1.png","title":"直降500"}]
+     * childs : [{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":9,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44,"minprice":2,"title":"直降500"}]
      * majorbusiness : 玩玩
      * title1 : 进店就有大礼包
      * title2 : 购车享1000元直补
@@ -56,11 +56,10 @@ public class ShopInfo {
         private List<String> bimage;
         /**
          * gid : 1
-         * gimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
          * gname : 宝马
+         * gshowImage : /img/menu_viewpager_1.png
          * maxprice : 123
          * minprice : 123
-         * showImage : /img/menu_viewpager_1.png
          * title : 直降500
          */
 
@@ -141,11 +140,10 @@ public class ShopInfo {
         public static class ChildsBean {
             private int gid;
             private String gname;
+            private String gshowImage;
             private int maxprice;
             private int minprice;
-            private String showImage;
             private String title;
-            private List<String> gimage;
 
             public int getGid() {
                 return gid;
@@ -161,6 +159,14 @@ public class ShopInfo {
 
             public void setGname(String gname) {
                 this.gname = gname;
+            }
+
+            public String getGshowImage() {
+                return gshowImage;
+            }
+
+            public void setGshowImage(String gshowImage) {
+                this.gshowImage = gshowImage;
             }
 
             public int getMaxprice() {
@@ -179,28 +185,12 @@ public class ShopInfo {
                 this.minprice = minprice;
             }
 
-            public String getShowImage() {
-                return showImage;
-            }
-
-            public void setShowImage(String showImage) {
-                this.showImage = showImage;
-            }
-
             public String getTitle() {
                 return title;
             }
 
             public void setTitle(String title) {
                 this.title = title;
-            }
-
-            public List<String> getGimage() {
-                return gimage;
-            }
-
-            public void setGimage(List<String> gimage) {
-                this.gimage = gimage;
             }
         }
     }

@@ -13,7 +13,7 @@ public class BuyCarIndex2 {
      * status : 1
      * homeImage : [{"image":"/img/menu_viewpager_5.png","url":"http://www.baidu.com"},{"image":"/img/menu_viewpager_4.png","url":"http://www.taobao.com"},{"image":"/img/menu_viewpager_1.png","url":"http://www.qq.com"}]
      * homeActive : [{"title":"今日优惠互动","url":"http://www.baidu.com"},{"title":"买房送车","url":"http://www.qq.com"},{"title":"买车送放","url":"http://www.qq.com"},{"title":"买车买房送媳妇","url":"http://www.qq.com"},{"title":"哈哈","url":"http://www.qq.com"},{"title":"嘻嘻","url":"http://www.qq.com"}]
-     * carstore : [{"baddress":"陕西省西安市","bid":2,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10045541","majorbusiness":"跑车","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":3,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10045737","majorbusiness":"hah ","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":4,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10046257","majorbusiness":"跑车","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":1,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","distance":"10046490","majorbusiness":"玩玩","showImage":"/img/menu_viewpager_1.png","title1":"进店就有大礼包 ","title2":"购车享1000元直补"}]
+     * carstore : [{"baddress":"陕西省西安市","bid":2,"bname":"某某4S经销店","bphone":"18292882168","bshowImage":"/img/menu_viewpager_1.png","distance":"10045541","majorbusiness":"跑车","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":3,"bname":"某某4S经销店","bphone":"18292882168","bshowImage":"/img/menu_viewpager_1.png","distance":"10045737","majorbusiness":"hah ","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":4,"bname":"某某4S经销店","bphone":"18292882168","bshowImage":"/img/menu_viewpager_1.png","distance":"10046257","majorbusiness":"跑车","title1":"进店就有大礼包 ","title2":"购车享1000元直补"},{"baddress":"陕西省西安市","bid":1,"bname":"某某4S经销店","bphone":"18292882168","bshowImage":"/img/menu_viewpager_1.png","distance":"10046490","majorbusiness":"玩玩","title1":"进店就有大礼包 ","title2":"购车享1000元直补"}]
      */
 
     private int status;
@@ -32,12 +32,11 @@ public class BuyCarIndex2 {
     /**
      * baddress : 陕西省西安市
      * bid : 2
-     * bimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
      * bname : 某某4S经销店
      * bphone : 18292882168
+     * bshowImage : /img/menu_viewpager_1.png
      * distance : 10045541
      * majorbusiness : 跑车
-     * showImage : /img/menu_viewpager_1.png
      * title1 : 进店就有大礼包
      * title2 : 购车享1000元直补
      */
@@ -123,12 +122,11 @@ public class BuyCarIndex2 {
         private int bid;
         private String bname;
         private String bphone;
+        private String bshowImage;
         private String distance;
         private String majorbusiness;
-        private String showImage;
         private String title1;
         private String title2;
-        private List<String> bimage;
 
         public String getBaddress() {
             return baddress;
@@ -162,6 +160,14 @@ public class BuyCarIndex2 {
             this.bphone = bphone;
         }
 
+        public String getBshowImage() {
+            return bshowImage;
+        }
+
+        public void setBshowImage(String bshowImage) {
+            this.bshowImage = bshowImage;
+        }
+
         public String getDistance() {
             return distance;
         }
@@ -178,14 +184,6 @@ public class BuyCarIndex2 {
             this.majorbusiness = majorbusiness;
         }
 
-        public String getShowImage() {
-            return showImage;
-        }
-
-        public void setShowImage(String showImage) {
-            this.showImage = showImage;
-        }
-
         public String getTitle1() {
             return title1;
         }
@@ -200,14 +198,6 @@ public class BuyCarIndex2 {
 
         public void setTitle2(String title2) {
             this.title2 = title2;
-        }
-
-        public List<String> getBimage() {
-            return bimage;
-        }
-
-        public void setBimage(List<String> bimage) {
-            this.bimage = bimage;
         }
     }
 }

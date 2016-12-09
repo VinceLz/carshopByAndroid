@@ -2,6 +2,7 @@ package com.car.contractcar.myapplication.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -211,7 +212,7 @@ public class ShopInfoActivity extends AppCompatActivity {
             }
 
 
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getShowImage())).into(viewHolder.shopCarImg);
+            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getGshowImage())).into(viewHolder.shopCarImg);
             viewHolder.shopCarName.setText(cars.get(position).getGname());
             viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getMinprice() + "~" + cars.get(position).getMaxprice());
             String title = cars.get(position).getTitle();
@@ -229,7 +230,6 @@ public class ShopInfoActivity extends AppCompatActivity {
     @OnClick(R.id.shop_back)
     public void back(View view) {
         this.onBackPressed();
-
     }
 
     @Override

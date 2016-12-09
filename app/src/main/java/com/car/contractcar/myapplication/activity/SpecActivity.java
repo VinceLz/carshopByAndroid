@@ -262,8 +262,8 @@ public class SpecActivity extends AppCompatActivity {
             }
         }
         selectDataList = new SelectDataList(countrieslist, outputtist, drivelist, fuellist, transmissionCaselist, productionlist, structurelist, seatlist, levellist);
-        selectDataList.setMaxprice(!TextUtils.isEmpty(carMaxprice.getText().toString()) ? Integer.parseInt(carMaxprice.getText().toString()) : -1);
-        selectDataList.setMinprice(!TextUtils.isEmpty(carMinprice.getText().toString()) ? Integer.parseInt(carMinprice.getText().toString()) : -1);
+        selectDataList.setMaxprice(!TextUtils.isEmpty(carMaxprice.getText().toString()) ? Integer.parseInt(carMaxprice.getText().toString()) : null);
+        selectDataList.setMinprice(!TextUtils.isEmpty(carMinprice.getText().toString()) ? Integer.parseInt(carMinprice.getText().toString()) : null);
         String jsonString = JSON.toJSONString(selectDataList);
         JSONObject jsonObject = JSON.parseObject(jsonString);
         Log.e(TAG, "select_ok: " + Constant.HTTP_BASE + Constant.HTTP_SELECT + "/" + jsonString + ".action");

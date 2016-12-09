@@ -187,7 +187,7 @@ public class BuycarFragment2 extends Fragment {
                 intent.putExtra("bid", homeCarstore.get(position).getBid());
                 intent.putExtra("distance", f);
                 getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
@@ -348,7 +348,7 @@ public class BuycarFragment2 extends Fragment {
     public void selectProgramme(View view) {
         //UIUtils.Toast("测试", false);
         startActivity(new Intent(getActivity(), SpecActivity.class));
-        getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+        getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
 
@@ -402,7 +402,7 @@ public class BuycarFragment2 extends Fragment {
                 dd = fnum.format(a);
                 holderView.distance.setText(dd + "Km");
             }
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCarstore.get(position).getShowImage())).into(holderView.carImg);
+            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCarstore.get(position).getBshowImage())).into(holderView.carImg);
 
             //电话
             ImageView car_call = (ImageView) convertView.findViewById(R.id.car_call);

@@ -16,8 +16,8 @@ public class Constant {
     public static final String HTTP_SHOP_INFO = "store/getall.action?bid=";
     public static final String HTTP_CAR_INFO = "car/getModels.action?gid=";
     public static final String HTTP_CAR_DETAIL = "car/models/get.action?mid=";
-
     public static final String HTTP_SELECT = "home/car";
+
     public static final String [] TransmissionCase= {"手动","自动"};
     public static final String [] displacement= {"1.0及以下","1.1-1.6L","1.7-2.0L","2.1-2.5L","2.6-3.0L","3.1-4.0L","4.0L以上"};
     public static final String [] drive= {"前驱","后驱","四驱"};
