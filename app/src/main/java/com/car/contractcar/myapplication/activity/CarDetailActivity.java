@@ -180,9 +180,13 @@ public class CarDetailActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.car_detail_phone)
+    @OnClick(R.id.car_detail_fprice)
     public void onFprice() {
-
+        Intent intent = new Intent(this, FloorPriceActivity.class);
+        intent.putExtra("mid", car.getMid());
+        startActivity(intent);
+        //    右往左推出效果
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
     @Override

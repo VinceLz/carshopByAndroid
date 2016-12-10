@@ -72,6 +72,7 @@ public class FloorPriceActivity extends AppCompatActivity {
         uname = fpriceName.getText().toString();
 
     }
+
     @OnClick(R.id.fprice_ok)
     public void fSubmit(View view) {
         getInData();
@@ -113,8 +114,13 @@ public class FloorPriceActivity extends AppCompatActivity {
 
     @OnClick(R.id.fprice_back)
     public void fBack(View view) {
-        this.finish();
+        this.onBackPressed();
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
 }

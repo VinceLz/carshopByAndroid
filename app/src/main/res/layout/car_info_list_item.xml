@@ -70,7 +70,7 @@
                 android:id="@+id/car_info_list_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:paddingTop="3dp"
                 android:text="全系降价5000"
                 android:textColor="#D44960"
                 android:textSize="12sp" />

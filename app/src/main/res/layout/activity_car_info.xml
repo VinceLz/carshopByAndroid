@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ececec"
     tools:context="com.car.contractcar.myapplication.activity.CarInfoActivity">
+
     <com.car.contractcar.myapplication.ui.MyScrollview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,59 +35,59 @@
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:layout_alignParentBottom="true"
-                    android:paddingLeft="10dp"
                     android:background="#2000"
-                    android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/car_info_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
-                            android:text="某某4S经销店"
-                            android:textColor="#fff"
-                            android:textSize="18sp" />
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
 
-                        <TextView
-                            android:id="@+id/car_info_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="8dp"
-                            android:text="指导价 : 30万~70万"
-                            android:textColor="#fff"
-                            android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/car_info_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+                        android:text="某某4S经销店"
+                        android:textColor="#fff"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/car_info_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="8dp"
-                            android:text="全系降价5000"
-                            android:textColor="#fff"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/car_info_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="8dp"
+                        android:text="指导价 : 30万~70万"
+                        android:textColor="#fff"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/car_info_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="8dp"
+                        android:text="全系降价5000"
+                        android:textColor="#fff"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@mipmap/back_top"
                     android:id="@+id/car_info_back"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="11dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_marginTop="11dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/back_top" />
 
             </RelativeLayout>
 
 
             <ListView
-                android:layout_marginTop="5dp"
                 android:id="@+id/shop_car_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
             </ListView>
         </LinearLayout>
