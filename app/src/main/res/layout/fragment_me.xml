@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ececec"
+    android:background="#fff"
     android:orientation="vertical">
 
     <com.car.contractcar.myapplication.ui.MyScrollview
@@ -29,8 +29,8 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:src="@mipmap/activ"
-                    app:civ_border_color="#fff"
-                    app:civ_border_width="3dp" />
+                    app:civ_border_color="#9fff"
+                    app:civ_border_width="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:background="#fff"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="宝马7系"
                 android:textColor="#000"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/car_info_list_item_models"
@@ -39,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="领先型"
                 android:textColor="#000"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
@@ -70,10 +72,10 @@
                 android:id="@+id/car_info_list_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="3dp"
+                android:paddingTop="6dp"
                 android:text="全系降价5000"
                 android:textColor="#D44960"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -85,13 +87,13 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
             android:layout_weight="1"
+            android:padding="4dp"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@mipmap/floorprice" />
 
             <TextView
@@ -100,18 +102,19 @@
                 android:paddingLeft="5dp"
                 android:textColor="#277640"
                 android:text="寻低价"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="4dp"
             android:layout_weight="1"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@mipmap/bystages" />
 
             <TextView
@@ -120,28 +123,28 @@
                 android:paddingLeft="5dp"
                 android:textColor="#D72B62"
                 android:text="分期政策"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/car_info_online_buy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/car_info_online_buy"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center">-->
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@mipmap/online_buy_car" />
+            <!--<ImageView-->
+                <!--android:layout_width="25dp"-->
+                <!--android:layout_height="25dp"-->
+                <!--android:src="@mipmap/online_buy_car" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="在线订车"
-                android:textColor="#3672B0"
-                android:textSize="15sp" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="5dp"-->
+                <!--android:text="在线订车"-->
+                <!--android:textColor="#3672B0"-->
+                <!--android:textSize="15sp" />-->
+        <!--</LinearLayout>-->
     </LinearLayout>
 </LinearLayout>

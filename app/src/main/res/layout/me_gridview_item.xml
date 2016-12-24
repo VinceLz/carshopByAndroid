@@ -9,6 +9,7 @@
     <ImageView
         android:id="@+id/me_gridview_item_img"
         android:layout_width="50dp"
+        android:padding="5dp"
         android:layout_height="50dp"
         android:src="@mipmap/me_order"/>
 

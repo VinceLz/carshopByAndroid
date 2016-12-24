@@ -53,22 +53,25 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
-   <LinearLayout
-       android:layout_weight="1"
-       android:layout_width="0dp"
-       android:gravity="center_horizontal"
-       android:orientation="vertical"
-       android:layout_height="match_parent">
-       <ImageView
-           android:layout_width="30dp"
-           android:layout_height="30dp"
-           android:src="@mipmap/bystages"/>
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:padding="5dp"
-           android:text="分期政策"
-           android:textColor="#D44960"
-           android:textSize="10sp"/>
-   </LinearLayout>
+
+   <!--<LinearLayout-->
+       <!--android:layout_weight="1"-->
+       <!--android:layout_width="0dp"-->
+       <!--android:gravity="center_horizontal"-->
+       <!--android:orientation="vertical"-->
+       <!--android:layout_height="match_parent">-->
+       <!--<ImageView-->
+           <!--android:layout_width="30dp"-->
+           <!--android:layout_height="30dp"-->
+           <!--android:src="@mipmap/bystages"/>-->
+
+       <!--<TextView-->
+           <!--android:layout_width="wrap_content"-->
+           <!--android:layout_height="wrap_content"-->
+           <!--android:padding="5dp"-->
+           <!--android:text="分期政策"-->
+           <!--android:textColor="#D44960"-->
+           <!--android:textSize="10sp"-->
+           <!--android:id="@+id/textView3" />-->
+   <!--</LinearLayout>-->
 </LinearLayout>

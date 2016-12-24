@@ -17,6 +17,8 @@ public class CarOnlineActivity extends AppCompatActivity {
     @BindView(R.id.car_online_back)
     EduSohoIconView carOnlineBack;
     private int mid;
+    private String gname;
+    private String mname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class CarOnlineActivity extends AppCompatActivity {
     private void initView() {
         Intent intent = getIntent();
         mid = intent.getIntExtra("mid", 1);
+        gname = intent.getStringExtra("gname");
+        mname =  intent.getStringExtra("mname");
     }
 
     private void initData() {

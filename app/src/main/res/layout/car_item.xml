@@ -35,7 +35,7 @@
                 android:padding="3dp"
                 android:text="某某4S经销店"
                 android:textColor="#0B0B0B"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/store_address"
@@ -105,8 +105,8 @@
         android:padding="2dp">
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:src="@mipmap/dian" />
 
         <TextView
@@ -115,7 +115,7 @@
             android:paddingLeft="5dp"
             android:text="进店就有大礼包"
             android:textColor="#BE103E"
-            android:textSize="13sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -125,8 +125,8 @@
         android:padding="3dp">
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:src="@mipmap/xin" />
 
         <TextView
@@ -135,6 +135,6 @@
             android:paddingLeft="5dp"
             android:text="购车享1000元直补"
             android:textColor="#29862F"
-            android:textSize="13sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 </LinearLayout>

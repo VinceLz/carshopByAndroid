@@ -202,15 +202,15 @@ public class CarInfoActivity extends AppCompatActivity {
                                 viewHolder.carInfoListItemTitle.setVisibility(View.INVISIBLE);
                             }
 
-                            LinearLayout onlineBuy = (LinearLayout) convertView.findViewById(R.id.car_info_online_buy);
-                            onlineBuy.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    intent1.putExtra("mid", datas.get(position).getMid());
-                                    CarInfoActivity.this.startActivity(intent1);
-                                    CarInfoActivity.this.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                                }
-                            });
+//                            LinearLayout onlineBuy = (LinearLayout) convertView.findViewById(R.id.car_info_online_buy);
+//                            onlineBuy.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    intent1.putExtra("mid", datas.get(position).getMid());
+//                                    CarInfoActivity.this.startActivity(intent1);
+//                                    CarInfoActivity.this.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+//                                }
+//                            });
 
                             return convertView;
                         }

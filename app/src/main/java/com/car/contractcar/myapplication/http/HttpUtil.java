@@ -49,7 +49,10 @@ public class HttpUtil {
     public static String serverIP = "172.16.120.65";
     public static String udpPort = "9966";
     public static String udpName = "ALL";
-    public static String server = "http://172.16.120.65:8080/carshop/";
+    public static String server = "http://59.110.5.105/carshop/";
+    //外网
+//    public static String server_img = "http://59.110.5.105/carshop";
+    //内网
     public static String server_img = "http://172.16.120.65:8080/carshop";
     private static String api_path = "front/";
     private static String admin_path = "admin/";

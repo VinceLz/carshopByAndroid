@@ -57,6 +57,7 @@ public class CarDetailActivity extends AppCompatActivity {
     private int mid;
     private CarDetail carDetail;
     private CarDetail.CarBean car;
+    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class CarDetailActivity extends AppCompatActivity {
     private void initView() {
         Intent intent = getIntent();
         mid = intent.getIntExtra("mid", 1);
+
         //设置播放时间间隔
         carDetailImg.setPlayDelay(2500);
         //设置透明度
@@ -170,6 +172,8 @@ public class CarDetailActivity extends AppCompatActivity {
     public void onLien(View view) {
         Intent intent = new Intent(this, CarOnlineActivity.class);
         intent.putExtra("mid", car.getMid());
+        intent.putExtra("gname",car.getGname());
+        intent.putExtra("mname",car.getMname());
         startActivity(intent);
         //    右往左推出效果
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
