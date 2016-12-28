@@ -23,4 +23,7 @@ public class JsonUtils {
     public static String bean2Json(Object object) {
         return JSON.toJSONString(object);
     }
+
+
+
 }

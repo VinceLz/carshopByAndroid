@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.CarInfo;
 import com.car.contractcar.myapplication.http.HttpUtil;
+import com.car.contractcar.myapplication.ui.LoadingDialog;
 import com.car.contractcar.myapplication.utils.Constant;
 import com.car.contractcar.myapplication.utils.JsonUtils;
 import com.car.contractcar.myapplication.utils.UIUtils;
@@ -50,13 +51,9 @@ public class CarInfoActivity extends AppCompatActivity {
     ImageView carInfoBack;
     private CarInfo carInfo;
     private int gid;
-    private String gname;
-    private String title;
-    private int minprice;
-    private int maxprice;
     private Intent intent;
-    private List<CarInfo.CarBean.ChildBean> datas;
-    private Intent intent1;
+    private List<CarInfo.CarBean.ChildsBean> datas;
+    private LoadingDialog dialog;
 
 
     @Override
@@ -66,10 +63,6 @@ public class CarInfoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         gid = intent.getIntExtra("gid", 1);
-        gname = intent.getStringExtra("gname");
-        title = intent.getStringExtra("title");
-        minprice = intent.getIntExtra("minprice", 0);
-        maxprice = intent.getIntExtra("maxprice", 0);
         initView();
         initData();
         intent = new Intent(CarInfoActivity.this, CarDetailActivity.class);
@@ -89,10 +82,9 @@ public class CarInfoActivity extends AppCompatActivity {
 
 
     private void initView() {
-        intent1 = new Intent(this, CarOnlineActivity.class);
-        carInfoName.setText(gname);
-        carInfoPrice.setText("指导价 : " + minprice + "~" + maxprice);
-        carInfoTitle.setText(title);
+
+        dialog = new LoadingDialog(this, "玩命加载中...");
+        dialog.show();
         //设置播放时间间隔
         viewPagesShopimg.setPlayDelay(2500);
         //设置透明度
@@ -140,10 +132,20 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void refreshView() {
-
+        dialog.close();
         if (carInfo != null) {
+
+
             final CarInfo.CarBean car = carInfo.getCar();
             if (car != null) {
+                carInfoName.setText(car.getGname());
+                carInfoPrice.setText("指导价 : " + car.getMinprice() + "~" + car.getMaxprice());
+                if (!TextUtils.isEmpty(car.getTitle())) {
+                    carInfoTitle.setText(car.getTitle());
+                } else {
+                    carInfoTitle.setVisibility(View.INVISIBLE);
+                }
+
                 viewPagesShopimg.setAdapter(new StaticPagerAdapter() {
 
                     @Override
@@ -162,7 +164,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 });
 
 
-                datas = car.getChild();
+                datas = car.getChilds();
                 if (datas.size() > 0) {
                     //适配数据
                     shopCarList.setAdapter(new BaseAdapter() {
@@ -192,7 +194,7 @@ public class CarInfoActivity extends AppCompatActivity {
                                 viewHolder = (ViewHolder) convertView.getTag();
                             }
                             HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(datas.get(position).getMshowImage())).into(viewHolder.carInfoListItemImg);
-                            viewHolder.carInfoListItemName.setText(datas.get(position).getMname() + " " + datas.get(position).getMname());
+                            viewHolder.carInfoListItemName.setText(car.getGname() + " " + datas.get(position).getMname());
                             viewHolder.carInfoListItemPrice.setText("指导价 : " + datas.get(position).getGprice());
                             viewHolder.carInfoListItemGuidegprice.setText("参考价 : " + datas.get(position).getGuidegprice());
                             String title = datas.get(position).getMtitle();
@@ -202,15 +204,18 @@ public class CarInfoActivity extends AppCompatActivity {
                                 viewHolder.carInfoListItemTitle.setVisibility(View.INVISIBLE);
                             }
 
-//                            LinearLayout onlineBuy = (LinearLayout) convertView.findViewById(R.id.car_info_online_buy);
-//                            onlineBuy.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    intent1.putExtra("mid", datas.get(position).getMid());
-//                                    CarInfoActivity.this.startActivity(intent1);
-//                                    CarInfoActivity.this.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-//                                }
-//                            });
+                            LinearLayout onlineBuy = (LinearLayout) convertView.findViewById(R.id.ly_fprice);
+                            onlineBuy.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent1 = new Intent(CarInfoActivity.this, FloorPriceActivity.class);
+                                    intent1.putExtra("mid", datas.get(position).getMid());
+                                    intent1.putExtra("bid", car.getBid());
+                                    intent1.putExtra("mname", datas.get(position).getMname());
+                                    CarInfoActivity.this.startActivity(intent1);
+                                    CarInfoActivity.this.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                                }
+                            });
 
                             return convertView;
                         }
@@ -260,8 +265,8 @@ public class CarInfoActivity extends AppCompatActivity {
         ImageView carInfoListItemImg;
         @BindView(R.id.car_info_list_item_name)
         TextView carInfoListItemName;
-        @BindView(R.id.car_info_list_item_models)
-        TextView carInfoListItemModels;
+        //        @BindView(R.id.car_info_list_item_models)
+//        TextView carInfoListItemModels;
         @BindView(R.id.car_info_list_item_price)
         TextView carInfoListItemPrice;
         @BindView(R.id.car_info_list_item_guidegprice)

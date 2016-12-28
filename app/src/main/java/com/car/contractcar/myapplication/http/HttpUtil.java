@@ -46,14 +46,14 @@ import okhttp3.Response;
 public class HttpUtil {
     public static final String TYPE = "application/octet-stream";
     public static String server_name = "http://172.16.120.65:8080/shop/admin/category/list.action";
-    public static String serverIP = "172.16.120.65";
+    public static String serverIP = "59.110.5.105";
     public static String udpPort = "9966";
     public static String udpName = "ALL";
     public static String server = "http://59.110.5.105/carshop/";
     //外网
 //    public static String server_img = "http://59.110.5.105/carshop";
     //内网
-    public static String server_img = "http://172.16.120.65:8080/carshop";
+    public static String server_img = "http://59.110.5.105";
     private static String api_path = "front/";
     private static String admin_path = "admin/";
     private static String api_end = ".action";
@@ -248,6 +248,7 @@ public class HttpUtil {
 
         if (files == null) {
             callb.err();
+
             return;
         }
         sExecutorService.submit(new Runnable() {

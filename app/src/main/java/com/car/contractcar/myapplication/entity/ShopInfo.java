@@ -11,20 +11,19 @@ public class ShopInfo {
 
     /**
      * status : 1
-     * business : {"baddress":"陕西省西安市","bid":1,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","childs":[{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":9,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44,"minprice":2,"title":"直降500"}],"majorbusiness":"玩玩","title1":"进店就有大礼包 ","title2":"购车享1000元直补"}
+     * business : {"baddress":"陕西省西安市","bid":1,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","childs":[{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":9,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44,"minprice":2,"title":"直降500"}],"majorbusiness":"玩玩","stages":"分期政策，可分12期，每期20000元"}
      */
 
     private int status;
     /**
      * baddress : 陕西省西安市
      * bid : 1
-     * bimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
+     * bimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
      * bname : 某某4S经销店
      * bphone : 18292882168
      * childs : [{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":9,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44,"minprice":2,"title":"直降500"}]
      * majorbusiness : 玩玩
-     * title1 : 进店就有大礼包
-     * title2 : 购车享1000元直补
+     * stages : 分期政策，可分12期，每期20000元
      */
 
     private BusinessBean business;
@@ -51,8 +50,7 @@ public class ShopInfo {
         private String bname;
         private String bphone;
         private String majorbusiness;
-        private String title1;
-        private String title2;
+        private String stages;
         private List<String> bimage;
         /**
          * gid : 1
@@ -105,20 +103,12 @@ public class ShopInfo {
             this.majorbusiness = majorbusiness;
         }
 
-        public String getTitle1() {
-            return title1;
+        public String getStages() {
+            return stages;
         }
 
-        public void setTitle1(String title1) {
-            this.title1 = title1;
-        }
-
-        public String getTitle2() {
-            return title2;
-        }
-
-        public void setTitle2(String title2) {
-            this.title2 = title2;
+        public void setStages(String stages) {
+            this.stages = stages;
         }
 
         public List<String> getBimage() {

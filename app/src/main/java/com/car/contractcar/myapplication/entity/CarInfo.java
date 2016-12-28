@@ -11,17 +11,20 @@ public class CarInfo {
 
     /**
      * status : 1
-     * car : {"child":[{"gprice":2,"guidegprice":123,"mid":1,"mname":"1","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"},{"gprice":3,"guidegprice":123,"mid":2,"mname":"2","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"}],"gid":1,"gimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"gname":"宝马","maxprice":123,"minprice":123,"title":"直降500"}
+     * car : {"bid":1,"bphone":"18292882168","childs":[{"gprice":2,"guidegprice":123,"mid":1,"mname":"1","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"},{"gprice":3,"guidegprice":123,"mid":2,"mname":"2","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"}],"gid":1,"gimage":["/img/menu_viewpager_1.png"],"gname":"宝马","maxprice":123,"minprice":123,"stages":"分期政策，可分12期，每期20000元","title":"直降500"}
      */
 
     private int status;
     /**
-     * child : [{"gprice":2,"guidegprice":123,"mid":1,"mname":"1","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"},{"gprice":3,"guidegprice":123,"mid":2,"mname":"2","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"}]
+     * bid : 1
+     * bphone : 18292882168
+     * childs : [{"gprice":2,"guidegprice":123,"mid":1,"mname":"1","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"},{"gprice":3,"guidegprice":123,"mid":2,"mname":"2","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"}]
      * gid : 1
-     * gimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
+     * gimage : ["/img/menu_viewpager_1.png"]
      * gname : 宝马
      * maxprice : 123
      * minprice : 123
+     * stages : 分期政策，可分12期，每期20000元
      * title : 直降500
      */
 
@@ -44,10 +47,13 @@ public class CarInfo {
     }
 
     public static class CarBean {
+        private int bid;
+        private String bphone;
         private int gid;
         private String gname;
         private int maxprice;
         private int minprice;
+        private String stages;
         private String title;
         /**
          * gprice : 2
@@ -58,8 +64,24 @@ public class CarInfo {
          * mtitle : 优惠1000
          */
 
-        private List<ChildBean> child;
+        private List<ChildsBean> childs;
         private List<String> gimage;
+
+        public int getBid() {
+            return bid;
+        }
+
+        public void setBid(int bid) {
+            this.bid = bid;
+        }
+
+        public String getBphone() {
+            return bphone;
+        }
+
+        public void setBphone(String bphone) {
+            this.bphone = bphone;
+        }
 
         public int getGid() {
             return gid;
@@ -93,6 +115,14 @@ public class CarInfo {
             this.minprice = minprice;
         }
 
+        public String getStages() {
+            return stages;
+        }
+
+        public void setStages(String stages) {
+            this.stages = stages;
+        }
+
         public String getTitle() {
             return title;
         }
@@ -101,12 +131,12 @@ public class CarInfo {
             this.title = title;
         }
 
-        public List<ChildBean> getChild() {
-            return child;
+        public List<ChildsBean> getChilds() {
+            return childs;
         }
 
-        public void setChild(List<ChildBean> child) {
-            this.child = child;
+        public void setChilds(List<ChildsBean> childs) {
+            this.childs = childs;
         }
 
         public List<String> getGimage() {
@@ -117,13 +147,22 @@ public class CarInfo {
             this.gimage = gimage;
         }
 
-        public static class ChildBean {
+        public static class ChildsBean {
             private int gprice;
             private int guidegprice;
             private int mid;
             private String mname;
             private String mshowImage;
             private String mtitle;
+            private String bid;
+
+            public String getBid() {
+                return bid;
+            }
+
+            public void setBid(String bid) {
+                this.bid = bid;
+            }
 
             public int getGprice() {
                 return gprice;

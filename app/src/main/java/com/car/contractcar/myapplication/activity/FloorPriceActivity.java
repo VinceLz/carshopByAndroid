@@ -7,22 +7,27 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.entity.FloorPrice;
 import com.car.contractcar.myapplication.http.HttpUtil;
 import com.car.contractcar.myapplication.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.ui.LineEditText;
 import com.car.contractcar.myapplication.utils.Constant;
+import com.car.contractcar.myapplication.utils.JsonUtils;
 import com.car.contractcar.myapplication.utils.UIUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.car.contractcar.myapplication.MyApplication.context;
 
 public class FloorPriceActivity extends AppCompatActivity {
 
@@ -37,14 +42,34 @@ public class FloorPriceActivity extends AppCompatActivity {
     LineEditText fpriceName;
     @BindView(R.id.fprice_ok)
     Button fpriceOk;
+    @BindView(R.id.car_icon)
+    ImageView carIcon;
+    @BindView(R.id.store_name)
+    TextView storeName;
+    @BindView(R.id.store_address)
+    TextView storeAddress;
+    @BindView(R.id.car_owner)
+    TextView carOwner;
+    @BindView(R.id.distance)
+    TextView distance;
+    @BindView(R.id.floor_price_title1)
+    TextView floorPriceTitle1;
+    @BindView(R.id.floor_price_title1_ly)
+    LinearLayout floorPriceTitle1Ly;
+    @BindView(R.id.floor_price_title2)
+    TextView floorPriceTitle2;
+    @BindView(R.id.floor_price_title2_ly)
+    LinearLayout floorPriceTitle2Ly;
+    @BindView(R.id.activity_floor_price)
+    LinearLayout activityFloorPrice;
     private Intent intent;
     private int bid;
-    private int gid;
     private String gname;
-    private String model;
-    private String bname;
-    private String uname;
+    private String mname;
+    private FloorPrice floorPrice;
     private String phone;
+    private String uname;
+    private int mid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +83,55 @@ public class FloorPriceActivity extends AppCompatActivity {
 
     private void initData() {
         intent = getIntent();
-        bid = intent.getIntExtra("bid", -1);
-        gid = intent.getIntExtra("gid", -1);
-        gname = intent.getStringExtra("gname");
-        model = intent.getStringExtra("model");
-        bname = intent.getStringExtra("bname");
-        fpriceCarName.setText(gname);
+        bid = intent.getIntExtra("bid", 1);
+        mid = intent.getIntExtra("mid", 1);
+        mname = intent.getStringExtra("mname");
+        fpriceCarName.setText(mname);
+        String s = Constant.HTTP_BASE + Constant.HTTP_FLOOR_PRICE + bid;
+        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_FLOOR_PRICE + bid, new HttpUtil.callBlack() {
+            @Override
+            public void succcess(String code) {
+                floorPrice = (FloorPrice) JsonUtils.json2Bean(code, FloorPrice.class);
+                UIUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshView();
+                    }
+                });
+            }
 
+            @Override
+            public void fail(String code) {
+
+            }
+
+            @Override
+            public void err() {
+
+            }
+        }, false);
+
+
+    }
+
+    private void refreshView() {
+        if (floorPrice.getBusiness() != null) {
+            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(floorPrice.getBusiness().getBshowImage())).into(carIcon);
+            carOwner.setText("主营车型: " + floorPrice.getBusiness().getMajorbusiness());
+            storeName.setText(floorPrice.getBusiness().getBname());
+            storeAddress.setText(floorPrice.getBusiness().getBaddress());
+            if (!TextUtils.isEmpty(floorPrice.getBusiness().getTitle1())) {
+                floorPriceTitle1.setText(floorPrice.getBusiness().getTitle1());
+            } else {
+                floorPriceTitle1Ly.setVisibility(View.INVISIBLE);
+            }
+
+            if (!TextUtils.isEmpty(floorPrice.getBusiness().getTitle2())) {
+                floorPriceTitle2.setText(floorPrice.getBusiness().getTitle2());
+            } else {
+                floorPriceTitle2Ly.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     private void getInData() {
@@ -80,11 +147,7 @@ public class FloorPriceActivity extends AppCompatActivity {
             UIUtils.Toast("用户名或密码不能为空", false);
         } else {
             Map<String, Object> params = new HashMap<>();
-            params.put("gid", gid);
-            params.put("bid", bid);
-            params.put("gname", gname);
-            params.put("model", model);
-            params.put("bname", bname);
+            params.put("mid", mid);
             params.put("phone", phone);
             params.put("uname", uname);
             HttpUtil.post(Constant.HTTP_BASE + "/consult/add.action ", params, new HttpUtil.callBlack() {

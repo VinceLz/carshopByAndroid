@@ -48,7 +48,8 @@
         <activity android:name=".activity.CarModelsActivity" />
         <activity android:name=".activity.CarInfoActivity" />
         <activity android:name=".activity.CarDetailActivity" />
-        <activity android:name=".activity.CarOnlineActivity"></activity>
+        <activity android:name=".activity.CarOnlineActivity" />
+        <activity android:name=".activity.CarConfActivity"></activity>
     </application>
 
 </manifest>

@@ -8,14 +8,19 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.CarDetail;
+import com.car.contractcar.myapplication.entity.CarInfo;
 import com.car.contractcar.myapplication.http.HttpUtil;
+import com.car.contractcar.myapplication.ui.LoadingDialog;
 import com.car.contractcar.myapplication.utils.Constant;
 import com.car.contractcar.myapplication.utils.JsonUtils;
 import com.car.contractcar.myapplication.utils.UIUtils;
@@ -23,6 +28,7 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,26 +60,36 @@ public class CarDetailActivity extends AppCompatActivity {
     RelativeLayout activityCarDetail;
     @BindView(R.id.car_detail_fprice)
     ImageView carDetailFprice;
+    @BindView(R.id.conf_btn)
+    Button confBtn;
     private int mid;
     private CarDetail carDetail;
     private CarDetail.CarBean car;
     private String mName;
+    private int bid;
+    private View xmlView;
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_detail);
+        xmlView = UIUtils.getXmlView(R.layout.activity_car_detail);
+        setContentView(xmlView);
         ButterKnife.bind(this);
         initView();
         initData();
+        Log.e(TAG, "onCreate:xxxx ");
 
     }
+
 
     private void initView() {
         Intent intent = getIntent();
         mid = intent.getIntExtra("mid", 1);
-
+        bid = intent.getIntExtra("bid", 1);
         //设置播放时间间隔
+        dialog = new LoadingDialog(this, "玩命加载中...");
+        dialog.show();
         carDetailImg.setPlayDelay(2500);
         //设置透明度
         carDetailImg.setAnimationDurtion(500);
@@ -89,9 +105,10 @@ public class CarDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + 1, new HttpUtil.callBlack() {
+        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + mid, new HttpUtil.callBlack() {//// TODO: 16/12/24    数据哭数据太少 所以写死了mid为1
             @Override
             public void succcess(String code) {
+                carDetail = null;
                 carDetail = (CarDetail) JsonUtils.json2Bean(code, CarDetail.class);
                 UIUtils.runOnUIThread(new Runnable() {
                     @Override
@@ -116,6 +133,7 @@ public class CarDetailActivity extends AppCompatActivity {
 
 
     private void refreshView() {
+        dialog.close();
         if (carDetail != null) {
             car = carDetail.getCar();
 
@@ -137,7 +155,7 @@ public class CarDetailActivity extends AppCompatActivity {
             });
 
 
-            carDetailName.setText(car.getGname() + " " + car.getMname());
+            carDetailName.setText(car.getMname());
             carDetailPrice.setText("价格 : " + car.getGuidegprice());
             if (!TextUtils.isEmpty(car.getMtitle())) {
                 carDetailTitle.setText(car.getMtitle());
@@ -147,18 +165,30 @@ public class CarDetailActivity extends AppCompatActivity {
             Log.e(TAG, "refreshView: ");
             List<CarDetail.RecommendBean> recommend = carDetail.getRecommend();
 
+            carDetailHscrollview.removeAllViews();
             if (recommend != null && recommend.size() > 0) {
                 //适配横向滑动的scrollview的数据
-                for (CarDetail.RecommendBean recommendBean : recommend) {
+                for (final CarDetail.RecommendBean recommendBean : recommend) {
                     LinearLayout recommendItemView = (LinearLayout) UIUtils.getXmlView(R.layout.car_detail_recommend_item);
                     ImageView recommendItemImg = (ImageView) recommendItemView.findViewById(R.id.car_detail_recommend_item_img);
                     TextView recommendItemTitle = (TextView) recommendItemView.findViewById(R.id.car_detail_recommend_item_title);
                     HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(recommendBean.getMshowImage())).into(recommendItemImg);
                     recommendItemTitle.setText(recommendBean.getGname() + " " + recommendBean.getMname() + "\n" + "指导价 : " + recommendBean.getGuidegprice() + "\n" + recommendBean.getMtitle());
                     carDetailHscrollview.addView(recommendItemView);
+
+                    recommendItemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mid = recommendBean.getMid();
+                            dialog.show();
+                            initData();
+                        }
+                    });
                 }
 
             }
+
+
         }
     }
 
@@ -168,12 +198,44 @@ public class CarDetailActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.conf_btn)
+    public void onConf(View view) {
+        LoadingDialog loadingDialog = new LoadingDialog(this, "配置加载中...");
+        loadingDialog.show();
+        HttpUtil.get("http://59.110.5.105/carshop/car/models/getconf.action?mid=3", new HttpUtil.callBlack() {
+            @Override
+            public void succcess(final String code) {
+
+                UIUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(CarDetailActivity.this, CarConfActivity.class);
+                        intent.putExtra("code", code);
+                        startActivity(intent);
+                    }
+                });
+
+            }
+
+            @Override
+            public void fail(String code) {
+
+            }
+
+            @Override
+            public void err() {
+
+            }
+        }, false);
+
+    }
+
     @OnClick(R.id.car_detail_online)
     public void onLien(View view) {
         Intent intent = new Intent(this, CarOnlineActivity.class);
         intent.putExtra("mid", car.getMid());
-        intent.putExtra("gname",car.getGname());
-        intent.putExtra("mname",car.getMname());
+        intent.putExtra("mname", car.getMname());
+        intent.putExtra("image", car.getMimage().get(0));
         startActivity(intent);
         //    右往左推出效果
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
@@ -187,7 +249,9 @@ public class CarDetailActivity extends AppCompatActivity {
     @OnClick(R.id.car_detail_fprice)
     public void onFprice() {
         Intent intent = new Intent(this, FloorPriceActivity.class);
-        intent.putExtra("mid", car.getMid());
+        intent.putExtra("mid", mid);
+        intent.putExtra("mname", car.getMname());
+        intent.putExtra("bid", car.getBid());
         startActivity(intent);
         //    右往左推出效果
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

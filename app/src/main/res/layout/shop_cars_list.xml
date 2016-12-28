@@ -49,6 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="全系降价5000"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="#D44960"
                 android:textSize="12sp" />
         </LinearLayout>

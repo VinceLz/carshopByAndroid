@@ -147,6 +147,7 @@ public class BuycarFragment2 extends Fragment {
             @Override
             protected String url() {
                 if (location != null) {
+                    Log.d("#######",Constant.HTTP_BASE + Constant.HTTP_HOME );
                     return Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude();
                 } else {
                     return Constant.HTTP_BASE + Constant.HTTP_HOME;
@@ -249,9 +250,7 @@ public class BuycarFragment2 extends Fragment {
                 int y = (int) event.getRawY();
                 switch (eventAction) {
                     case MotionEvent.ACTION_UP:
-
                         handler.sendMessageDelayed(handler.obtainMessage(touchEventId, v), 5);
-
                         break;
                     default:
                         position1 = new int[2];
@@ -354,9 +353,32 @@ public class BuycarFragment2 extends Fragment {
 
     @OnClick(R.id.car_models)
     public void carModels(View view) {
-        //UIUtils.Toast("测试", false);
-        startActivity(new Intent(getActivity(), CarModelsActivity.class));
-        getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_SELECT + "/.action", new HttpUtil.callBlack() {
+            @Override
+            public void succcess(final String code) {
+                Log.e(TAG, "succcess: " + code);
+                UIUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getActivity(), CarModelsActivity.class);
+                        intent.putExtra("data", code);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                    }
+                });
+            }
+
+            @Override
+            public void fail(String code) {
+                Log.e(TAG, "fail: " + code);
+            }
+
+            @Override
+            public void err() {
+                Log.e(TAG, "err: ");
+            }
+        }, false);
+
     }
 
     /**

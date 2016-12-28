@@ -185,12 +185,12 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/conf_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff">
+                android:layout_margin="5dp" />
 
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

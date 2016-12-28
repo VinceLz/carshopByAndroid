@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.SelectDataList;
 import com.car.contractcar.myapplication.http.HttpUtil;
+import com.car.contractcar.myapplication.ui.LoadingDialog;
 import com.car.contractcar.myapplication.ui.MyGridView;
 import com.car.contractcar.myapplication.utils.Constant;
 import com.car.contractcar.myapplication.utils.UIUtils;
@@ -78,6 +79,7 @@ public class SpecActivity extends AppCompatActivity {
     List<String> selectDatas = new ArrayList<>();
     private String TAG = "XUZI";
     private SelectDataList selectDataList;
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class SpecActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        dialog = new LoadingDialog(this, "玩命加载中...");
         viewList = new ArrayList<>();
         viewList.add(carLevel);
         datas.put("level", level);
@@ -230,6 +233,7 @@ public class SpecActivity extends AppCompatActivity {
 
     @OnClick(R.id.select_ok)
     public void select_ok(View view) {
+        dialog.show();
         List<String> countrieslist = new ArrayList<>();
         List<String> outputtist = new ArrayList<>();
         List<String> drivelist = new ArrayList<>();
@@ -267,15 +271,22 @@ public class SpecActivity extends AppCompatActivity {
         String jsonString = JSON.toJSONString(selectDataList);
         JSONObject jsonObject = JSON.parseObject(jsonString);
         Log.e(TAG, "select_ok: " + Constant.HTTP_BASE + Constant.HTTP_SELECT + "/" + jsonString + ".action");
-        // post调用网络
+        // get调用网络
         HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_SELECT + "/" + jsonString + ".action", new HttpUtil.callBlack() {
             @Override
-            public void succcess(String code) {
+            public void succcess(final String code) {
                 Log.e(TAG, "succcess: " + code);
-                Intent intent = new Intent(SpecActivity.this, CarModelsActivity.class);
-                intent.putExtra("data", code);
-                SpecActivity.this.startActivity(intent);
-                SpecActivity.this.finish();
+                UIUtils.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.close();
+                        Intent intent = new Intent(SpecActivity.this, CarModelsActivity.class);
+                        intent.putExtra("data", code);
+                        SpecActivity.this.startActivity(intent);
+                        SpecActivity.this.finish();
+                    }
+                });
+
             }
 
             @Override

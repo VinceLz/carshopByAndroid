@@ -72,6 +72,7 @@
             android:background="@null"
             android:id="@+id/fprice_phone"
             android:hint="请输入手机号码"
+            android:inputType="number"
             android:textColorHint="#999"
             android:paddingBottom="5dp"
             android:textSize="12sp"
@@ -193,6 +194,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/floor_price_title1_ly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -204,15 +206,19 @@
                 android:src="@mipmap/dian" />
 
             <TextView
+                android:id="@+id/floor_price_title1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="进店就有大礼包"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="#BE103E"
                 android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/floor_price_title2_ly"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -224,6 +230,7 @@
                 android:src="@mipmap/xin" />
 
             <TextView
+                android:id="@+id/floor_price_title2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"

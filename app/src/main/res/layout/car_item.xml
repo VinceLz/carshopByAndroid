@@ -41,6 +41,8 @@
                 android:id="@+id/store_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:paddingLeft="3dp"
                 android:paddingTop="3dp"
                 android:text="西安市碑林区和平门115号1楼"
@@ -96,6 +98,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -110,6 +113,8 @@
             android:src="@mipmap/dian" />
 
         <TextView
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
@@ -130,6 +135,8 @@
             android:src="@mipmap/xin" />
 
         <TextView
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"

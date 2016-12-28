@@ -59,6 +59,8 @@
                             android:id="@+id/shop_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:paddingLeft="3dp"
                             android:paddingTop="3dp"
                             android:text="西安市碑林区和平门115号1楼"

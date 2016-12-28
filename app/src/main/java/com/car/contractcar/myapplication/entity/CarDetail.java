@@ -11,17 +11,19 @@ public class CarDetail {
 
     /**
      * status : 1
-     * car : {"gid":1,"gname":"123","guidegprice":123,"mid":1,"mimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"mname":"1","mtitle":"优惠1000"}
+     * car : {"bid":1,"bphone":"18292882168","gid":1,"gname":"123","guidegprice":123,"mid":1,"mimage":["/img/menu_viewpager_1.png"],"mname":"1","mtitle":"优惠1000"}
      * recommend : [{"gid":1,"gname":"123","guidegprice":123,"mid":2,"mname":"2","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"},{"gid":2,"gname":"123","guidegprice":123,"mid":3,"mname":"3","mshowImage":"/img/menu_viewpager_1.png","mtitle":"优惠1000"}]
      */
 
     private int status;
     /**
+     * bid : 1
+     * bphone : 18292882168
      * gid : 1
      * gname : 123
      * guidegprice : 123
      * mid : 1
-     * mimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
+     * mimage : ["/img/menu_viewpager_1.png"]
      * mname : 1
      * mtitle : 优惠1000
      */
@@ -64,6 +66,8 @@ public class CarDetail {
     }
 
     public static class CarBean {
+        private int bid;
+        private String bphone;
         private int gid;
         private String gname;
         private int guidegprice;
@@ -71,6 +75,22 @@ public class CarDetail {
         private String mname;
         private String mtitle;
         private List<String> mimage;
+
+        public int getBid() {
+            return bid;
+        }
+
+        public void setBid(int bid) {
+            this.bid = bid;
+        }
+
+        public String getBphone() {
+            return bphone;
+        }
+
+        public void setBphone(String bphone) {
+            this.bphone = bphone;
+        }
 
         public int getGid() {
             return gid;

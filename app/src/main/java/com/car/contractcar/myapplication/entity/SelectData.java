@@ -100,6 +100,15 @@ public class SelectData {
         private int maxprice;
         private int minprice;
         private String title;
+        private int bid;
+
+        public int getBid() {
+            return bid;
+        }
+
+        public void setBid(int bid) {
+            this.bid = bid;
+        }
 
         public int getGid() {
             return gid;

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,6 +64,15 @@ public class CarModelsActivity extends AppCompatActivity {
         initView();
         initData();
 
+        carModelsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(CarModelsActivity.this, CarInfoActivity.class);
+                intent.putExtra("gid", datas.get(position).getGid());
+                CarModelsActivity.this.startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
     }
 
 
@@ -106,7 +116,7 @@ public class CarModelsActivity extends AppCompatActivity {
 
                 @Override
                 public int getCount() {
-                    return selectData.getImage().size();
+                    return selectData.getImage() != null ? selectData.getImage().size() : 0;
                 }
             });
 

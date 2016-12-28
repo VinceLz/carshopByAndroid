@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.ShopInfo;
 import com.car.contractcar.myapplication.http.HttpUtil;
+import com.car.contractcar.myapplication.ui.LoadingDialog;
 import com.car.contractcar.myapplication.ui.LoadingPage;
 import com.car.contractcar.myapplication.utils.Constant;
 import com.car.contractcar.myapplication.utils.JsonUtils;
@@ -59,6 +61,7 @@ public class ShopInfoActivity extends AppCompatActivity {
     private List<ShopInfo.BusinessBean.ChildsBean> cars;
     private int distance;
     private LoadingPage loadingPage;
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +82,7 @@ public class ShopInfoActivity extends AppCompatActivity {
                 String title = childsBean.getTitle();
                 Intent intent = new Intent(ShopInfoActivity.this, CarInfoActivity.class);
                 intent.putExtra("gid", gid);
-                intent.putExtra("minprice", 0);
-                intent.putExtra("maxprice", 0);
-                intent.putExtra("gname", gname);
-                intent.putExtra("title", title);
+                intent.putExtra("bid", bid);
                 startActivity(intent);
                 //    右往左推出效果
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
@@ -91,6 +91,8 @@ public class ShopInfoActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        dialog = new LoadingDialog(this, "玩命加载中...");
+        dialog.show();
         //设置播放时间间隔
         viewPagesShopimg.setPlayDelay(2500);
         //设置透明度
@@ -143,6 +145,7 @@ public class ShopInfoActivity extends AppCompatActivity {
      * 刷新UI
      */
     private void refreshView() {
+        dialog.close();
         if (shopInfo.getBusiness() != null) {
             cars = shopInfo.getBusiness().getChilds();
             viewPagesShopimg.setAdapter(new StaticPagerAdapter() {
@@ -159,7 +162,7 @@ public class ShopInfoActivity extends AppCompatActivity {
 
                 @Override
                 public int getCount() {
-                    return shopInfo.getBusiness().getBimage().size();
+                    return shopInfo.getBusiness().getBimage() != null ? shopInfo.getBusiness().getBimage().size() : 0;
                 }
             });
             ShopInfo.BusinessBean business = shopInfo.getBusiness();
