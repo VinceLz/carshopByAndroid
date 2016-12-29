@@ -133,7 +133,7 @@ public class CarDetailActivity extends AppCompatActivity {
 
 
     private void refreshView() {
-        dialog.close();
+        dialog.dismiss();
         if (carDetail != null) {
             car = carDetail.getCar();
 
@@ -150,13 +150,13 @@ public class CarDetailActivity extends AppCompatActivity {
 
                 @Override
                 public int getCount() {
-                    return car.getMimage().size();
+                    return car.getMimage() != null ? car.getMimage().size() : 0;
                 }
             });
 
 
             carDetailName.setText(car.getMname());
-            carDetailPrice.setText("价格 : " + car.getGuidegprice());
+            carDetailPrice.setText("价格 : " + car.getGuidegprice() + "万");
             if (!TextUtils.isEmpty(car.getMtitle())) {
                 carDetailTitle.setText(car.getMtitle());
             } else {
@@ -173,7 +173,7 @@ public class CarDetailActivity extends AppCompatActivity {
                     ImageView recommendItemImg = (ImageView) recommendItemView.findViewById(R.id.car_detail_recommend_item_img);
                     TextView recommendItemTitle = (TextView) recommendItemView.findViewById(R.id.car_detail_recommend_item_title);
                     HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(recommendBean.getMshowImage())).into(recommendItemImg);
-                    recommendItemTitle.setText(recommendBean.getGname() + " " + recommendBean.getMname() + "\n" + "指导价 : " + recommendBean.getGuidegprice() + "\n" + recommendBean.getMtitle());
+                    recommendItemTitle.setText(recommendBean.getMname() + "\n" + "指导价 : " + recommendBean.getGuidegprice() + "万");
                     carDetailHscrollview.addView(recommendItemView);
 
                     recommendItemView.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +200,7 @@ public class CarDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.conf_btn)
     public void onConf(View view) {
-        LoadingDialog loadingDialog = new LoadingDialog(this, "配置加载中...");
+        final LoadingDialog loadingDialog = new LoadingDialog(this, "配置加载中...");
         loadingDialog.show();
         HttpUtil.get("http://59.110.5.105/carshop/car/models/getconf.action?mid=3", new HttpUtil.callBlack() {
             @Override
@@ -209,9 +209,11 @@ public class CarDetailActivity extends AppCompatActivity {
                 UIUtils.runOnUIThread(new Runnable() {
                     @Override
                     public void run() {
+                        loadingDialog.close();
                         Intent intent = new Intent(CarDetailActivity.this, CarConfActivity.class);
                         intent.putExtra("code", code);
                         startActivity(intent);
+                        CarDetailActivity.this.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
                     }
                 });
 

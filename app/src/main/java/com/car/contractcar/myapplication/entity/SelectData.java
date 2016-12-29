@@ -97,8 +97,8 @@ public class SelectData {
         private int gid;
         private String gname;
         private String gshowImage;
-        private int maxprice;
-        private int minprice;
+        private double maxprice;
+        private double minprice;
         private String title;
         private int bid;
 
@@ -134,19 +134,19 @@ public class SelectData {
             this.gshowImage = gshowImage;
         }
 
-        public int getMaxprice() {
+        public double getMaxprice() {
             return maxprice;
         }
 
-        public void setMaxprice(int maxprice) {
+        public void setMaxprice(double maxprice) {
             this.maxprice = maxprice;
         }
 
-        public int getMinprice() {
+        public double getMinprice() {
             return minprice;
         }
 
-        public void setMinprice(int minprice) {
+        public void setMinprice(double minprice) {
             this.minprice = minprice;
         }
 

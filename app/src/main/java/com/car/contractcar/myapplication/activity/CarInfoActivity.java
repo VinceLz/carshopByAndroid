@@ -98,6 +98,7 @@ public class CarInfoActivity extends AppCompatActivity {
         //隐藏指示器
         //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         viewPagesShopimg.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
+        shopCarList.setFocusable(false);
     }
 
     private void initData() {
@@ -195,8 +196,8 @@ public class CarInfoActivity extends AppCompatActivity {
                             }
                             HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(datas.get(position).getMshowImage())).into(viewHolder.carInfoListItemImg);
                             viewHolder.carInfoListItemName.setText(car.getGname() + " " + datas.get(position).getMname());
-                            viewHolder.carInfoListItemPrice.setText("指导价 : " + datas.get(position).getGprice());
-                            viewHolder.carInfoListItemGuidegprice.setText("参考价 : " + datas.get(position).getGuidegprice());
+                            viewHolder.carInfoListItemPrice.setText("指导价 : " + datas.get(position).getGprice() + "万");
+                            viewHolder.carInfoListItemGuidegprice.setText("参考价 : " + datas.get(position).getGuidegprice() + "万");
                             String title = datas.get(position).getMtitle();
                             if (!TextUtils.isEmpty(title)) {
                                 viewHolder.carInfoListItemTitle.setText(title);

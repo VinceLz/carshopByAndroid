@@ -76,8 +76,8 @@ public class ShopInfoActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShopInfo.BusinessBean.ChildsBean childsBean = cars.get(position);
                 int gid = childsBean.getGid();
-                int minprice = childsBean.getMinprice();
-                int maxprice = childsBean.getMaxprice();
+                double minprice = childsBean.getMinprice();
+                double maxprice = childsBean.getMaxprice();
                 String gname = childsBean.getGname();
                 String title = childsBean.getTitle();
                 Intent intent = new Intent(ShopInfoActivity.this, CarInfoActivity.class);
@@ -106,6 +106,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         //隐藏指示器
         //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         viewPagesShopimg.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
+        shopCarList.setFocusable(false);
 
     }
 
@@ -217,7 +218,7 @@ public class ShopInfoActivity extends AppCompatActivity {
 
             HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getGshowImage())).into(viewHolder.shopCarImg);
             viewHolder.shopCarName.setText(cars.get(position).getGname());
-            viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getMinprice() + "~" + cars.get(position).getMaxprice());
+            viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getMinprice() + "万 ~ " + cars.get(position).getMaxprice()+"万");
             String title = cars.get(position).getTitle();
             if (!TextUtils.isEmpty(title)) {
                 viewHolder.shopCarTitle.setText(title);

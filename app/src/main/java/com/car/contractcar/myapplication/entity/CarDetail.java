@@ -70,7 +70,7 @@ public class CarDetail {
         private String bphone;
         private int gid;
         private String gname;
-        private int guidegprice;
+        private double guidegprice;
         private int mid;
         private String mname;
         private String mtitle;
@@ -108,11 +108,11 @@ public class CarDetail {
             this.gname = gname;
         }
 
-        public int getGuidegprice() {
+        public double getGuidegprice() {
             return guidegprice;
         }
 
-        public void setGuidegprice(int guidegprice) {
+        public void setGuidegprice(double guidegprice) {
             this.guidegprice = guidegprice;
         }
 
@@ -152,7 +152,7 @@ public class CarDetail {
     public static class RecommendBean {
         private int gid;
         private String gname;
-        private int guidegprice;
+        private double guidegprice;
         private int mid;
         private String mname;
         private String mshowImage;
@@ -174,11 +174,11 @@ public class CarDetail {
             this.gname = gname;
         }
 
-        public int getGuidegprice() {
+        public double getGuidegprice() {
             return guidegprice;
         }
 
-        public void setGuidegprice(int guidegprice) {
+        public void setGuidegprice(double guidegprice) {
             this.guidegprice = guidegprice;
         }
 

@@ -11,19 +11,19 @@ public class ShopInfo {
 
     /**
      * status : 1
-     * business : {"baddress":"陕西省西安市","bid":1,"bimage":["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"],"bname":"某某4S经销店","bphone":"18292882168","childs":[{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":9,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44,"minprice":2,"title":"直降500"}],"majorbusiness":"玩玩","stages":"分期政策，可分12期，每期20000元"}
+     * business : {"baddress":"西安市未央区明光路与凤城七路十字东南角","bid":3,"bimage":["/img/1482973911503133.jpg","/img/1482973931647920.jpg","/img/1482973952622798.jpg","/img/1482973970723943.jpg","/img/1482973991767183.png","/img/1482974009354126.jpg","/img/1482974060613378.jpg"],"bname":"陕西新利亨","bphone":"4008721283","childs":[{"gid":5,"gname":"风行SX6","gshowImage":"/img/1482974276291407.jpg","maxprice":10.29,"minprice":6.99,"title":"购风行享6000元优惠"},{"gid":6,"gname":"景逸S50","gshowImage":"/img/1482974321267271.jpg","maxprice":10.29,"minprice":6.99,"title":"购风行享6000元优惠"}],"majorbusiness":"东风风行系列","stages":"联系开发人员添加"}
      */
 
     private int status;
     /**
-     * baddress : 陕西省西安市
-     * bid : 1
-     * bimage : ["/img/menu_viewpager_1.png","/img/menu_viewpager_1.png"]
-     * bname : 某某4S经销店
-     * bphone : 18292882168
-     * childs : [{"gid":1,"gname":"宝马","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":123,"title":"直降500"},{"gid":2,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":123,"minprice":12,"title":"直降500"},{"gid":9,"gname":"宝马1","gshowImage":"/img/menu_viewpager_1.png","maxprice":44,"minprice":2,"title":"直降500"}]
-     * majorbusiness : 玩玩
-     * stages : 分期政策，可分12期，每期20000元
+     * baddress : 西安市未央区明光路与凤城七路十字东南角
+     * bid : 3
+     * bimage : ["/img/1482973911503133.jpg","/img/1482973931647920.jpg","/img/1482973952622798.jpg","/img/1482973970723943.jpg","/img/1482973991767183.png","/img/1482974009354126.jpg","/img/1482974060613378.jpg"]
+     * bname : 陕西新利亨
+     * bphone : 4008721283
+     * childs : [{"gid":5,"gname":"风行SX6","gshowImage":"/img/1482974276291407.jpg","maxprice":10.29,"minprice":6.99,"title":"购风行享6000元优惠"},{"gid":6,"gname":"景逸S50","gshowImage":"/img/1482974321267271.jpg","maxprice":10.29,"minprice":6.99,"title":"购风行享6000元优惠"}]
+     * majorbusiness : 东风风行系列
+     * stages : 联系开发人员添加
      */
 
     private BusinessBean business;
@@ -53,12 +53,12 @@ public class ShopInfo {
         private String stages;
         private List<String> bimage;
         /**
-         * gid : 1
-         * gname : 宝马
-         * gshowImage : /img/menu_viewpager_1.png
-         * maxprice : 123
-         * minprice : 123
-         * title : 直降500
+         * gid : 5
+         * gname : 风行SX6
+         * gshowImage : /img/1482974276291407.jpg
+         * maxprice : 10.29
+         * minprice : 6.99
+         * title : 购风行享6000元优惠
          */
 
         private List<ChildsBean> childs;
@@ -131,8 +131,8 @@ public class ShopInfo {
             private int gid;
             private String gname;
             private String gshowImage;
-            private int maxprice;
-            private int minprice;
+            private double maxprice;
+            private double minprice;
             private String title;
 
             public int getGid() {
@@ -159,19 +159,19 @@ public class ShopInfo {
                 this.gshowImage = gshowImage;
             }
 
-            public int getMaxprice() {
+            public double getMaxprice() {
                 return maxprice;
             }
 
-            public void setMaxprice(int maxprice) {
+            public void setMaxprice(double maxprice) {
                 this.maxprice = maxprice;
             }
 
-            public int getMinprice() {
+            public double getMinprice() {
                 return minprice;
             }
 
-            public void setMinprice(int minprice) {
+            public void setMinprice(double minprice) {
                 this.minprice = minprice;
             }
 

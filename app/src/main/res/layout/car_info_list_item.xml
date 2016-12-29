@@ -33,6 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="0dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="宝马7系"
                 android:textColor="#000"
                 android:textSize="15sp" />

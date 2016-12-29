@@ -16,22 +16,22 @@ public class SelectDataList {
     private List<String> structure;
     private List<String> seat;
     private List<String> level;
-    private Integer minprice;
-    private Integer maxprice;
+    private double minprice;
+    private double maxprice;
 
-    public Integer getMinprice() {
+    public double getMinprice() {
         return minprice;
     }
 
-    public void setMinprice(Integer minprice) {
+    public void setMinprice(double minprice) {
         this.minprice = minprice;
     }
 
-    public Integer getMaxprice() {
+    public double getMaxprice() {
         return maxprice;
     }
 
-    public void setMaxprice(Integer maxprice) {
+    public void setMaxprice(double maxprice) {
         this.maxprice = maxprice;
     }
 

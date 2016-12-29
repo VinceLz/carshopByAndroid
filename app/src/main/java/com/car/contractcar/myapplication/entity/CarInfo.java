@@ -148,8 +148,8 @@ public class CarInfo {
         }
 
         public static class ChildsBean {
-            private int gprice;
-            private int guidegprice;
+            private double gprice;
+            private double guidegprice;
             private int mid;
             private String mname;
             private String mshowImage;
@@ -164,19 +164,19 @@ public class CarInfo {
                 this.bid = bid;
             }
 
-            public int getGprice() {
+            public double getGprice() {
                 return gprice;
             }
 
-            public void setGprice(int gprice) {
+            public void setGprice(double gprice) {
                 this.gprice = gprice;
             }
 
-            public int getGuidegprice() {
+            public double getGuidegprice() {
                 return guidegprice;
             }
 
-            public void setGuidegprice(int guidegprice) {
+            public void setGuidegprice(double guidegprice) {
                 this.guidegprice = guidegprice;
             }
 

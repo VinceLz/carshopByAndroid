@@ -189,9 +189,10 @@
                 android:id="@+id/conf_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp" />
-
-
+                android:textSize="20sp"
+                android:layout_margin="5dp"
+                android:padding="3dp"
+                android:text="详细配置" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
