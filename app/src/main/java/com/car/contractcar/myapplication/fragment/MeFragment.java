@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
-import com.car.contractcar.myapplication.ui.MyGridView;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.ui.MyGridView;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

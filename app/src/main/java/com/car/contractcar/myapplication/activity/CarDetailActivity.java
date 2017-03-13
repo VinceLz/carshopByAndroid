@@ -14,21 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.CarDetail;
-import com.car.contractcar.myapplication.entity.CarInfo;
-import com.car.contractcar.myapplication.http.HttpUtil;
-import com.car.contractcar.myapplication.ui.LoadingDialog;
-import com.car.contractcar.myapplication.utils.Constant;
-import com.car.contractcar.myapplication.utils.JsonUtils;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.car.contractcar.myapplication.common.ui.LoadingDialog;
+import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.JsonUtils;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
+import com.squareup.picasso.Picasso;
 
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,7 +65,8 @@ public class CarDetailActivity extends AppCompatActivity {
     private String mName;
     private int bid;
     private View xmlView;
-    private LoadingDialog dialog;
+    private LoadingDialog dialog = null;
+    private LoadingDialog loadingDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +140,7 @@ public class CarDetailActivity extends AppCompatActivity {
                 @Override
                 public View getView(ViewGroup container, int position) {
                     ImageView imageView = new ImageView(container.getContext());
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(car.getMimage().get(position))).into(imageView);
+                    Picasso.with(context).load(HttpUtil.getImage_path(car.getMimage().get(position))).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     return imageView;
@@ -200,9 +198,9 @@ public class CarDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.conf_btn)
     public void onConf(View view) {
-        final LoadingDialog loadingDialog = new LoadingDialog(this, "配置加载中...");
+        loadingDialog = new LoadingDialog(this, "配置加载中...");
         loadingDialog.show();
-        HttpUtil.get("http://59.110.5.105/carshop/car/models/getconf.action?mid=3", new HttpUtil.callBlack() {
+        HttpUtil.get("http://59.110.5.105/carshop/car/models/getconf.action?mid=" + mid, new HttpUtil.callBlack() {
             @Override
             public void succcess(final String code) {
 
@@ -261,6 +259,9 @@ public class CarDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        loadingDialog = null;
+        dialog = null;
+
         super.onBackPressed();
         overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }

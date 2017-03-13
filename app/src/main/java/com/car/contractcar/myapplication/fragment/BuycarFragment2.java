@@ -11,7 +11,6 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,12 +32,12 @@ import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.activity.ShopInfoActivity;
 import com.car.contractcar.myapplication.activity.SpecActivity;
 import com.car.contractcar.myapplication.entity.BuyCarIndex2;
-import com.car.contractcar.myapplication.http.HttpUtil;
-import com.car.contractcar.myapplication.ui.EduSohoIconView;
-import com.car.contractcar.myapplication.ui.LoadingPage;
-import com.car.contractcar.myapplication.utils.Constant;
-import com.car.contractcar.myapplication.utils.JsonUtils;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
+import com.car.contractcar.myapplication.common.ui.LoadingPage;
+import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.JsonUtils;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
 import com.jude.rollviewpager.RollPagerView;
@@ -103,11 +102,12 @@ public class BuycarFragment2 extends Fragment {
 
         ;
     };
-    private Location location;
+    //    private Location location;
     private String dd;
     private DecimalFormat fnum;
     private int[] position1;
     private int f;
+    Location location;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -117,6 +117,10 @@ public class BuycarFragment2 extends Fragment {
         loadingPage.show();
 
     }
+
+
+
+
 
 
     @Override
@@ -147,12 +151,13 @@ public class BuycarFragment2 extends Fragment {
             @Override
             protected String url() {
                 if (location != null) {
-                    Log.d("#######",Constant.HTTP_BASE + Constant.HTTP_HOME );
+                    Log.e(TAG, Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude());
                     return Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude();
                 } else {
                     return Constant.HTTP_BASE + Constant.HTTP_HOME;
                 }
-
+//
+//                return Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + longitude + "&latitude=" + latitude;
             }
         };
 
@@ -205,17 +210,6 @@ public class BuycarFragment2 extends Fragment {
         Log.e("WangJ", "状态栏-方法2:" + statusBarHeight2);
 
         scTest.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int[] position = new int[2];
-//                mRollViewPager.getLocationOnScreen(position);
-//                position[1] -= statusBarHeight2;
-//                int a = 0 - position[1] / 2 > 255 ? 255 : 0 - position[1] / 2;
-//                laySearch.setBackgroundColor(Color.argb(0 - position[1] / 2 > 255 ? 255 : 0 - position[1] / 2, 255, 255, 255));
-//                return false;
-//            }
-//
-//
 
             private int lastY = 0;
             private int touchEventId = -9983761;
@@ -414,6 +408,18 @@ public class BuycarFragment2 extends Fragment {
             holderView.storeAddress.setText(homeCarstore.get(position).getBaddress());
             holderView.storeName.setText(homeCarstore.get(position).getBname());
             holderView.carOwner.setText("主营车型 : " + homeCarstore.get(position).getMajorbusiness());
+            if (!TextUtils.isEmpty(homeCarstore.get(position).getTitle1())) {
+                holderView.homeTitle1Text.setText(homeCarstore.get(position).getTitle1());
+            } else {
+                holderView.homeTitle1Ly.setVisibility(View.INVISIBLE);
+            }
+            if (!TextUtils.isEmpty(homeCarstore.get(position).getTitle2())) {
+                holderView.homeTitle2Text.setText(homeCarstore.get(position).getTitle2());
+            } else {
+                holderView.homeTitle2Ly.setVisibility(View.INVISIBLE);
+            }
+
+
             f = Integer.parseInt(homeCarstore.get(position).getDistance() != null ?
                     homeCarstore.get(position).getDistance() : "0");
             if (f < 1000) {
@@ -471,6 +477,14 @@ public class BuycarFragment2 extends Fragment {
         TextView carOwner;
         @BindView(R.id.distance)
         TextView distance;
+        @BindView(R.id.home_title1_text)
+        TextView homeTitle1Text;
+        @BindView(R.id.home_title1_ly)
+        LinearLayout homeTitle1Ly;
+        @BindView(R.id.home_title2_text)
+        TextView homeTitle2Text;
+        @BindView(R.id.home_title2_ly)
+        LinearLayout homeTitle2Ly;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

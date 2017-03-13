@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.FloorPrice;
-import com.car.contractcar.myapplication.http.HttpUtil;
-import com.car.contractcar.myapplication.ui.EduSohoIconView;
-import com.car.contractcar.myapplication.ui.LineEditText;
-import com.car.contractcar.myapplication.utils.Constant;
-import com.car.contractcar.myapplication.utils.JsonUtils;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
+import com.car.contractcar.myapplication.common.ui.LineEditText;
+import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.JsonUtils;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -6,7 +6,7 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <com.car.contractcar.myapplication.ui.MyScrollview
+    <com.car.contractcar.myapplication.common.ui.MyScrollview
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -50,7 +50,7 @@
             </LinearLayout>
 
 
-            <com.car.contractcar.myapplication.ui.MyGridView
+            <com.car.contractcar.myapplication.common.ui.MyGridView
                 android:id="@+id/me_gridview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,8 +61,8 @@
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="0.0dip">
 
-            </com.car.contractcar.myapplication.ui.MyGridView>
+            </com.car.contractcar.myapplication.common.ui.MyGridView>
         </LinearLayout>
-    </com.car.contractcar.myapplication.ui.MyScrollview>
+    </com.car.contractcar.myapplication.common.ui.MyScrollview>
 
 </LinearLayout>

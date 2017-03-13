@@ -102,6 +102,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/home_title1_ly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -113,10 +114,11 @@
             android:src="@mipmap/dian" />
 
         <TextView
-            android:maxLines="1"
-            android:ellipsize="end"
+            android:id="@+id/home_title1_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:paddingLeft="5dp"
             android:text="进店就有大礼包"
             android:textColor="#BE103E"
@@ -124,6 +126,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/home_title2_ly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -135,10 +138,11 @@
             android:src="@mipmap/xin" />
 
         <TextView
-            android:maxLines="1"
-            android:ellipsize="end"
+            android:id="@+id/home_title2_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:paddingLeft="5dp"
             android:text="购车享1000元直补"
             android:textColor="#29862F"

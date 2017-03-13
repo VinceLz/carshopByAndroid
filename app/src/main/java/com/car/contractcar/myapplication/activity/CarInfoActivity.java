@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,11 +17,11 @@ import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.CarInfo;
-import com.car.contractcar.myapplication.http.HttpUtil;
-import com.car.contractcar.myapplication.ui.LoadingDialog;
-import com.car.contractcar.myapplication.utils.Constant;
-import com.car.contractcar.myapplication.utils.JsonUtils;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.car.contractcar.myapplication.common.ui.LoadingDialog;
+import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.JsonUtils;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -152,7 +151,9 @@ public class CarInfoActivity extends AppCompatActivity {
                     @Override
                     public View getView(ViewGroup container, int position) {
                         ImageView imageView = new ImageView(container.getContext());
+
                         HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(car.getGimage().get(position))).into(imageView);
+
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         return imageView;
@@ -266,14 +267,13 @@ public class CarInfoActivity extends AppCompatActivity {
         ImageView carInfoListItemImg;
         @BindView(R.id.car_info_list_item_name)
         TextView carInfoListItemName;
-        //        @BindView(R.id.car_info_list_item_models)
-//        TextView carInfoListItemModels;
         @BindView(R.id.car_info_list_item_price)
         TextView carInfoListItemPrice;
         @BindView(R.id.car_info_list_item_guidegprice)
         TextView carInfoListItemGuidegprice;
         @BindView(R.id.car_info_list_item_title)
         TextView carInfoListItemTitle;
+
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

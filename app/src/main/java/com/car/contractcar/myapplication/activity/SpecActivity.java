@@ -19,11 +19,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.SelectDataList;
-import com.car.contractcar.myapplication.http.HttpUtil;
-import com.car.contractcar.myapplication.ui.LoadingDialog;
-import com.car.contractcar.myapplication.ui.MyGridView;
-import com.car.contractcar.myapplication.utils.Constant;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.car.contractcar.myapplication.common.ui.LoadingDialog;
+import com.car.contractcar.myapplication.common.ui.MyGridView;
+import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

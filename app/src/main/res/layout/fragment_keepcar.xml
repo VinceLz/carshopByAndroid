@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.car.contractcar.myapplication.ui.MyGridView
+            <com.car.contractcar.myapplication.common.ui.MyGridView
                 android:background="#fff"
                 android:id="@+id/keep_car_active"
                 android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:scrollbars="none"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="0.0dip">
-            </com.car.contractcar.myapplication.ui.MyGridView>
+            </com.car.contractcar.myapplication.common.ui.MyGridView>
 
             <!-- 养车列表 -->
             <ListView

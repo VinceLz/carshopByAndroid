@@ -80,12 +80,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="3">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 国别 -->
             <LinearLayout
@@ -99,12 +99,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_countries"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 排量 -->
             <LinearLayout
@@ -121,12 +121,12 @@
                     android:textSize="18sp"
                     android:id="@+id/textView2" />
 
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_displacement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 驱动 -->
             <LinearLayout
@@ -140,12 +140,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_drive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 燃料 -->
             <LinearLayout
@@ -159,12 +159,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_fuel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 变速箱 -->
             <LinearLayout
@@ -178,12 +178,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_transmission_case"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 生产方式 -->
             <LinearLayout
@@ -197,12 +197,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_production"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 结构 -->
             <LinearLayout
@@ -216,12 +216,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_structure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
             <!-- 座位 -->
             <LinearLayout
@@ -235,12 +235,12 @@
                     android:padding="8dp"
                     android:textColor="#444"
                     android:textSize="18sp"/>
-                <com.car.contractcar.myapplication.ui.MyGridView
+                <com.car.contractcar.myapplication.common.ui.MyGridView
                     android:id="@+id/car_seat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
-                </com.car.contractcar.myapplication.ui.MyGridView>
+                </com.car.contractcar.myapplication.common.ui.MyGridView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

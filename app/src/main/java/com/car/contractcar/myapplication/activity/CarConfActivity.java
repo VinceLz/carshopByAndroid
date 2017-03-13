@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
-import com.car.contractcar.myapplication.utils.JsonUtils2;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.utils.JsonUtils2;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

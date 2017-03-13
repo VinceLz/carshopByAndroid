@@ -50,3 +50,4 @@ dependencies {
     compile 'hanks.xyz:htextview-library:0.1.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
 }
+

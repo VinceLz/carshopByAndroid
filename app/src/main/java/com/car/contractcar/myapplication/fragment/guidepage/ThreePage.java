@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.MainActivity;
-import com.car.contractcar.myapplication.ui.randomLayout.AnimationUtil;
-import com.car.contractcar.myapplication.utils.Constant;
+import com.car.contractcar.myapplication.common.ui.randomLayout.AnimationUtil;
+import com.car.contractcar.myapplication.common.utils.Constant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

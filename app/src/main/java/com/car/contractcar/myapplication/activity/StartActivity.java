@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.car.contractcar.myapplication.R;
-import com.car.contractcar.myapplication.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.Constant;
 
 public class StartActivity extends AppCompatActivity {
 

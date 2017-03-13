@@ -22,7 +22,7 @@ import com.car.contractcar.myapplication.fragment.BuycarFragment2;
 import com.car.contractcar.myapplication.fragment.FindFragment;
 import com.car.contractcar.myapplication.fragment.KeepcarFragment;
 import com.car.contractcar.myapplication.fragment.MeFragment;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 
 import java.util.List;
 
@@ -50,7 +50,6 @@ public class MainActivity extends FragmentActivity {
     private ImageView iv_me;
     private TextView tv_me;
     private LinearLayout ll_me;
-
     private LocationManager locationManager;
     private String locationProvider;
 
@@ -70,10 +69,10 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         initView();
-
+        initLocation();
         setSelect(0);
 
-        initLocation();
+
 
     }
 

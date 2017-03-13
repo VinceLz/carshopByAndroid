@@ -17,7 +17,7 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <com.car.contractcar.myapplication.ui.EduSohoIconView
+        <com.car.contractcar.myapplication.common.ui.EduSohoIconView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,7 +38,7 @@
                 android:src="@mipmap/fprice" />
         </LinearLayout>
 
-        <com.car.contractcar.myapplication.ui.EduSohoIconView
+        <com.car.contractcar.myapplication.common.ui.EduSohoIconView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -66,7 +66,7 @@
         android:background="#fff"
         android:padding="5dp">
 
-        <com.car.contractcar.myapplication.ui.LineEditText
+        <com.car.contractcar.myapplication.common.ui.LineEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -86,7 +86,7 @@
         android:background="#fff"
         android:padding="5dp">
 
-        <com.car.contractcar.myapplication.ui.LineEditText
+        <com.car.contractcar.myapplication.common.ui.LineEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="#999"

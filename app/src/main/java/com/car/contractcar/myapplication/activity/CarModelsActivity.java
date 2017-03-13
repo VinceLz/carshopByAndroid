@@ -19,10 +19,10 @@ import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.SelectData;
-import com.car.contractcar.myapplication.http.HttpUtil;
-import com.car.contractcar.myapplication.ui.EduSohoIconView;
-import com.car.contractcar.myapplication.utils.JsonUtils;
-import com.car.contractcar.myapplication.utils.UIUtils;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
+import com.car.contractcar.myapplication.common.utils.JsonUtils;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;

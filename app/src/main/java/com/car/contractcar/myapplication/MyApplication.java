@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
-import com.car.contractcar.myapplication.http.HttpUtil;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
 
 
 /**
@@ -18,7 +18,9 @@ public class MyApplication extends Application {
 
     public static Thread mainThread = null;
 
+
     public static int mainThreadId = 0;
+
 
     @Override
     public void onCreate() {
@@ -29,6 +31,6 @@ public class MyApplication extends Application {
 //        CrashHandler.getInstance().init(this);
         new HttpUtil(this);
 
-
     }
+
 }

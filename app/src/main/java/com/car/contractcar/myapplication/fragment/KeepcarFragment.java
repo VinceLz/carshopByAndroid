@@ -15,11 +15,11 @@ import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.entity.KeepCar;
-import com.car.contractcar.myapplication.http.HttpUtil;
-import com.car.contractcar.myapplication.ui.LoadingPage;
-import com.car.contractcar.myapplication.ui.MyGridView;
-import com.car.contractcar.myapplication.utils.Constant;
-import com.car.contractcar.myapplication.utils.JsonUtils;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.car.contractcar.myapplication.common.ui.LoadingPage;
+import com.car.contractcar.myapplication.common.ui.MyGridView;
+import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.loopj.android.http.RequestParams;
 
 import java.util.List;
