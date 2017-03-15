@@ -8,13 +8,19 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.common.ui.ListViewUtlis;
+import com.car.contractcar.myapplication.common.utils.JsonUtils2;
 import com.car.contractcar.myapplication.entity.CarDetail;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.LoadingDialog;
@@ -26,7 +32,10 @@ import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,8 +66,10 @@ public class CarDetailActivity extends AppCompatActivity {
     RelativeLayout activityCarDetail;
     @BindView(R.id.car_detail_fprice)
     ImageView carDetailFprice;
-    @BindView(R.id.conf_btn)
-    Button confBtn;
+    @BindView(R.id.car_conf_view_group)
+    LinearLayout carConfViewGroup;
+    //    @BindView(R.id.conf_btn)
+//    Button confBtn;
     private int mid;
     private CarDetail carDetail;
     private CarDetail.CarBean car;
@@ -67,6 +78,7 @@ public class CarDetailActivity extends AppCompatActivity {
     private View xmlView;
     private LoadingDialog dialog = null;
     private LoadingDialog loadingDialog = null;
+    private LinkedHashMap<String, LinkedHashMap<String, String>> jsonToPojo = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +115,18 @@ public class CarDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + mid, new HttpUtil.callBlack() {//// TODO: 16/12/24    数据哭数据太少 所以写死了mid为1
+        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + mid, new HttpUtil.callBlack() {
+
+
             @Override
             public void succcess(String code) {
                 carDetail = null;
                 carDetail = (CarDetail) JsonUtils.json2Bean(code, CarDetail.class);
+                String configure = carDetail.getCar().getConfigure();
+                jsonToPojo = (LinkedHashMap<String, LinkedHashMap<String, String>>) JsonUtils2
+                        .jsonToPojo(configure, LinkedHashMap.class);
+
+
                 UIUtils.runOnUIThread(new Runnable() {
                     @Override
                     public void run() {
@@ -188,6 +207,72 @@ public class CarDetailActivity extends AppCompatActivity {
 
 
         }
+
+
+        if (jsonToPojo != null) {
+            if (jsonToPojo != null) {
+                for (String key_1 : jsonToPojo.keySet()) {
+                    final String title = key_1;
+                    LinkedHashMap<String, String> stringStringHashMap = jsonToPojo.get(key_1);
+                    final int size = stringStringHashMap == null ? 0 : stringStringHashMap.size();
+
+                    Set<String> keySet1 = stringStringHashMap.keySet();
+                    final List<String> keys_2 = new ArrayList<>();
+                    final List<String> values = new ArrayList<>();
+
+                    for (String s : keySet1) {
+                        keys_2.add(s);
+                        values.add(stringStringHashMap.get(s));
+                    }
+
+                    ListView listView = new ListView(this);
+                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    listView.setLayoutParams(layoutParams);
+                    listView.setAdapter(new BaseAdapter() {
+                        @Override
+                        public int getCount() {
+                            return size;
+                        }
+
+                        @Override
+                        public Object getItem(int position) {
+                            return null;
+                        }
+
+                        @Override
+                        public long getItemId(int position) {
+                            return position;
+                        }
+
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                            if (position == 0) {
+                                TextView textView = new TextView(CarDetailActivity.this);
+                                textView.setTextSize(UIUtils.px2dp(60));
+                                textView.setPadding(80, 5, 0, 5);
+                                textView.setTextColor(Color.parseColor("#000000"));
+                                textView.setText(title);
+                                return textView;
+                            }
+
+                            View xmlView = UIUtils.getXmlView(R.layout.conf_list_item);
+                            TextView confName = (TextView) xmlView.findViewById(R.id.conf_name);
+                            TextView confValue = (TextView) xmlView.findViewById(R.id.conf_value);
+                            confName.setText(keys_2.get(position));
+                            confValue.setText(values.get(position));
+                            return xmlView;
+                        }
+                    });
+
+                    ListViewUtlis.setListViewHeight(listView);
+
+                    carConfViewGroup.addView(listView);
+                }
+            }
+        }
+
+
     }
 
     @OnClick(R.id.car_detail_back)
@@ -195,40 +280,41 @@ public class CarDetailActivity extends AppCompatActivity {
         this.onBackPressed();
 
     }
-
-    @OnClick(R.id.conf_btn)
-    public void onConf(View view) {
-        loadingDialog = new LoadingDialog(this, "配置加载中...");
-        loadingDialog.show();
-        HttpUtil.get("http://59.110.5.105/carshop/car/models/getconf.action?mid=" + mid, new HttpUtil.callBlack() {
-            @Override
-            public void succcess(final String code) {
-
-                UIUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingDialog.close();
-                        Intent intent = new Intent(CarDetailActivity.this, CarConfActivity.class);
-                        intent.putExtra("code", code);
-                        startActivity(intent);
-                        CarDetailActivity.this.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
-                    }
-                });
-
-            }
-
-            @Override
-            public void fail(String code) {
-
-            }
-
-            @Override
-            public void err() {
-
-            }
-        }, false);
-
-    }
+//
+//    @OnClick(R.id.conf_btn)
+//    public void onConf(View view) {
+//        loadingDialog = new LoadingDialog(this, "配置加载中...");
+//        loadingDialog.show();
+//        HttpUtil.get("http://59.110.5.105/carshop/car/models/getconf.action?mid=" + mid, new HttpUtil.callBlack() {
+//            @Override
+//            public void succcess(final String code) {
+//
+//
+//                UIUtils.runOnUIThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        loadingDialog.close();
+//                        Intent intent = new Intent(CarDetailActivity.this, CarConfActivity.class);
+//                        intent.putExtra("code", code);
+//                        startActivity(intent);
+//                        CarDetailActivity.this.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void fail(String code) {
+//
+//            }
+//
+//            @Override
+//            public void err() {
+//
+//            }
+//        }, false);
+//
+//    }
 
     @OnClick(R.id.car_detail_online)
     public void onLien(View view) {
@@ -265,4 +351,6 @@ public class CarDetailActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
+
+
 }

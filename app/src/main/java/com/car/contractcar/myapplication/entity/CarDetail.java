@@ -75,6 +75,15 @@ public class CarDetail {
         private String mname;
         private String mtitle;
         private List<String> mimage;
+        private String configure;
+
+        public String getConfigure() {
+            return configure;
+        }
+
+        public void setConfigure(String configure) {
+            this.configure = configure;
+        }
 
         public int getBid() {
             return bid;

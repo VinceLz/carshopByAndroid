@@ -185,14 +185,15 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/conf_btn"
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:background="#ffffff"
+                android:id="@+id/car_conf_view_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_margin="5dp"
-                android:padding="3dp"
-                android:text="详细配置" />
+                android:orientation="vertical"></LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -85,6 +85,7 @@ public class CarInfoActivity extends AppCompatActivity {
         dialog = new LoadingDialog(this, "玩命加载中...");
         dialog.show();
         //设置播放时间间隔
+
         viewPagesShopimg.setPlayDelay(2500);
         //设置透明度
         viewPagesShopimg.setAnimationDurtion(500);
