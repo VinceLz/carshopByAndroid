@@ -85,7 +85,7 @@ public class BuycarFragment2 extends Fragment {
     private int statusBarHeight2;
     private static int count = 0;
     private boolean isContinue;
-    private Intent intent = new Intent(Intent.ACTION_CALL);
+//    private Intent intent = new Intent(Intent.ACTION_CALL);
 
     private Thread myThread;
     private Handler handler = new Handler() {
@@ -437,8 +437,8 @@ public class BuycarFragment2 extends Fragment {
             car_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    intent.setData(Uri.parse("tel:" + homeCarstore.get(position).getBphone()));
-                    startActivity(intent);
+                    Constant.intent.setData(Uri.parse("tel:" + homeCarstore.get(position).getBphone()));
+                    startActivity(Constant.intent);
                 }
             });
 

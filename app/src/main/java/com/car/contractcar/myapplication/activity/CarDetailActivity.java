@@ -66,8 +66,10 @@ public class CarDetailActivity extends AppCompatActivity {
     RelativeLayout activityCarDetail;
     @BindView(R.id.car_detail_fprice)
     ImageView carDetailFprice;
-    @BindView(R.id.car_conf_view_group)
-    LinearLayout carConfViewGroup;
+    @BindView(R.id.activity_car_conf)
+    Button activity_car_conf;
+
+    private String configure;
     //    @BindView(R.id.conf_btn)
 //    Button confBtn;
     private int mid;
@@ -76,9 +78,8 @@ public class CarDetailActivity extends AppCompatActivity {
     private String mName;
     private int bid;
     private View xmlView;
-    private LoadingDialog dialog = null;
-    private LoadingDialog loadingDialog = null;
     private LinkedHashMap<String, LinkedHashMap<String, String>> jsonToPojo = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class CarDetailActivity extends AppCompatActivity {
         xmlView = UIUtils.getXmlView(R.layout.activity_car_detail);
         setContentView(xmlView);
         ButterKnife.bind(this);
+
         initView();
         initData();
         Log.e(TAG, "onCreate:xxxx ");
@@ -97,9 +99,7 @@ public class CarDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mid = intent.getIntExtra("mid", 1);
         bid = intent.getIntExtra("bid", 1);
-        //设置播放时间间隔
-        dialog = new LoadingDialog(this, "玩命加载中...");
-        dialog.show();
+
         carDetailImg.setPlayDelay(2500);
         //设置透明度
         carDetailImg.setAnimationDurtion(500);
@@ -122,11 +122,7 @@ public class CarDetailActivity extends AppCompatActivity {
             public void succcess(String code) {
                 carDetail = null;
                 carDetail = (CarDetail) JsonUtils.json2Bean(code, CarDetail.class);
-                String configure = carDetail.getCar().getConfigure();
-                jsonToPojo = (LinkedHashMap<String, LinkedHashMap<String, String>>) JsonUtils2
-                        .jsonToPojo(configure, LinkedHashMap.class);
-
-
+                configure = carDetail.getCar().getConfigure();
                 UIUtils.runOnUIThread(new Runnable() {
                     @Override
                     public void run() {
@@ -150,7 +146,6 @@ public class CarDetailActivity extends AppCompatActivity {
 
 
     private void refreshView() {
-        dialog.dismiss();
         if (carDetail != null) {
             car = carDetail.getCar();
 
@@ -179,7 +174,6 @@ public class CarDetailActivity extends AppCompatActivity {
             } else {
                 carDetailTitle.setVisibility(View.INVISIBLE);
             }
-            Log.e(TAG, "refreshView: ");
             List<CarDetail.RecommendBean> recommend = carDetail.getRecommend();
 
             carDetailHscrollview.removeAllViews();
@@ -197,7 +191,6 @@ public class CarDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             mid = recommendBean.getMid();
-                            dialog.show();
                             initData();
                         }
                     });
@@ -206,70 +199,6 @@ public class CarDetailActivity extends AppCompatActivity {
             }
 
 
-        }
-
-
-        if (jsonToPojo != null) {
-            if (jsonToPojo != null) {
-                for (String key_1 : jsonToPojo.keySet()) {
-                    final String title = key_1;
-                    LinkedHashMap<String, String> stringStringHashMap = jsonToPojo.get(key_1);
-                    final int size = stringStringHashMap == null ? 0 : stringStringHashMap.size();
-
-                    Set<String> keySet1 = stringStringHashMap.keySet();
-                    final List<String> keys_2 = new ArrayList<>();
-                    final List<String> values = new ArrayList<>();
-
-                    for (String s : keySet1) {
-                        keys_2.add(s);
-                        values.add(stringStringHashMap.get(s));
-                    }
-
-                    ListView listView = new ListView(this);
-                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    listView.setLayoutParams(layoutParams);
-                    listView.setAdapter(new BaseAdapter() {
-                        @Override
-                        public int getCount() {
-                            return size;
-                        }
-
-                        @Override
-                        public Object getItem(int position) {
-                            return null;
-                        }
-
-                        @Override
-                        public long getItemId(int position) {
-                            return position;
-                        }
-
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-
-                            if (position == 0) {
-                                TextView textView = new TextView(CarDetailActivity.this);
-                                textView.setTextSize(UIUtils.px2dp(60));
-                                textView.setPadding(80, 5, 0, 5);
-                                textView.setTextColor(Color.parseColor("#000000"));
-                                textView.setText(title);
-                                return textView;
-                            }
-
-                            View xmlView = UIUtils.getXmlView(R.layout.conf_list_item);
-                            TextView confName = (TextView) xmlView.findViewById(R.id.conf_name);
-                            TextView confValue = (TextView) xmlView.findViewById(R.id.conf_value);
-                            confName.setText(keys_2.get(position));
-                            confValue.setText(values.get(position));
-                            return xmlView;
-                        }
-                    });
-
-                    ListViewUtlis.setListViewHeight(listView);
-
-                    carConfViewGroup.addView(listView);
-                }
-            }
         }
 
 
@@ -343,11 +272,17 @@ public class CarDetailActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 
+
+    @OnClick(R.id.activity_car_conf)
+    public void activity_car_conf() {
+        Intent intent = new Intent(CarDetailActivity.this, CarConfActivity.class);
+        intent.putExtra("conf", configure);
+        startActivity(intent);
+    }
+
+
     @Override
     public void onBackPressed() {
-        loadingDialog = null;
-        dialog = null;
-
         super.onBackPressed();
         overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }

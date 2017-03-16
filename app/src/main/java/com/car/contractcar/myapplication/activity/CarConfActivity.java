@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.common.ui.ListViewUtlis;
 import com.car.contractcar.myapplication.common.utils.JsonUtils2;
@@ -48,15 +46,11 @@ public class CarConfActivity extends AppCompatActivity {
 
     private void initView() {
         Intent intent = getIntent();
-        final String code = intent.getStringExtra("code");
+        final String code = intent.getStringExtra("conf");
 
-
-        JSONObject jsonObject = (JSONObject) JSON.parse(code);
-        JSONObject model = jsonObject.getJSONObject("model");
-        JSONObject configure = (JSONObject) model.get("configure");
 
         LinkedHashMap<String, LinkedHashMap<String, String>> jsonToPojo = (LinkedHashMap<String, LinkedHashMap<String, String>>) JsonUtils2
-                .jsonToPojo(configure.toJSONString(), LinkedHashMap.class);
+                .jsonToPojo(code, LinkedHashMap.class);
 
         if (jsonToPojo != null) {
             for (String key_1 : jsonToPojo.keySet()) {
