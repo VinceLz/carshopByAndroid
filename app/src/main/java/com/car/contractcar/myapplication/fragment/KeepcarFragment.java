@@ -24,9 +24,11 @@ import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.ui.LoadingPage;
 import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.car.contractcar.myapplication.keepcar.bean.KeepHomeBean;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -143,8 +145,8 @@ public class KeepcarFragment extends Fragment {
 
                     @Override
                     public View getView(ViewGroup container, int position) {
-                        ImageView imageView = new ImageView(container.getContext());
-                        HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeImage.get(position).getImage())).into(imageView);
+                        SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
+                        ImageLoad.loadImg(imageView, homeImage.get(position).getImage());
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         return imageView;

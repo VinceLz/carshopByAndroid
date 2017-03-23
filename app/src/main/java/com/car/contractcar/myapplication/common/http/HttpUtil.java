@@ -50,7 +50,7 @@ public class HttpUtil {
     public static String udpName = "ALL";
     public static String server = "http://59.110.5.105/carshop/";
     //外网
-    public static String server_img = "http://59.110.5.105/carshop";
+    public static String server_img = "http://59.110.5.105";
     //内网
    // public static String server_img = "http://59.110.5.105";
     private static String api_path = "front/";
@@ -73,9 +73,9 @@ public class HttpUtil {
         return server + "admin/category/list.action";
     }
 
-    public static String getImage_path(String prame) {
-        return server_img + prame;
-    }
+//    public static String getImage_path(String prame) {
+//        return server_img + prame;
+//    }
 
     public static int POOL_SIZE = 8;
 

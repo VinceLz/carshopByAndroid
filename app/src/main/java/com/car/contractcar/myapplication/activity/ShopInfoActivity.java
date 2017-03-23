@@ -16,13 +16,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
-import com.car.contractcar.myapplication.entity.ShopInfo;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.LoadingDialog;
 import com.car.contractcar.myapplication.common.ui.LoadingPage;
 import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.car.contractcar.myapplication.entity.ShopInfo;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -33,8 +35,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.car.contractcar.myapplication.MyApplication.context;
 
 public class ShopInfoActivity extends AppCompatActivity {
 
@@ -151,10 +151,12 @@ public class ShopInfoActivity extends AppCompatActivity {
                 @Override
                 public View getView(ViewGroup container, int position) {
                     Log.e(TAG, "getView: " + shopInfo.getBusiness().getBimage().get(position));
-                    ImageView imageView = new ImageView(container.getContext());
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(shopInfo.getBusiness().getBimage().get(position))).into(imageView);
+                    SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
+                    ImageLoad.loadImg(imageView, shopInfo.getBusiness().getBimage().get(position));
+                    //  HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(shopInfo.getBusiness().getBimage().get(position))).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
                     return imageView;
                 }
 
@@ -213,9 +215,10 @@ public class ShopInfoActivity extends AppCompatActivity {
             }
 
 
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getGshowImage())).into(viewHolder.shopCarImg);
+            //HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getGshowImage())).into(viewHolder.shopCarImg);
+            ImageLoad.loadImg(viewHolder.shopCarImg, cars.get(position).getGshowImage());
             viewHolder.shopCarName.setText(cars.get(position).getGname());
-            viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getMinprice() + "万 ~ " + cars.get(position).getMaxprice()+"万");
+            viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getMinprice() + "万 ~ " + cars.get(position).getMaxprice() + "万");
             String title = cars.get(position).getTitle();
             if (!TextUtils.isEmpty(title)) {
                 viewHolder.shopCarTitle.setText(title);
@@ -225,7 +228,21 @@ public class ShopInfoActivity extends AppCompatActivity {
             return convertView;
         }
 
+    }
 
+    static class ViewHolder {
+        @BindView(R.id.shop_car_img)
+        SimpleDraweeView shopCarImg;
+        @BindView(R.id.shop_car_name)
+        TextView shopCarName;
+        @BindView(R.id.shop_car_price)
+        TextView shopCarPrice;
+        @BindView(R.id.shop_car_title)
+        TextView shopCarTitle;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
     @OnClick(R.id.shop_back)
@@ -265,20 +282,5 @@ public class ShopInfoActivity extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
-
-    static class ViewHolder {
-        @BindView(R.id.shop_car_img)
-        ImageView shopCarImg;
-        @BindView(R.id.shop_car_name)
-        TextView shopCarName;
-        @BindView(R.id.shop_car_price)
-        TextView shopCarPrice;
-        @BindView(R.id.shop_car_title)
-        TextView shopCarTitle;
-
-        ViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
-    }
 
 }

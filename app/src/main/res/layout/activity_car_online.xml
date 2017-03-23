@@ -60,7 +60,7 @@
         android:paddingRight="10dp"
         android:paddingTop="5dp">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/car_online_car_img"
             android:layout_width="80dp"
             android:layout_height="55dp" />

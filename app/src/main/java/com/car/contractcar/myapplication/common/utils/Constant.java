@@ -11,9 +11,9 @@ public class Constant {
     public static final int BUY_CAR = 1;
     public static final int KEEP_CAR = 0;
     //外网
-//   public static final String HTTP_BASE = "http://59.110.5.105/carshop/";
-//    内网
-    public static final String HTTP_BASE = "http://172.16.120.65:8080/carshop/";
+    public static final String HTTP_BASE = "http://59.110.5.105/carshop/";
+    //    内网
+    //public static final String HTTP_BASE = "http://172.16.120.65:8080/carshop/";
     public static final String HTTP_HOME = "home.action";
     public static final String HTTP_KEEP_CAR = "/ycstore/home.action";
 

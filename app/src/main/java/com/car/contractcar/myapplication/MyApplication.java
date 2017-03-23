@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.car.contractcar.myapplication.common.http.HttpUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 
 /**
@@ -28,6 +29,7 @@ public class MyApplication extends Application {
         handler = new Handler();
         mainThread = Thread.currentThread();
         mainThreadId = android.os.Process.myTid();
+        Fresco.initialize(this);
         new HttpUtil(this);
 
     }

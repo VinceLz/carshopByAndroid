@@ -8,15 +8,14 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="5"
         android:layout_height="wrap_content"
+        android:layout_weight="5"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/shop_car_img"
             android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/textimg" />
+            android:layout_height="80dp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,9 +36,9 @@
                 android:id="@+id/shop_car_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:text="指导价:30万~70万"
-                android:layout_marginTop="15dp"
                 android:textColor="#999"
                 android:textSize="12sp" />
 
@@ -48,32 +47,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="全系降价5000"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
+                android:text="全系降价5000"
                 android:textColor="#D44960"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
-   <!--<LinearLayout-->
-       <!--android:layout_weight="1"-->
-       <!--android:layout_width="0dp"-->
-       <!--android:gravity="center_horizontal"-->
-       <!--android:orientation="vertical"-->
-       <!--android:layout_height="match_parent">-->
-       <!--<ImageView-->
-           <!--android:layout_width="30dp"-->
-           <!--android:layout_height="30dp"-->
-           <!--android:src="@mipmap/bystages"/>-->
+    <!--<LinearLayout-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<ImageView-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:src="@mipmap/bystages"/>-->
 
-       <!--<TextView-->
-           <!--android:layout_width="wrap_content"-->
-           <!--android:layout_height="wrap_content"-->
-           <!--android:padding="5dp"-->
-           <!--android:text="分期政策"-->
-           <!--android:textColor="#D44960"-->
-           <!--android:textSize="10sp"-->
-           <!--android:id="@+id/textView3" />-->
-   <!--</LinearLayout>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="5dp"-->
+    <!--android:text="分期政策"-->
+    <!--android:textColor="#D44960"-->
+    <!--android:textSize="10sp"-->
+    <!--android:id="@+id/textView3" />-->
+    <!--</LinearLayout>-->
 </LinearLayout>

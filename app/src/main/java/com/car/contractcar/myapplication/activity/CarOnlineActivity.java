@@ -12,6 +12,8 @@ import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +28,7 @@ public class CarOnlineActivity extends AppCompatActivity {
     @BindView(R.id.car_online_car_name)
     TextView carOnlineCarName;
     @BindView(R.id.car_online_car_img)
-    ImageView carOnlineCarImg;
+    SimpleDraweeView carOnlineCarImg;
     private int mid;
     private String gname;
     private String mname;
@@ -49,7 +51,8 @@ public class CarOnlineActivity extends AppCompatActivity {
         image = intent.getStringExtra("image");
         carOnlineCarName.setText(mname);
         if (!TextUtils.isEmpty(image)) {
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(image)).into(carOnlineCarImg);
+            // HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(image)).into(carOnlineCarImg);
+            ImageLoad.loadImg(carOnlineCarImg, image);
         }
     }
 

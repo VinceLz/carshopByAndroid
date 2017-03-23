@@ -31,13 +31,15 @@ import com.car.contractcar.myapplication.activity.CarModelsActivity;
 import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.activity.ShopInfoActivity;
 import com.car.contractcar.myapplication.activity.SpecActivity;
-import com.car.contractcar.myapplication.entity.BuyCarIndex2;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.ui.LoadingPage;
 import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.car.contractcar.myapplication.entity.BuyCarIndex2;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
 import com.jude.rollviewpager.RollPagerView;
@@ -119,10 +121,6 @@ public class BuycarFragment2 extends Fragment {
     }
 
 
-
-
-
-
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
@@ -156,8 +154,7 @@ public class BuycarFragment2 extends Fragment {
                 } else {
                     return Constant.HTTP_BASE + Constant.HTTP_HOME;
                 }
-//
-//                return Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + longitude + "&latitude=" + latitude;
+
             }
         };
 
@@ -207,7 +204,7 @@ public class BuycarFragment2 extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("WangJ", "状态栏-方法2:" + statusBarHeight2);
+
 
         scTest.setOnTouchListener(new View.OnTouchListener() {
 
@@ -279,10 +276,12 @@ public class BuycarFragment2 extends Fragment {
 
                 @Override
                 public View getView(ViewGroup container, int position) {
-                    ImageView imageView = new ImageView(container.getContext());
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeImage.get(position).getImage())).into(imageView);
+                    SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
+//                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeImage.get(position).getImage())).into(imageView);
+
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    ImageLoad.loadImg(imageView, homeImage.get(position).getImage());
                     return imageView;
                 }
 
@@ -430,7 +429,7 @@ public class BuycarFragment2 extends Fragment {
                 dd = fnum.format(a);
                 holderView.distance.setText(dd + "Km");
             }
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(homeCarstore.get(position).getBshowImage())).into(holderView.carImg);
+            ImageLoad.loadImg(holderView.carImg, homeCarstore.get(position).getBshowImage());
 
             //电话
             ImageView car_call = (ImageView) convertView.findViewById(R.id.car_call);
@@ -455,20 +454,13 @@ public class BuycarFragment2 extends Fragment {
 
             return convertView;
         }
-    }
 
 
-    /**
-     * 百度地图导航
-     *
-     * @param position
-     */
-    private void locationShop(int position) {
     }
 
     static class ViewHolder {
         @BindView(R.id.car_img)
-        ImageView carImg;
+        SimpleDraweeView carImg;
         @BindView(R.id.store_name)
         TextView storeName;
         @BindView(R.id.store_address)
@@ -477,6 +469,10 @@ public class BuycarFragment2 extends Fragment {
         TextView carOwner;
         @BindView(R.id.distance)
         TextView distance;
+        @BindView(R.id.car_location)
+        ImageView carLocation;
+        @BindView(R.id.car_call)
+        ImageView carCall;
         @BindView(R.id.home_title1_text)
         TextView homeTitle1Text;
         @BindView(R.id.home_title1_ly)
@@ -489,6 +485,14 @@ public class BuycarFragment2 extends Fragment {
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+
+    /**
+     * 百度地图导航
+     *
+     * @param position
+     */
+    private void locationShop(int position) {
     }
 
 

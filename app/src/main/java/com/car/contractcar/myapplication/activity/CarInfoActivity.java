@@ -16,12 +16,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.common.ui.ListViewUtlis;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.entity.CarInfo;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.LoadingDialog;
 import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -151,12 +154,13 @@ public class CarInfoActivity extends AppCompatActivity {
 
                     @Override
                     public View getView(ViewGroup container, int position) {
-                        ImageView imageView = new ImageView(container.getContext());
+                        SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
 
-                        HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(car.getGimage().get(position))).into(imageView);
+                        //HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(car.getGimage().get(position))).into(imageView);
 
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        ImageLoad.loadImg(imageView, car.getGimage().get(position));
                         return imageView;
                     }
 
@@ -196,7 +200,8 @@ public class CarInfoActivity extends AppCompatActivity {
                             } else {
                                 viewHolder = (ViewHolder) convertView.getTag();
                             }
-                            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(datas.get(position).getMshowImage())).into(viewHolder.carInfoListItemImg);
+                            //  HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(datas.get(position).getMshowImage())).into(viewHolder.carInfoListItemImg);
+                            ImageLoad.loadImg(viewHolder.carInfoListItemImg, datas.get(position).getMshowImage());
                             viewHolder.carInfoListItemName.setText(car.getGname() + " " + datas.get(position).getMname());
                             viewHolder.carInfoListItemPrice.setText("指导价 : " + datas.get(position).getGprice() + "万");
                             viewHolder.carInfoListItemGuidegprice.setText("参考价 : " + datas.get(position).getGuidegprice() + "万");
@@ -225,7 +230,7 @@ public class CarInfoActivity extends AppCompatActivity {
                     });
                 }
 
-                setListViewHeight(shopCarList);
+                ListViewUtlis.setListViewHeight(shopCarList);
             }
         }
     }
@@ -237,35 +242,10 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * 重新计算listview的高度
-     *
-     * @param listView
-     */
-    public void setListViewHeight(ListView listView) {
-
-        // 获取ListView对应的Adapter
-
-        ListAdapter listAdapter = listView.getAdapter();
-
-        if (listAdapter == null) {
-            return;
-        }
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0); // 计算子项View 的宽高
-            totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
 
     static class ViewHolder {
         @BindView(R.id.car_info_list_item_img)
-        ImageView carInfoListItemImg;
+        SimpleDraweeView carInfoListItemImg;
         @BindView(R.id.car_info_list_item_name)
         TextView carInfoListItemName;
         @BindView(R.id.car_info_list_item_price)

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.common.ui.ListViewUtlis;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils2;
 import com.car.contractcar.myapplication.entity.CarDetail;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
@@ -27,6 +28,7 @@ import com.car.contractcar.myapplication.common.ui.LoadingDialog;
 import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -153,10 +155,11 @@ public class CarDetailActivity extends AppCompatActivity {
 
                 @Override
                 public View getView(ViewGroup container, int position) {
-                    ImageView imageView = new ImageView(container.getContext());
-                    Picasso.with(context).load(HttpUtil.getImage_path(car.getMimage().get(position))).into(imageView);
+                    SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
+                    // Picasso.with(context).load(HttpUtil.getImage_path(car.getMimage().get(position))).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    ImageLoad.loadImg(imageView, car.getMimage().get(position));
                     return imageView;
                 }
 
@@ -181,9 +184,10 @@ public class CarDetailActivity extends AppCompatActivity {
                 //适配横向滑动的scrollview的数据
                 for (final CarDetail.RecommendBean recommendBean : recommend) {
                     LinearLayout recommendItemView = (LinearLayout) UIUtils.getXmlView(R.layout.car_detail_recommend_item);
-                    ImageView recommendItemImg = (ImageView) recommendItemView.findViewById(R.id.car_detail_recommend_item_img);
+                    SimpleDraweeView recommendItemImg = (SimpleDraweeView) recommendItemView.findViewById(R.id.car_detail_recommend_item_img);
                     TextView recommendItemTitle = (TextView) recommendItemView.findViewById(R.id.car_detail_recommend_item_title);
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(recommendBean.getMshowImage())).into(recommendItemImg);
+                    // HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(recommendBean.getMshowImage())).into(recommendItemImg);
+                    ImageLoad.loadImg(recommendItemImg, recommendBean.getMshowImage());
                     recommendItemTitle.setText(recommendBean.getMname() + "\n" + "指导价 : " + recommendBean.getGuidegprice() + "万");
                     carDetailHscrollview.addView(recommendItemView);
 
@@ -209,41 +213,7 @@ public class CarDetailActivity extends AppCompatActivity {
         this.onBackPressed();
 
     }
-//
-//    @OnClick(R.id.conf_btn)
-//    public void onConf(View view) {
-//        loadingDialog = new LoadingDialog(this, "配置加载中...");
-//        loadingDialog.show();
-//        HttpUtil.get("http://59.110.5.105/carshop/car/models/getconf.action?mid=" + mid, new HttpUtil.callBlack() {
-//            @Override
-//            public void succcess(final String code) {
-//
-//
-//                UIUtils.runOnUIThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        loadingDialog.close();
-//                        Intent intent = new Intent(CarDetailActivity.this, CarConfActivity.class);
-//                        intent.putExtra("code", code);
-//                        startActivity(intent);
-//                        CarDetailActivity.this.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
-//                    }
-//                });
-//
-//            }
-//
-//            @Override
-//            public void fail(String code) {
-//
-//            }
-//
-//            @Override
-//            public void err() {
-//
-//            }
-//        }, false);
-//
-//    }
+
 
     @OnClick(R.id.car_detail_online)
     public void onLien(View view) {

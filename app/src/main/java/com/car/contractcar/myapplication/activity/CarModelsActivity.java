@@ -18,11 +18,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.entity.SelectData;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -107,10 +109,11 @@ public class CarModelsActivity extends AppCompatActivity {
 
                 @Override
                 public View getView(ViewGroup container, int position) {
-                    ImageView imageView = new ImageView(container.getContext());
-                    HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(selectData.getImage().get(position).getImage())).into(imageView);
+                    SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
+                    // HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(selectData.getImage().get(position).getImage())).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    ImageLoad.loadImg(imageView, selectData.getImage().get(position).getImage());
                     return imageView;
                 }
 
@@ -149,7 +152,8 @@ public class CarModelsActivity extends AppCompatActivity {
                         } else {
                             holderView = (ViewHolder) convertView.getTag();
                         }
-                        HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(datas.get(position).getGshowImage())).into(holderView.carModelsListItemImg);
+                        //HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(datas.get(position).getGshowImage())).into(holderView.carModelsListItemImg);
+                        ImageLoad.loadImg(holderView.carModelsListItemImg, datas.get(position).getGshowImage());
                         holderView.carModelsListItemName.setText(datas.get(position).getGname());
                         holderView.carModelsListItemPrice.setText("指导价 : " + datas.get(position).getMinprice() + "~" + datas.get(position).getMinprice());
                         if (!TextUtils.isEmpty(datas.get(position).getTitle())) {
@@ -207,7 +211,7 @@ public class CarModelsActivity extends AppCompatActivity {
 
     static class ViewHolder {
         @BindView(R.id.car_models_list_item_img)
-        ImageView carModelsListItemImg;
+        SimpleDraweeView carModelsListItemImg;
         @BindView(R.id.car_models_list_item_name)
         TextView carModelsListItemName;
         @BindView(R.id.car_models_list_item_price)

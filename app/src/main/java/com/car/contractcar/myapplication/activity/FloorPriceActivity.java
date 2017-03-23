@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.entity.FloorPrice;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
@@ -19,6 +20,7 @@ import com.car.contractcar.myapplication.common.ui.LineEditText;
 import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +45,7 @@ public class FloorPriceActivity extends AppCompatActivity {
     @BindView(R.id.fprice_ok)
     Button fpriceOk;
     @BindView(R.id.car_icon)
-    ImageView carIcon;
+    SimpleDraweeView carIcon;
     @BindView(R.id.store_name)
     TextView storeName;
     @BindView(R.id.store_address)
@@ -116,7 +118,8 @@ public class FloorPriceActivity extends AppCompatActivity {
 
     private void refreshView() {
         if (floorPrice.getBusiness() != null) {
-            HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(floorPrice.getBusiness().getBshowImage())).into(carIcon);
+            //HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(floorPrice.getBusiness().getBshowImage())).into(carIcon);
+            ImageLoad.loadImg(carIcon, floorPrice.getBusiness().getBshowImage());
             carOwner.setText("主营车型: " + floorPrice.getBusiness().getMajorbusiness());
             storeName.setText(floorPrice.getBusiness().getBname());
             storeAddress.setText(floorPrice.getBusiness().getBaddress());

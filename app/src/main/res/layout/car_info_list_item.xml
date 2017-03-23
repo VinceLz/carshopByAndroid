@@ -14,11 +14,10 @@
         android:background="#fff"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/car_info_list_item_img"
             android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/textimg" />
+            android:layout_height="80dp" />
 
 
         <LinearLayout

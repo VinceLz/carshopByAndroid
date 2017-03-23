@@ -18,11 +18,11 @@
         android:padding="5dp">
 
         <com.car.contractcar.myapplication.common.ui.EduSohoIconView
+            android:id="@+id/fprice_back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:id="@+id/fprice_back"
             android:text="@string/fback"
             android:textColor="#fff" />
 
@@ -67,14 +67,14 @@
         android:padding="5dp">
 
         <com.car.contractcar.myapplication.common.ui.LineEditText
+            android:id="@+id/fprice_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:id="@+id/fprice_phone"
             android:hint="请输入手机号码"
             android:inputType="number"
-            android:textColorHint="#999"
             android:paddingBottom="5dp"
+            android:textColorHint="#999"
             android:textSize="12sp"
             line:lineColorEt="#999" />
     </RelativeLayout>
@@ -87,13 +87,13 @@
         android:padding="5dp">
 
         <com.car.contractcar.myapplication.common.ui.LineEditText
+            android:id="@+id/fprice_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#999"
             android:background="@null"
-            android:id="@+id/fprice_name"
             android:hint="请输入姓名"
             android:paddingBottom="5dp"
+            android:textColorHint="#999"
             android:textSize="12sp"
             line:lineColorEt="#999" />
     </RelativeLayout>
@@ -114,12 +114,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/car_icon"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
-                android:padding="3dp"
-                android:src="@mipmap/textimg" />
+                android:padding="3dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -209,10 +208,10 @@
                 android:id="@+id/floor_price_title1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:paddingLeft="5dp"
                 android:text="进店就有大礼包"
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:textColor="#BE103E"
                 android:textSize="13sp" />
         </LinearLayout>
