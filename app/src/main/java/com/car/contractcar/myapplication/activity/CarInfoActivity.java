@@ -87,19 +87,8 @@ public class CarInfoActivity extends AppCompatActivity {
 
         dialog = new LoadingDialog(this, "玩命加载中...");
         dialog.show();
-        //设置播放时间间隔
-
         viewPagesShopimg.setPlayDelay(2500);
-        //设置透明度
         viewPagesShopimg.setAnimationDurtion(500);
-
-
-        //设置指示器（顺序依次）
-        //自定义指示器图片
-        //设置圆点指示器颜色
-        //设置文字指示器
-        //隐藏指示器
-        //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         viewPagesShopimg.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
         shopCarList.setFocusable(false);
     }
@@ -155,9 +144,6 @@ public class CarInfoActivity extends AppCompatActivity {
                     @Override
                     public View getView(ViewGroup container, int position) {
                         SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
-
-                        //HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(car.getGimage().get(position))).into(imageView);
-
                         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                         ImageLoad.loadImg(imageView, car.getGimage().get(position));
@@ -200,7 +186,6 @@ public class CarInfoActivity extends AppCompatActivity {
                             } else {
                                 viewHolder = (ViewHolder) convertView.getTag();
                             }
-                            //  HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(datas.get(position).getMshowImage())).into(viewHolder.carInfoListItemImg);
                             ImageLoad.loadImg(viewHolder.carInfoListItemImg, datas.get(position).getMshowImage());
                             viewHolder.carInfoListItemName.setText(car.getGname() + " " + datas.get(position).getMname());
                             viewHolder.carInfoListItemPrice.setText("指导价 : " + datas.get(position).getGprice() + "万");

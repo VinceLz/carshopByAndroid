@@ -1,6 +1,5 @@
 package com.car.contractcar.myapplication.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
@@ -15,12 +14,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.MainActivity;
-import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.ui.LoadingPage;
 import com.car.contractcar.myapplication.common.utils.Constant;
@@ -40,8 +37,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.car.contractcar.myapplication.MyApplication.context;
-
 /**
  * Created by macmini2 on 16/11/5.
  */
@@ -59,11 +54,12 @@ public class KeepcarFragment extends Fragment {
     @BindView(R.id.lay_search)
     LinearLayout laySearch;
     private LoadingPage loadingPage;
-
+    private DecimalFormat fnum;
     private Location location;
     private KeepHomeBean keepHomeBean = null;
     private int f;
     private int[] rids = new int[]{R.id.img_1, R.id.img_2, R.id.img_3, R.id.img_4, R.id.img_5};
+    private String dd;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -89,6 +85,7 @@ public class KeepcarFragment extends Fragment {
             protected void OnSuccess(ResultState resultState, View successView) {
                 ButterKnife.bind(KeepcarFragment.this, successView);
                 if (!TextUtils.isEmpty(resultState.getContent())) {
+                    String content = resultState.getContent();
                     keepHomeBean = (KeepHomeBean) JsonUtils.json2Bean(resultState.getContent(), KeepHomeBean.class);
                 }
 
@@ -164,6 +161,7 @@ public class KeepcarFragment extends Fragment {
             if (ycstore != null && ycstore.size() > 0) {
                 keepcarList.setAdapter(new BaseAdapter() {
 
+
                     private int score;
 
                     @Override
@@ -194,29 +192,34 @@ public class KeepcarFragment extends Fragment {
                         }
                         final KeepHomeBean.YcstoreBean ycstoreBean = ycstore.get(position);
 
-//                        f = Integer.parseInt(ycstore.get(position).getDistance() != null ?
-//                                ycstore.get(position).getDistance() : "0");
-//                        if (f < 1000) {
-//                            holderView.keepcarShopDistance.setText(f + "m");
-//                        } else {
-//                            float a = (float) f / 1000;
-//                            fnum = new DecimalFormat("##.0");
-//                            dd = fnum.format(a);
-//                            holderView.distance.setText(dd + "Km");
-//                        }
+                        f = Integer.parseInt(ycstore.get(position).getDistance() != null ?
+                                ycstore.get(position).getDistance() : "0");
+                        if (f < 1000) {
+                            holderView.keepcarShopDistance.setText(f + "m");
+                        } else {
+                            float a = (float) f / 1000;
+                            fnum = new DecimalFormat("##.0");
+                            dd = fnum.format(a);
+                            holderView.keepcarShopDistance.setText(dd + "Km");
+                        }
 
                         holderView.keepcarShopName.setText(ycstoreBean.getMbname());
                         holderView.keepcarShopAdderss.setText(ycstoreBean.getBaddress());
                         holderView.keepcarShopText.setText(ycstoreBean.getPurchase() + "人购买 " + ycstoreBean.getCommentcount() + "条评论");
                         score = ycstoreBean.getScore();
-//                        if (score < 0 || score > 5) {
-//                            score = 0;
-//                        }
-//                        for (int i = 0; i < score; i++) {
-//                            convertView.findViewById(rids[4 - i]).setVisibility(View.INVISIBLE);
-//                        }
+                        if (score < 0 || score > 5) {
+                            score = 0;
+                        }
 
-                        holderView.textView3.setText(score + ".0");
+                        for (int i = score; i < 5; i++) {
+                            convertView.findViewById(rids[i]).setVisibility(View.INVISIBLE);
+                        }
+                        if (score == 0) {
+                            holderView.textView3.setText(score + " 分");
+                        }else {
+                            holderView.textView3.setText(score + ".0 分");
+                        }
+
                         if (!TextUtils.isEmpty(ycstoreBean.getTitle1())) {
                             holderView.keepcarShopTitle1Text.setText(ycstoreBean.getTitle1());
                         } else {
@@ -227,6 +230,9 @@ public class KeepcarFragment extends Fragment {
                         } else {
                             holderView.keepcarShopTitle2Text.setVisibility(View.INVISIBLE);
                         }
+
+                        ImageLoad.loadImg(holderView.keepcarShopImg, ycstoreBean.getBshowimage());
+
 
                         //电话
 
@@ -246,7 +252,7 @@ public class KeepcarFragment extends Fragment {
 
     static class ViewHolder {
         @BindView(R.id.keepcar_shop_img)
-        ImageView keepcarShopImg;
+        SimpleDraweeView keepcarShopImg;
         @BindView(R.id.keepcar_shop_name)
         TextView keepcarShopName;
         @BindView(R.id.textView3)

@@ -8,10 +8,11 @@ import java.util.List;
 
 public class KeepHomeBean {
 
+
     /**
      * status : 1
      * homeImage : [{"image":"/img/menu_viewpager_1.png","url":"http://www.qq.com"},{"image":"/img/menu_viewpager_1.png","url":"http://www.qq.com"}]
-     * ycstore : [{"baddress":"2","bphone":"2","bshowimage":"2","commentcount":0,"isHot":1,"mbid":3,"mbname":"2","purchase":0,"score":0,"title1":"2","title2":"11111"},{"baddress":"2","bphone":"2","bshowimage":"2","commentcount":0,"isHot":1,"mbid":2,"mbname":"2","purchase":0,"score":0,"title1":"2","title2":"11111"},{"baddress":"1","bphone":"1","bshowimage":"1","commentcount":0,"isHot":1,"mbid":1,"mbname":"1","purchase":0,"score":0,"title1":"1","title2":"11111"}]
+     * ycstore : [{"baddress":"2","bphone":"2","bshowimage":"2","commentcount":0,"distance":"12862692","isHot":0,"mbid":2,"mbname":"2","purchase":0,"score":0,"title1":"2","title2":"11111"}]
      */
 
     private int status;
@@ -26,8 +27,9 @@ public class KeepHomeBean {
      * bphone : 2
      * bshowimage : 2
      * commentcount : 0
-     * isHot : 1
-     * mbid : 3
+     * distance : 12862692
+     * isHot : 0
+     * mbid : 2
      * mbname : 2
      * purchase : 0
      * score : 0
@@ -87,6 +89,7 @@ public class KeepHomeBean {
         private String bphone;
         private String bshowimage;
         private int commentcount;
+        private String distance;
         private int isHot;
         private int mbid;
         private String mbname;
@@ -125,6 +128,14 @@ public class KeepHomeBean {
 
         public void setCommentcount(int commentcount) {
             this.commentcount = commentcount;
+        }
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public void setDistance(String distance) {
+            this.distance = distance;
         }
 
         public int getIsHot() {
