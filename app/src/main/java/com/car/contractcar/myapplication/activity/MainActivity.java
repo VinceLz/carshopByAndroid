@@ -1,9 +1,6 @@
 package com.car.contractcar.myapplication.activity;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,16 +12,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.common.ui.LoadingDialog;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.car.contractcar.myapplication.fragment.BuycarFragment2;
 import com.car.contractcar.myapplication.fragment.FindFragment;
 import com.car.contractcar.myapplication.fragment.KeepcarFragment;
 import com.car.contractcar.myapplication.fragment.MeFragment;
-import com.car.contractcar.myapplication.common.utils.UIUtils;
-
-import java.util.List;
 
 
 public class MainActivity extends FragmentActivity {
@@ -52,55 +51,49 @@ public class MainActivity extends FragmentActivity {
     private LinearLayout ll_me;
     private LocationManager locationManager;
     private String locationProvider;
+    private LocationClient mLocationClient;
+    private BDLocationListener mBDLocationListener;
+    public static BDLocation bdLocation;
+    private LoadingDialog loadingDialog;
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    private Location location = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        loadingDialog = new LoadingDialog(this, "定位中...");
+// 声明LocationClient类
+        mLocationClient = new LocationClient(getApplicationContext());
+        mBDLocationListener = new MyBDLocationListener();
+        // 注册监听
+        mLocationClient.registerLocationListener(mBDLocationListener);
         initView();
-        initLocation();
-        setSelect(0);
-
+        //  initLocation();
+        loadingDialog.show();
+        getLocation();
+        // setSelect(0);
 
 
     }
 
-    private void initLocation() {
-        //获取地理位置管理器
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //获取所有可用的位置提供器
-        List<String> providers = locationManager.getProviders(true);
-        if (providers.contains(LocationManager.GPS_PROVIDER)) {
-            //如果是GPS
-            locationProvider = LocationManager.GPS_PROVIDER;
-        } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
-            //如果是Network
-            locationProvider = LocationManager.NETWORK_PROVIDER;
-        } else {
-            Toast.makeText(this, "没有可用的位置提供器", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        //获取Location
-        location = locationManager.getLastKnownLocation(locationProvider);
-        if (location != null) {
-            //不为空,显示地理位置经纬度
-            //showLocation(location);
-            setLocation(location);
-            Log.e(TAG, "onActivityCreated: " + "维度：" + location.getLatitude() + "经度：" + location.getLongitude());
-        }
-        //监视地理位置变化
-        locationManager.requestLocationUpdates(locationProvider, 3000, 1, locationListener);
+    /**
+     * 获得所在位置经纬度及详细地址
+     */
+    public LocationClient getLocation() {
+
+        // 声明定位参数
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式 高精度
+        option.setCoorType("bd09ll");// 设置返回定位结果是百度经纬度 默认gcj02
+        option.setScanSpan(100);// 设置发起定位请求的时间间隔 单位ms
+        option.setIsNeedAddress(true);// 设置定位结果包含地址信息
+        option.setNeedDeviceDirect(true);// 设置定位结果包含手机机头 的方向
+        // 设置定位参数
+        mLocationClient.setLocOption(option);
+        // 启动定位
+        mLocationClient.start();
+
+        return mLocationClient;
     }
 
 
@@ -248,30 +241,30 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-
-    LocationListener locationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-            //如果位置发生变化,重新显示
-            MainActivity.this.setLocation(location);
-            Log.e(TAG, "onActivityCreated: " + "维度：" + location.getLatitude() + "经度：" + location.getLongitude());
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
+//
+//    LocationListener locationListener = new LocationListener() {
+//        @Override
+//        public void onLocationChanged(Location location) {
+//            //如果位置发生变化,重新显示
+//            MainActivity.this.setLocation(location);
+//            Log.e(TAG, "onActivityCreated: " + "维度：" + location.getLatitude() + "经度：" + location.getLongitude());
+//        }
+//
+//        @Override
+//        public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//        }
+//
+//        @Override
+//        public void onProviderEnabled(String provider) {
+//
+//        }
+//
+//        @Override
+//        public void onProviderDisabled(String provider) {
+//
+//        }
+//    };
 
     /**
      * activity销毁时移除监听器
@@ -279,9 +272,40 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (locationManager != null) {
-            //移除监听器
-            locationManager.removeUpdates(locationListener);
+//        if (locationManager != null) {
+//            //移除监听器
+//            locationManager.removeUpdates(locationListener);
+//        }
+        if (mLocationClient != null) {
+            mLocationClient.unRegisterLocationListener(mBDLocationListener);
+        }
+    }
+
+    class MyBDLocationListener implements BDLocationListener {
+
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // 非空判断
+            if (location != null) {
+                // 根据BDLocation 对象获得经纬度以及详细地址信息
+                bdLocation = location;
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                Log.i(TAG, "latitude:" + latitude
+                        + " longitude:" + longitude + "---");
+                if (mLocationClient.isStarted()) {
+                    mLocationClient.stop();
+                    UIUtils.runOnUIThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingDialog.dismiss();
+                            loadingDialog.close();
+                            setSelect(0);
+                        }
+                    });
+                }
+            }
         }
     }
 }

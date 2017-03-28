@@ -4,9 +4,11 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
@@ -60,13 +64,15 @@ public class KeepcarFragment extends Fragment {
     private int f;
     private int[] rids = new int[]{R.id.img_1, R.id.img_2, R.id.img_3, R.id.img_4, R.id.img_5};
     private String dd;
+    private BDLocation bdLocation;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         MainActivity activity = (MainActivity) getActivity();
-        location = activity.getLocation();
+        bdLocation = MainActivity.bdLocation;
         loadingPage.show();
+
     }
 
     @Nullable
@@ -103,8 +109,8 @@ public class KeepcarFragment extends Fragment {
 
             @Override
             protected String url() {
-                if (location != null) {
-                    return Constant.HTTP_BASE + Constant.HTTP_KEEP_CAR + "?longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude();
+                if (bdLocation != null) {
+                    return Constant.HTTP_BASE + Constant.HTTP_KEEP_CAR + "?longitude=" + bdLocation.getLongitude() + "&latitude=" + bdLocation.getLatitude();
                 } else {
                     return Constant.HTTP_BASE + Constant.HTTP_KEEP_CAR;
                 }

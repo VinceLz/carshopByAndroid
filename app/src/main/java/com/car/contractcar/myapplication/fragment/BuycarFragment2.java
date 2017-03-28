@@ -26,6 +26,8 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.CarModelsActivity;
 import com.car.contractcar.myapplication.activity.MainActivity;
@@ -110,12 +112,13 @@ public class BuycarFragment2 extends Fragment {
     private int[] position1;
     private int f;
     Location location;
+    private BDLocation bdLocation;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         MainActivity activity = (MainActivity) getActivity();
-        location = activity.getLocation();
+        bdLocation = MainActivity.bdLocation;
         loadingPage.show();
 
     }
@@ -148,9 +151,9 @@ public class BuycarFragment2 extends Fragment {
 
             @Override
             protected String url() {
-                if (location != null) {
-                    Log.e(TAG, Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude());
-                    return Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude();
+                if (bdLocation != null) {
+                    Log.e(TAG, Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + bdLocation.getLongitude() + "&latitude=" + bdLocation.getLatitude());
+                    return Constant.HTTP_BASE + Constant.HTTP_HOME + "?longitude=" + bdLocation.getLongitude() + "&latitude=" + bdLocation.getLatitude();
                 } else {
                     return Constant.HTTP_BASE + Constant.HTTP_HOME;
                 }
