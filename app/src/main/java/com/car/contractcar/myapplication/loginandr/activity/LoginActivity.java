@@ -2,13 +2,11 @@ package com.car.contractcar.myapplication.loginandr.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +19,6 @@ import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.utils.Constant;
-import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
 
 import java.util.HashMap;
@@ -29,7 +26,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -174,6 +170,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.makeText(LoginActivity.this, "user error", Toast.LENGTH_SHORT).show();
                             } else if (status == 1) {
                                 // TODO: 17/3/28  登录成功
+//                                UIUtils.SpputString(Constant.USER_SP);
                             }
                         }
                     });

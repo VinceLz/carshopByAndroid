@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.car.contractcar.myapplication.loginandr.activity.LoginActivity;
 
 import org.w3c.dom.Text;
@@ -22,7 +23,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         SharedPreferences sharedPreferences = getSharedPreferences(Constant.CAR, MODE_PRIVATE);
         final int start_info = sharedPreferences.getInt("start_info", 0);
-        final String user = sharedPreferences.getString("username", "");
+        final String user = UIUtils.SpgetString(Constant.USER_SP);
         new Handler(new Handler.Callback() {
             //处理接收到的消息的方法
             @Override

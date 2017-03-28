@@ -3,6 +3,7 @@ package com.car.contractcar.myapplication.common.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,9 @@ import com.car.contractcar.myapplication.R;
  * Created by Administrator on 2015/12/11.
  */
 public class UIUtils {
+
+
+    private static final String CAR_SP = "CAR_SP";
 
     public static int getColor(int colorId) {
         return getContext().getResources().getColor(colorId);
@@ -89,5 +93,18 @@ public class UIUtils {
         activity.startActivity(intent);
         //    右往左推出效果
         activity.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
+
+
+    public static String SpgetString(String key) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CAR_SP, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(key, "");
+    }
+
+    public static void SpputString(String key, String value) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(CAR_SP, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putString(key, value);
+        edit.commit();
     }
 }

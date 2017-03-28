@@ -57,11 +57,11 @@ public class ThreePage extends Fragment {
     @OnClick(R.id.start_btn)
     public void startbtn(View view) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.CAR, Context.MODE_PRIVATE);
-        String user = sharedPreferences.getString("username", "");
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putInt("t", Constant.BUY_CAR);
         edit.putInt("start_info", 1);
         edit.commit();
+        String user = UIUtils.SpgetString(Constant.USER_SP);
         if (TextUtils.isEmpty(user)) {
             UIUtils.startAnActivity(new Intent(getActivity(), LoginActivity.class), getActivity());
         } else {
