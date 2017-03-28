@@ -1,11 +1,14 @@
 package com.car.contractcar.myapplication.common.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
 import com.car.contractcar.myapplication.MyApplication;
+import com.car.contractcar.myapplication.R;
 
 
 /**
@@ -79,5 +82,12 @@ public class UIUtils {
 
     public static void Toast(String text, boolean isLong) {
         Toast.makeText(getContext(), text, isLong == true ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
+    }
+
+
+    public static void startAnActivity(Intent intent, Activity activity) {
+        activity.startActivity(intent);
+        //    右往左推出效果
+        activity.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 }

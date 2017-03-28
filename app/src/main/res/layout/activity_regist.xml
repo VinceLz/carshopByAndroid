@@ -7,44 +7,7 @@
     android:orientation="vertical"
     tools:context="com.car.contractcar.myapplication.loginandr.activity.RegistActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#42A4B2"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp">
 
-        <com.car.contractcar.myapplication.common.ui.EduSohoIconView
-            android:id="@+id/keep_car_service_back"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/fback"
-            android:textColor="#fff" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="行吧买车养车"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-
-        <com.car.contractcar.myapplication.common.ui.EduSohoIconView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/fmore"
-            android:textColor="#fff" />
-    </LinearLayout>
-
-    <com.car.contractcar.myapplication.common.ui.LineEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

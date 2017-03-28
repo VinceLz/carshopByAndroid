@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.common.ui.randomLayout.AnimationUtil;
 import com.car.contractcar.myapplication.common.utils.Constant;
+import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.car.contractcar.myapplication.loginandr.activity.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,11 +57,17 @@ public class ThreePage extends Fragment {
     @OnClick(R.id.start_btn)
     public void startbtn(View view) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.CAR, Context.MODE_PRIVATE);
+        String user = sharedPreferences.getString("username", "");
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putInt("t", Constant.BUY_CAR);
         edit.putInt("start_info", 1);
         edit.commit();
-        startActivity(new Intent(getActivity(), MainActivity.class));
+        if (TextUtils.isEmpty(user)) {
+            UIUtils.startAnActivity(new Intent(getActivity(), LoginActivity.class), getActivity());
+        } else {
+
+            UIUtils.startAnActivity(new Intent(getActivity(), MainActivity.class), getActivity());
+        }
         getActivity().finish();
     }
 

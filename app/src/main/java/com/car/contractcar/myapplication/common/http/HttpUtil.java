@@ -52,7 +52,7 @@ public class HttpUtil {
     //外网
     public static String server_img = "http://59.110.5.105";
     //内网
-   // public static String server_img = "http://59.110.5.105";
+    // public static String server_img = "http://59.110.5.105";
     private static String api_path = "front/";
     private static String admin_path = "admin/";
     private static String api_end = ".action";
@@ -149,14 +149,14 @@ public class HttpUtil {
                                 Log.v("####reslut", stre);
                                 JSONObject obj = null;
                                 try {
-                                    obj = new JSONObject(stre);
-                                    int reCode = obj.getInt("status");
-                                    if (1 == reCode) {
-                                        callb.succcess(stre);
-                                    } else {
-                                        callb.fail(stre);
-                                    }
-                                } catch (JSONException e) {
+//                                    obj = new JSONObject(stre);
+//                                    int reCode = obj.getInt("status");
+//                                    if (1 == reCode) {
+                                    callb.succcess(stre);
+//                                    } else {
+//                                        callb.fail(stre);
+//                                    }
+                                } catch (Exception e) {
                                     callb.fail(stre);
                                 }
                             }

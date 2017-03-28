@@ -24,7 +24,7 @@ public class Constant {
     public static final String HTTP_FLOOR_PRICE = "store/get.action?bid=";
     public static final String HTTP_SELECT = "home/car";
     public static final String HTTP_CAR_COLOR = "car/models/getColor.action?mid=";
-
+    public static final String HTTP_LOGIN = "/user/login.action";
 
     public static final String[] TransmissionCase = {"手动", "自动"};
     public static final String[] displacement = {"1.0及以下", "1.1-1.6L", "1.7-2.0L", "2.1-2.5L", "2.6-3.0L", "3.1-4.0L", "4.0L以上"};
@@ -34,6 +34,7 @@ public class Constant {
     public static final String[] seat = {"2座", "4座", "5座", "6座", "7座", "7座以上"};
     public static final String[] structure = {"两厢", "三厢", "掀背", "旅行版", "硬顶敞篷车", "软顶敞篷车", "硬顶跑车", "客车", "货车"};
     public static final String[] production = {"自主", "合资", "进口"};
+
 
     public static Intent intent = new Intent(Intent.ACTION_CALL);
 
