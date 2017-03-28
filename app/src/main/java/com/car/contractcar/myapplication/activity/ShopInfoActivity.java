@@ -23,6 +23,7 @@ import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.car.contractcar.myapplication.entity.CarInfo;
 import com.car.contractcar.myapplication.entity.ShopInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.rollviewpager.RollPagerView;
@@ -59,6 +60,7 @@ public class ShopInfoActivity extends AppCompatActivity {
     private int distance;
     private LoadingPage loadingPage;
     private LoadingDialog dialog;
+    private int gid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,18 +73,50 @@ public class ShopInfoActivity extends AppCompatActivity {
         shopCarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final LoadingDialog loadingDialog = new LoadingDialog(ShopInfoActivity.this, "加载中...");
+                loadingDialog.show();
                 ShopInfo.BusinessBean.ChildsBean childsBean = cars.get(position);
-                int gid = childsBean.getGid();
+                gid = childsBean.getGid();
                 double minprice = childsBean.getMinprice();
                 double maxprice = childsBean.getMaxprice();
                 String gname = childsBean.getGname();
                 String title = childsBean.getTitle();
-                Intent intent = new Intent(ShopInfoActivity.this, CarInfoActivity.class);
-                intent.putExtra("gid", gid);
-                intent.putExtra("bid", bid);
-                startActivity(intent);
-                //    右往左推出效果
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+
+
+                HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_INFO + gid, new HttpUtil.callBlack() {
+                    @Override
+                    public void succcess(final String code) {
+                        UIUtils.runOnUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(ShopInfoActivity.this, CarInfoActivity.class);
+                                intent.putExtra("gid", gid);
+                                intent.putExtra("bid", bid);
+                                intent.putExtra("code", code);
+                                loadingDialog.dismiss();
+                                loadingDialog.close();
+                                startActivity(intent);
+                                //    右往左推出效果
+                                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void fail(String code) {
+
+                    }
+
+                    @Override
+                    public void err() {
+
+                    }
+                }, false);
+
+
             }
         });
     }
@@ -114,29 +148,32 @@ public class ShopInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         bid = intent.getIntExtra("bid", 1);
         distance = intent.getIntExtra("distance", 100);
-        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_SHOP_INFO + bid, new HttpUtil.callBlack() {
-            @Override
-            public void succcess(String code) {
-                shopInfo = (ShopInfo) JsonUtils.json2Bean(code, ShopInfo.class);
-                UIUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshView();
-                    }
-                });
-
-            }
-
-            @Override
-            public void fail(String code) {
-
-            }
-
-            @Override
-            public void err() {
-
-            }
-        }, false);
+        String code = intent.getStringExtra("code");
+        shopInfo = (ShopInfo) JsonUtils.json2Bean(code, ShopInfo.class);
+        refreshView();
+//        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_SHOP_INFO + bid, new HttpUtil.callBlack() {
+//            @Override
+//            public void succcess(String code) {
+//                shopInfo = (ShopInfo) JsonUtils.json2Bean(code, ShopInfo.class);
+//                UIUtils.runOnUIThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        refreshView();
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void fail(String code) {
+//
+//            }
+//
+//            @Override
+//            public void err() {
+//
+//            }
+//        }, false);
     }
 
     /**
@@ -153,7 +190,6 @@ public class ShopInfoActivity extends AppCompatActivity {
                     Log.e(TAG, "getView: " + shopInfo.getBusiness().getBimage().get(position));
                     SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
                     ImageLoad.loadImg(imageView, shopInfo.getBusiness().getBimage().get(position));
-                    //  HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(shopInfo.getBusiness().getBimage().get(position))).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -214,8 +250,6 @@ public class ShopInfoActivity extends AppCompatActivity {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-
-            //HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(cars.get(position).getGshowImage())).into(viewHolder.shopCarImg);
             ImageLoad.loadImg(viewHolder.shopCarImg, cars.get(position).getGshowImage());
             viewHolder.shopCarName.setText(cars.get(position).getGname());
             viewHolder.shopCarPrice.setText("指导价: " + cars.get(position).getMinprice() + "万 ~ " + cars.get(position).getMaxprice() + "万");

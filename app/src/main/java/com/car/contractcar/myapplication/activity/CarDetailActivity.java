@@ -114,6 +114,9 @@ public class CarDetailActivity extends AppCompatActivity {
         //隐藏指示器
         //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         carDetailImg.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
+        String code = getIntent().getStringExtra("code");
+        carDetail = (CarDetail) JsonUtils.json2Bean(code, CarDetail.class);
+        refreshView();
     }
 
     private void initData() {

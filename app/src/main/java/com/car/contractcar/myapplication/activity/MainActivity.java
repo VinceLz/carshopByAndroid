@@ -241,30 +241,6 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-//
-//    LocationListener locationListener = new LocationListener() {
-//        @Override
-//        public void onLocationChanged(Location location) {
-//            //如果位置发生变化,重新显示
-//            MainActivity.this.setLocation(location);
-//            Log.e(TAG, "onActivityCreated: " + "维度：" + location.getLatitude() + "经度：" + location.getLongitude());
-//        }
-//
-//        @Override
-//        public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//        }
-//
-//        @Override
-//        public void onProviderEnabled(String provider) {
-//
-//        }
-//
-//        @Override
-//        public void onProviderDisabled(String provider) {
-//
-//        }
-//    };
 
     /**
      * activity销毁时移除监听器
@@ -272,10 +248,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (locationManager != null) {
-//            //移除监听器
-//            locationManager.removeUpdates(locationListener);
-//        }
         if (mLocationClient != null) {
             mLocationClient.unRegisterLocationListener(mBDLocationListener);
         }

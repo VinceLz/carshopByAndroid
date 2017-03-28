@@ -35,12 +35,14 @@ import com.car.contractcar.myapplication.activity.ShopInfoActivity;
 import com.car.contractcar.myapplication.activity.SpecActivity;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
+import com.car.contractcar.myapplication.common.ui.LoadingDialog;
 import com.car.contractcar.myapplication.common.ui.LoadingPage;
 import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.car.contractcar.myapplication.entity.BuyCarIndex2;
+import com.car.contractcar.myapplication.entity.ShopInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
@@ -188,12 +190,43 @@ public class BuycarFragment2 extends Fragment {
 
         carList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), ShopInfoActivity.class);
-                intent.putExtra("bid", homeCarstore.get(position).getBid());
-                intent.putExtra("distance", f);
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                final LoadingDialog loadingDialog = new LoadingDialog(getContext(),"加载中...");
+                loadingDialog.show();
+                HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_SHOP_INFO + homeCarstore.get(position).getBid(), new HttpUtil.callBlack() {
+                    @Override
+                    public void succcess(final String code) {
+
+                        UIUtils.runOnUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), ShopInfoActivity.class);
+                                // intent.putExtra("bid", homeCarstore.get(position).getBid());
+                                intent.putExtra("distance", Integer.parseInt(homeCarstore.get(position).getDistance() != null ?
+                                        homeCarstore.get(position).getDistance() : "0"));
+                                intent.putExtra("code", code);
+                                loadingDialog.dismiss();
+                                loadingDialog.close();
+                                getActivity().startActivity(intent);
+                                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void fail(String code) {
+
+                    }
+
+                    @Override
+                    public void err() {
+
+                    }
+                }, false);
+
+
             }
         });
 

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.common.ui.ListViewUtlis;
 import com.car.contractcar.myapplication.common.utils.ImageLoad;
+import com.car.contractcar.myapplication.entity.CarDetail;
 import com.car.contractcar.myapplication.entity.CarInfo;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.LoadingDialog;
@@ -55,7 +56,6 @@ public class CarInfoActivity extends AppCompatActivity {
     private int gid;
     private Intent intent;
     private List<CarInfo.CarBean.ChildsBean> datas;
-    private LoadingDialog dialog;
 
 
     @Override
@@ -63,20 +63,54 @@ public class CarInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_info);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        gid = intent.getIntExtra("gid", 1);
+
+        gid = getIntent().getIntExtra("gid", 1);
         initView();
         initData();
-        intent = new Intent(CarInfoActivity.this, CarDetailActivity.class);
-        final Intent finalIntent = intent;
-        shopCarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                finalIntent.putExtra("mid", datas.get(position).getMid());
-                startActivity(finalIntent);
-                //    右往左推出效果
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        shopCarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            final LoadingDialog loadingDialog = new LoadingDialog(CarInfoActivity.this, "加载中...");
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+
+                HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + datas.get(position).getMid(), new HttpUtil.callBlack() {
+
+
+                    @Override
+                    public void succcess(final String code) {
+
+                        UIUtils.runOnUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Intent intent = intent = new Intent(CarInfoActivity.this, CarDetailActivity.class);
+                                intent.putExtra("mid", datas.get(position).getMid());
+                                intent.putExtra("code", code);
+                                loadingDialog.dismiss();
+                                loadingDialog.close();
+                                startActivity(intent);
+                                //    右往左推出效果
+                                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void fail(String code) {
+
+                    }
+
+                    @Override
+                    public void err() {
+
+                    }
+                }, false);
+
+
             }
         });
 
@@ -85,8 +119,7 @@ public class CarInfoActivity extends AppCompatActivity {
 
     private void initView() {
 
-        dialog = new LoadingDialog(this, "玩命加载中...");
-        dialog.show();
+
         viewPagesShopimg.setPlayDelay(2500);
         viewPagesShopimg.setAnimationDurtion(500);
         viewPagesShopimg.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
@@ -94,38 +127,13 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void initData() {
-
-        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_INFO + gid, new HttpUtil.callBlack() {
-            @Override
-            public void succcess(String code) {
-                String url = Constant.HTTP_BASE + Constant.HTTP_CAR_INFO + gid;
-                carInfo = (CarInfo) JsonUtils.json2Bean(code, CarInfo.class);
-                UIUtils.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshView();
-                    }
-                });
-
-            }
-
-            @Override
-            public void fail(String code) {
-
-            }
-
-            @Override
-            public void err() {
-
-            }
-        }, false);
-
-
+        String code = getIntent().getStringExtra("code");
+        carInfo = (CarInfo) JsonUtils.json2Bean(code, CarInfo.class);
         refreshView();
     }
 
     private void refreshView() {
-        dialog.close();
+//        dialog.close();
         if (carInfo != null) {
 
 
@@ -225,7 +233,6 @@ public class CarInfoActivity extends AppCompatActivity {
     public void back(View view) {
         this.onBackPressed();
     }
-
 
 
     static class ViewHolder {
