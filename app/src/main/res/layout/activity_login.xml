@@ -153,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/usercode_layout"
                 android:layout_marginTop="30dp"
-                android:background="#12B6C0"
+                android:background="@drawable/circular_btn_bg"
                 android:gravity="center"
                 android:onClick="onClickLogin"
                 android:text="登录"

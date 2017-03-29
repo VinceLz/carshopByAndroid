@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.utils.Constant;
@@ -170,7 +171,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.makeText(LoginActivity.this, "user error", Toast.LENGTH_SHORT).show();
                             } else if (status == 1) {
                                 // TODO: 17/3/28  登录成功
-//                                UIUtils.SpputString(Constant.USER_SP);
+                                UIUtils.SpputString(Constant.USER_SP, jsonObject.getString("user"));
+                                Constant.USER = (JSONObject) jsonObject.get("user");
+                                UIUtils.startAnActivity(new Intent(LoginActivity.this, MainActivity.class), LoginActivity.this);
+                                finish();
                             }
                         }
                     });

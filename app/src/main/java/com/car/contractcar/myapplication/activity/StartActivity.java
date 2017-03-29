@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
@@ -32,6 +33,7 @@ public class StartActivity extends AppCompatActivity {
                     if (!TextUtils.isEmpty(user)) {
                         startActivity(new Intent(StartActivity.this, MainActivity.class));
                     } else {
+                        Constant.USER = JSONObject.parseObject(user);
                         startActivity(new Intent(StartActivity.this, LoginActivity.class));
                     }
 

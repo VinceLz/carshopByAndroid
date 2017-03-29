@@ -1,5 +1,6 @@
 package com.car.contractcar.myapplication.loginandr.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.car.contractcar.myapplication.R;
+import com.car.contractcar.myapplication.activity.MainActivity;
 import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
 import com.car.contractcar.myapplication.common.ui.LineEditText;
@@ -79,11 +81,24 @@ public class RegistActivity extends AppCompatActivity {
             } else {
                 Map<String, Object> map = new HashMap<>();
                 map.put("upassword", pass);
-                HttpUtil.post(Constant.HTTP_BASE + Constant.HTTP_REGIST_F, map, new HttpUtil.callBlack() {
+                map.put("code", code);
+                HttpUtil.post(Constant.HTTP_BASE + Constant.HTTP_REGIST_L, map, new HttpUtil.callBlack() {
                     @Override
-                    public void succcess(String code) {
-                        // TODO: 17/3/28
+                    public void succcess(final String code) {
 
+                        UIUtils.runOnUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                JSONObject jsonObject = (JSONObject) JSONObject.parse(code);
+                                int status = (int) jsonObject.get("status");
+                                if (status == 1) {
+                                    Constant.USER = (JSONObject) jsonObject.get("user");
+                                    UIUtils.SpputString(Constant.USER_SP, jsonObject.getString("user"));
+                                    UIUtils.startAnActivity(new Intent(RegistActivity.this, MainActivity.class), RegistActivity.this);
+                                    finish();
+                                }
+                            }
+                        });
                     }
 
                     @Override
@@ -144,7 +159,12 @@ public class RegistActivity extends AppCompatActivity {
     @OnClick(R.id.regist_back)
     public void onClickBack(View view) {
         this.onBackPressed();
-        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
 }

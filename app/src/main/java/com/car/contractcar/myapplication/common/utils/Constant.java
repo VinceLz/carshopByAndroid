@@ -2,6 +2,8 @@ package com.car.contractcar.myapplication.common.utils;
 
 import android.content.Intent;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * Created by macmini2 on 16/11/6.
  */
@@ -26,6 +28,7 @@ public class Constant {
     public static final String HTTP_CAR_COLOR = "car/models/getColor.action?mid=";
     public static final String HTTP_LOGIN = "/user/login.action";
     public static final String HTTP_REGIST_F = "/user/registfrist.action";
+    public static final String HTTP_REGIST_L = "/user/registlast.action";
     public static final String[] TransmissionCase = {"手动", "自动"};
     public static final String[] displacement = {"1.0及以下", "1.1-1.6L", "1.7-2.0L", "2.1-2.5L", "2.6-3.0L", "3.1-4.0L", "4.0L以上"};
     public static final String[] drive = {"前驱", "后驱", "四驱"};
@@ -36,6 +39,7 @@ public class Constant {
     public static final String[] production = {"自主", "合资", "进口"};
     public static final String USER_SP = "USER_SP";
 
+    public static JSONObject USER = null;
 
 
     public static Intent intent = new Intent(Intent.ACTION_CALL);
