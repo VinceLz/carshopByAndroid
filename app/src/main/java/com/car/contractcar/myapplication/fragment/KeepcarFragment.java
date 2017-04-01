@@ -1,5 +1,6 @@
 package com.car.contractcar.myapplication.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,13 +24,17 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.MainActivity;
+import com.car.contractcar.myapplication.common.http.HttpUtil;
 import com.car.contractcar.myapplication.common.ui.EduSohoIconView;
+import com.car.contractcar.myapplication.common.ui.LoadingDialog;
 import com.car.contractcar.myapplication.common.ui.LoadingPage;
 import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
+import com.car.contractcar.myapplication.keepcar.bean.KeepCarShopInfo;
 import com.car.contractcar.myapplication.keepcar.bean.KeepHomeBean;
+import com.car.contractcar.myapplication.keepcar.view.KeepCarServiceInfoActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
@@ -124,19 +130,48 @@ public class KeepcarFragment extends Fragment {
 
 
     private void initView() {
-        //设置播放时间间隔
+
         keepcarViewPagesCarousel.setPlayDelay(2500);
-        //设置透明度
+
         keepcarViewPagesCarousel.setAnimationDurtion(500);
 
 
-        //设置指示器（顺序依次）
-        //自定义指示器图片
-        //设置圆点指示器颜色
-        //设置文字指示器
-        //隐藏指示器
-        //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         keepcarViewPagesCarousel.setHintView(new ColorPointHintView(getActivity(), Color.WHITE, Color.parseColor("#aacccccc")));
+
+        keepcarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final LoadingDialog loadingDialog = new LoadingDialog(getContext(), "加载中...");
+                loadingDialog.show();
+                HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_KEEP_CAR_SHOP_INFO + keepHomeBean.getYcstore().get(position).getMbid(), new HttpUtil.callBlack() {
+                    @Override
+                    public void succcess(final String code) {
+                        UIUtils.runOnUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), KeepCarServiceInfoActivity.class);
+                                intent.putExtra("code", code);
+                                loadingDialog.dismiss();
+                                loadingDialog.close();
+                                UIUtils.startAnActivity(intent, getActivity());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void fail(String code) {
+
+                    }
+
+                    @Override
+                    public void err() {
+
+                    }
+                }, false);
+
+
+            }
+        });
     }
 
 
@@ -222,7 +257,7 @@ public class KeepcarFragment extends Fragment {
                         }
                         if (score == 0) {
                             holderView.textView3.setText(score + " 分");
-                        }else {
+                        } else {
                             holderView.textView3.setText(score + ".0 分");
                         }
 
