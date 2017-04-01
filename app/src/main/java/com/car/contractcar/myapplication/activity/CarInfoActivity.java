@@ -72,6 +72,7 @@ public class CarInfoActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 final LoadingDialog loadingDialog = new LoadingDialog(CarInfoActivity.this, "加载中...");
+                loadingDialog.show();
                 HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + datas.get(position).getMid(), new HttpUtil.callBlack() {
                     @Override
                     public void succcess(final String code) {

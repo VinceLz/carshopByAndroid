@@ -85,36 +85,39 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:orientation="horizontal">
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/shop_distance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:paddingTop="5dp"
-                            android:text="1.2 Km"
-                            android:textColor="#BE103E"
-                            android:textSize="14sp" />
+                        <!--<TextView-->
+                        <!--android:id="@+id/shop_distance"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:paddingTop="5dp"-->
+                        <!--android:text="1.2 Km"-->
+                        <!--android:textColor="#BE103E"-->
+                        <!--android:textSize="14sp" />-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_horizontal"-->
+                        <!--android:orientation="vertical">-->
 
-                            <ImageView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:src="@mipmap/location" />
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@mipmap/location" />
 
-                            <ImageView
-                                android:id="@+id/car_detail_phone"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:layout_marginTop="5dp"
-                                android:src="@mipmap/tel" />
-                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/car_detail_phone"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@mipmap/tel" />
+                        <!--</LinearLayout>-->
                     </LinearLayout>
                 </LinearLayout>
 
