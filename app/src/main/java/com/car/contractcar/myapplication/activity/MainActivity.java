@@ -248,6 +248,10 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        if (locationManager != null) {
+//            //移除监听器
+//            locationManager.removeUpdates(locationListener);
+//        }
         if (mLocationClient != null) {
             mLocationClient.unRegisterLocationListener(mBDLocationListener);
         }

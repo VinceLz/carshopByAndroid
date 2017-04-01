@@ -110,7 +110,6 @@ public class CarModelsActivity extends AppCompatActivity {
                 @Override
                 public View getView(ViewGroup container, int position) {
                     SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
-                    // HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(selectData.getImage().get(position).getImage())).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     ImageLoad.loadImg(imageView, selectData.getImage().get(position).getImage());

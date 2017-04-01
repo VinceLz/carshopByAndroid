@@ -35,7 +35,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.car.contractcar.myapplication.MyApplication.context;
-import static com.car.contractcar.myapplication.MyApplication.handler;
 
 /**
  * Created by macmini2 on 16/11/5.
