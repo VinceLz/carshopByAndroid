@@ -8,13 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.car.contractcar.myapplication.R;
-import com.car.contractcar.myapplication.common.http.HttpUtil;
-import com.car.contractcar.myapplication.common.utils.Constant;
 import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
@@ -29,8 +29,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKeepCarServiceInfoView {
+import static com.car.contractcar.myapplication.common.utils.UIUtils.getContext;
+
+public class KeepCarServiceInfoActivity extends AppCompatActivity {
 
 
     @BindView(R.id.keep_car_server_showimg)
@@ -57,10 +60,12 @@ public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKe
     ViewPager vpView;
     private List<View> mViewList = new ArrayList<>();//页卡视图集合
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
-    private View xmlView;
     private int mbid;
     private int[] rids = new int[]{R.id.img_1, R.id.img_2, R.id.img_3, R.id.img_4, R.id.img_5};
     private KeepCarShopInfo keepCarShopInfo;
+    private ListView service_lv1;
+    private ListView service_lv;
+    private ListView service_lv2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +76,7 @@ public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKe
         initView();
         initData();
 
-        vpView.setAdapter(new MyPagerAdapter(mViewList));
+
     }
 
     private void initView() {
@@ -90,43 +95,32 @@ public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKe
 
         mbid = getIntent().getIntExtra("mbid", 1);
         //添加页卡视图
-        xmlView = UIUtils.getXmlView(R.layout.service_list);
-        for (int i = 0; i < 3; i++) {
-            mViewList.add(xmlView);
-        }
+        View xmlView = UIUtils.getXmlView(R.layout.service_list);
+        View xmlView1 = UIUtils.getXmlView(R.layout.service_list);
+        View xmlView2 = UIUtils.getXmlView(R.layout.service_list);
+        service_lv = (ListView) xmlView.findViewById(R.id.service_list);
+        service_lv1 = (ListView) xmlView1.findViewById(R.id.service_list);
+        service_lv2 = (ListView) xmlView2.findViewById(R.id.service_list);
+        mViewList.add(xmlView);
+        mViewList.add(xmlView1);
+        mViewList.add(xmlView2);
+
 
         mTitleList.add("清洗");
         mTitleList.add("保养");
         mTitleList.add("装潢");
+        tabs.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
+        tabs.addTab(tabs.newTab().setText(mTitleList.get(0)));//添加tab选项卡
+        tabs.addTab(tabs.newTab().setText(mTitleList.get(1)));
+        tabs.addTab(tabs.newTab().setText(mTitleList.get(2)));
 
     }
 
 
     private void initData() {
-        HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_KEEP_CAR_SHOP_INFO + mbid, new HttpUtil.callBlack() {
-            @Override
-            public void succcess(final String code) {
-                UIUtils.runOnUIThread(new Runnable() {
-
-
-                    @Override
-                    public void run() {
-                        keepCarShopInfo = (KeepCarShopInfo) JsonUtils.json2Bean(code, KeepCarShopInfo.class);
-                        refreshView();
-                    }
-                });
-            }
-
-            @Override
-            public void fail(String code) {
-
-            }
-
-            @Override
-            public void err() {
-
-            }
-        }, false);
+        String code = getIntent().getStringExtra("code");
+        keepCarShopInfo = (KeepCarShopInfo) JsonUtils.json2Bean(code, KeepCarShopInfo.class);
+        refreshView();
 
     }
 
@@ -134,12 +128,19 @@ public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKe
     private void refreshView() {
 
         if (keepCarShopInfo != null && keepCarShopInfo.getYcstore() != null) {
+            MyPagerAdapter myPagerAdapter = new MyPagerAdapter(mViewList);
+            vpView.setAdapter(myPagerAdapter);
+            tabs.setupWithViewPager(vpView);
+
+            service_lv.setAdapter(new ServiceListAdapter(keepCarShopInfo.getYcstore().getClean()));
+            service_lv1.setAdapter(new ServiceListAdapter(keepCarShopInfo.getYcstore().getDecoration()));
+            service_lv2.setAdapter(new ServiceListAdapter(keepCarShopInfo.getYcstore().getMainclean()));
+
             keepCarServerShowimg.setAdapter(new StaticPagerAdapter() {
 
                 @Override
                 public View getView(ViewGroup container, int position) {
                     SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
-                    // HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(selectData.getImage().get(position).getImage())).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     ImageLoad.loadImg(imageView, keepCarShopInfo.getYcstore().getBimage().get(position));
@@ -172,11 +173,6 @@ public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKe
     }
 
 
-    @Override
-    public void loadData() {
-
-    }
-
     //
     //ViewPager适配器
     class MyPagerAdapter extends PagerAdapter {
@@ -203,9 +199,10 @@ public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKe
             return mViewList.get(position);
         }
 
+
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(mViewList.get(position));//删除页卡
+            container.removeView((View) object);//删除页卡
         }
 
         @Override
@@ -214,4 +211,86 @@ public class KeepCarServiceInfoActivity extends AppCompatActivity implements IKe
         }
 
     }
+
+
+    @OnClick(R.id.car_info_back)
+    public void onClickBack(View view) {
+        this.onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
+
+    class ServiceListAdapter extends BaseAdapter {
+        private List<KeepCarShopInfo.YcstoreBean.BaseBean> data;
+
+        public ServiceListAdapter(List<KeepCarShopInfo.YcstoreBean.BaseBean> data) {
+            this.data = data;
+        }
+
+        @Override
+        public int getCount() {
+            return data.size() <= 0 ? 1 : data.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (data.size() <= 0) {
+                TextView textView = new TextView(getContext());
+                textView.setText("该店暂时不提供此服务");
+                textView.setTextColor(Color.parseColor("#ff0000"));
+                return textView;
+            } else {
+
+
+                ViewHolder holderView = null;
+                if (convertView == null) {
+                    convertView = UIUtils.getXmlView(R.layout.service_list_item);
+                    holderView = new ViewHolder(convertView);
+                    convertView.setTag(holderView);
+                } else {
+                    holderView = (ViewHolder) convertView.getTag();
+                }
+                holderView.sname.setText(data.get(position).getSname());
+                holderView.sdesc.setText(data.get(position).getSdesc());
+                holderView.snewprice.setText("¥ " + data.get(position).getNewprice() + "");
+                holderView.snewprice.setText("¥" + data.get(position).getOldprice() + "");
+                return convertView;
+            }
+
+        }
+    }
+
+    static class ViewHolder {
+        @BindView(R.id.sname)
+        TextView sname;
+        @BindView(R.id.sdesc)
+        TextView sdesc;
+        @BindView(R.id.snewprice)
+        TextView snewprice;
+        @BindView(R.id.soldprice)
+        TextView soldprice;
+        @BindView(R.id.pay_bel)
+        ImageView payBel;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
+    }
+
 }
+

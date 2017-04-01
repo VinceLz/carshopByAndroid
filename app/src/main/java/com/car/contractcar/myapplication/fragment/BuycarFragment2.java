@@ -27,7 +27,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
 import com.car.contractcar.myapplication.R;
 import com.car.contractcar.myapplication.activity.CarModelsActivity;
 import com.car.contractcar.myapplication.activity.MainActivity;
@@ -42,7 +41,6 @@ import com.car.contractcar.myapplication.common.utils.ImageLoad;
 import com.car.contractcar.myapplication.common.utils.JsonUtils;
 import com.car.contractcar.myapplication.common.utils.UIUtils;
 import com.car.contractcar.myapplication.entity.BuyCarIndex2;
-import com.car.contractcar.myapplication.entity.ShopInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hanks.htextview.HTextView;
 import com.hanks.htextview.HTextViewType;
@@ -91,7 +89,6 @@ public class BuycarFragment2 extends Fragment {
     private int statusBarHeight2;
     private static int count = 0;
     private boolean isContinue;
-//    private Intent intent = new Intent(Intent.ACTION_CALL);
 
     private Thread myThread;
     private Handler handler = new Handler() {
@@ -105,10 +102,8 @@ public class BuycarFragment2 extends Fragment {
                     break;
             }
         }
-
-        ;
     };
-    //    private Location location;
+
     private String dd;
     private DecimalFormat fnum;
     private int[] position1;
@@ -326,7 +321,6 @@ public class BuycarFragment2 extends Fragment {
                     return homeImage.size();
                 }
             });
-
             carList.setAdapter(new MyListAdapter());
 
             setListViewHeight(carList);

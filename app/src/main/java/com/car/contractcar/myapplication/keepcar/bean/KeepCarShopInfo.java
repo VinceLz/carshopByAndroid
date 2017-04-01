@@ -8,21 +8,22 @@ import java.util.List;
 
 public class KeepCarShopInfo {
 
+
     /**
      * status : 1
-     * ycstore : {"baddress":"玉祥门才智大厦","bdate":"2017-03-28 14:32:28.0","bphone":"123456789","clean":[],"commentcount":0,"decoration":[],"isHot":0,"mainclean":[],"mbid":26,"mbname":"DOUDOU","purchase":0,"score":0,"time":"9：00\u2014\u201410:00","uname":"豆豆"}
+     * ycstore : {"baddress":"玉祥门才智大厦","bdate":"2017-03-29 15:35:12.0","bphone":"test","clean":[{"mbid":26,"newprice":10,"oldprice":10,"sdesc":"服务","sid":22,"sname":"服务","type":0},{"mbid":26,"newprice":10,"oldprice":20,"sdesc":"测试数据","sid":20,"sname":"测试数据","type":0},{"mbid":26,"newprice":20,"oldprice":30,"sdesc":"整车泡沫冲洗、轮胎轮毅冲洗轮毅清洁 / 车内吸尘／室内简单清洁","sid":19,"sname":"普通洗车-5坐轿车","type":0}],"commentcount":0,"decoration":[{"mbid":26,"newprice":10,"oldprice":20,"sdesc":"测试","sid":6,"sname":"测试","type":0}],"isHot":0,"mainclean":[{"mbid":26,"newprice":0,"oldprice":1,"sdesc":"梁朕","sid":21,"sname":"梁朕","type":0},{"mbid":26,"newprice":2222,"oldprice":1222,"sdesc":"测试","sid":3,"sname":"测试","type":0}],"mbid":26,"mbname":"DOUDOU","purchase":0,"score":0,"time":"9：00\u2014\u201410:00","uname":"豆豆"}
      */
 
     private int status;
     /**
      * baddress : 玉祥门才智大厦
-     * bdate : 2017-03-28 14:32:28.0
-     * bphone : 123456789
-     * clean : []
+     * bdate : 2017-03-29 15:35:12.0
+     * bphone : test
+     * clean : [{"mbid":26,"newprice":10,"oldprice":10,"sdesc":"服务","sid":22,"sname":"服务","type":0},{"mbid":26,"newprice":10,"oldprice":20,"sdesc":"测试数据","sid":20,"sname":"测试数据","type":0},{"mbid":26,"newprice":20,"oldprice":30,"sdesc":"整车泡沫冲洗、轮胎轮毅冲洗轮毅清洁 / 车内吸尘／室内简单清洁","sid":19,"sname":"普通洗车-5坐轿车","type":0}]
      * commentcount : 0
-     * decoration : []
+     * decoration : [{"mbid":26,"newprice":10,"oldprice":20,"sdesc":"测试","sid":6,"sname":"测试","type":0}]
      * isHot : 0
-     * mainclean : []
+     * mainclean : [{"mbid":26,"newprice":0,"oldprice":1,"sdesc":"梁朕","sid":21,"sname":"梁朕","type":0},{"mbid":26,"newprice":2222,"oldprice":1222,"sdesc":"测试","sid":3,"sname":"测试","type":0}]
      * mbid : 26
      * mbname : DOUDOU
      * purchase : 0
@@ -61,10 +62,28 @@ public class KeepCarShopInfo {
         private int score;
         private String time;
         private String uname;
-        private List<?> clean;
-        private List<?> decoration;
-        private List<?> mainclean;
-        private List<String> bimage;
+        /**
+         * mbid : 26
+         * newprice : 10
+         * oldprice : 10
+         * sdesc : 服务
+         * sid : 22
+         * sname : 服务
+         * type : 0
+         */
+
+        private List<BaseBean> clean;
+        /**
+         * mbid : 26
+         * newprice : 10
+         * oldprice : 20
+         * sdesc : 测试
+         * sid : 6
+         * sname : 测试
+         * type : 0
+         */
+
+        private List<BaseBean> decoration;
 
         public List<String> getBimage() {
             return bimage;
@@ -73,6 +92,20 @@ public class KeepCarShopInfo {
         public void setBimage(List<String> bimage) {
             this.bimage = bimage;
         }
+
+        /**
+         * mbid : 26
+         * newprice : 0
+         * oldprice : 1
+         * sdesc : 梁朕
+         * sid : 21
+         * sname : 梁朕
+         * type : 0
+         */
+
+        private List<String> bimage;
+
+        private List<BaseBean> mainclean;
 
         public String getBaddress() {
             return baddress;
@@ -162,28 +195,95 @@ public class KeepCarShopInfo {
             this.uname = uname;
         }
 
-        public List<?> getClean() {
+        public List<BaseBean> getClean() {
             return clean;
         }
 
-        public void setClean(List<?> clean) {
+        public void setClean(List<BaseBean> clean) {
             this.clean = clean;
         }
 
-        public List<?> getDecoration() {
+        public List<BaseBean> getDecoration() {
             return decoration;
         }
 
-        public void setDecoration(List<?> decoration) {
+        public void setDecoration(List<BaseBean> decoration) {
             this.decoration = decoration;
         }
 
-        public List<?> getMainclean() {
+        public List<BaseBean> getMainclean() {
             return mainclean;
         }
 
-        public void setMainclean(List<?> mainclean) {
+        public void setMainclean(List<BaseBean> mainclean) {
             this.mainclean = mainclean;
+        }
+
+
+        public static class BaseBean {
+            private int mbid;
+            private int newprice;
+            private int oldprice;
+            private String sdesc;
+            private int sid;
+            private String sname;
+            private int type;
+
+            public int getMbid() {
+                return mbid;
+            }
+
+            public void setMbid(int mbid) {
+                this.mbid = mbid;
+            }
+
+            public int getNewprice() {
+                return newprice;
+            }
+
+            public void setNewprice(int newprice) {
+                this.newprice = newprice;
+            }
+
+            public int getOldprice() {
+                return oldprice;
+            }
+
+            public void setOldprice(int oldprice) {
+                this.oldprice = oldprice;
+            }
+
+            public String getSdesc() {
+                return sdesc;
+            }
+
+            public void setSdesc(String sdesc) {
+                this.sdesc = sdesc;
+            }
+
+            public int getSid() {
+                return sid;
+            }
+
+            public void setSid(int sid) {
+                this.sid = sid;
+            }
+
+            public String getSname() {
+                return sname;
+            }
+
+            public void setSname(String sname) {
+                this.sname = sname;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
         }
     }
 }
