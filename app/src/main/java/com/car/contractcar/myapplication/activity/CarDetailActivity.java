@@ -72,8 +72,6 @@ public class CarDetailActivity extends AppCompatActivity {
     Button activity_car_conf;
 
     private String configure;
-    //    @BindView(R.id.conf_btn)
-//    Button confBtn;
     private int mid;
     private CarDetail carDetail;
     private CarDetail.CarBean car;
@@ -81,6 +79,7 @@ public class CarDetailActivity extends AppCompatActivity {
     private int bid;
     private View xmlView;
     private LinkedHashMap<String, LinkedHashMap<String, String>> jsonToPojo = null;
+    private LoadingDialog loadingDialog;
 
 
     @Override
@@ -89,10 +88,7 @@ public class CarDetailActivity extends AppCompatActivity {
         xmlView = UIUtils.getXmlView(R.layout.activity_car_detail);
         setContentView(xmlView);
         ButterKnife.bind(this);
-
         initView();
-        initData();
-        Log.e(TAG, "onCreate:xxxx ");
 
     }
 
@@ -101,18 +97,8 @@ public class CarDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mid = intent.getIntExtra("mid", 1);
         bid = intent.getIntExtra("bid", 1);
-
         carDetailImg.setPlayDelay(2500);
-        //设置透明度
         carDetailImg.setAnimationDurtion(500);
-
-
-        //设置指示器（顺序依次）
-        //自定义指示器图片
-        //设置圆点指示器颜色
-        //设置文字指示器
-        //隐藏指示器
-        //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         carDetailImg.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
         String code = getIntent().getStringExtra("code");
         carDetail = (CarDetail) JsonUtils.json2Bean(code, CarDetail.class);
@@ -120,9 +106,11 @@ public class CarDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        if (loadingDialog == null) {
+            loadingDialog = new LoadingDialog(CarDetailActivity.this, "加载中...");
+        }
+        loadingDialog.show();
         HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + mid, new HttpUtil.callBlack() {
-
-
             @Override
             public void succcess(String code) {
                 carDetail = null;
@@ -131,6 +119,7 @@ public class CarDetailActivity extends AppCompatActivity {
                 UIUtils.runOnUIThread(new Runnable() {
                     @Override
                     public void run() {
+                        loadingDialog.dismiss();
                         refreshView();
                     }
                 });
@@ -153,13 +142,10 @@ public class CarDetailActivity extends AppCompatActivity {
     private void refreshView() {
         if (carDetail != null) {
             car = carDetail.getCar();
-
             carDetailImg.setAdapter(new StaticPagerAdapter() {
-
                 @Override
                 public View getView(ViewGroup container, int position) {
                     SimpleDraweeView imageView = new SimpleDraweeView(container.getContext());
-                    // Picasso.with(context).load(HttpUtil.getImage_path(car.getMimage().get(position))).into(imageView);
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     ImageLoad.loadImg(imageView, car.getMimage().get(position));
@@ -184,12 +170,10 @@ public class CarDetailActivity extends AppCompatActivity {
 
             carDetailHscrollview.removeAllViews();
             if (recommend != null && recommend.size() > 0) {
-                //适配横向滑动的scrollview的数据
                 for (final CarDetail.RecommendBean recommendBean : recommend) {
                     LinearLayout recommendItemView = (LinearLayout) UIUtils.getXmlView(R.layout.car_detail_recommend_item);
                     SimpleDraweeView recommendItemImg = (SimpleDraweeView) recommendItemView.findViewById(R.id.car_detail_recommend_item_img);
                     TextView recommendItemTitle = (TextView) recommendItemView.findViewById(R.id.car_detail_recommend_item_title);
-                    // HttpUtil.picasso.with(context).load(HttpUtil.getImage_path(recommendBean.getMshowImage())).into(recommendItemImg);
                     ImageLoad.loadImg(recommendItemImg, recommendBean.getMshowImage());
                     recommendItemTitle.setText(recommendBean.getMname() + "\n" + "指导价 : " + recommendBean.getGuidegprice() + "万");
                     carDetailHscrollview.addView(recommendItemView);
@@ -260,5 +244,9 @@ public class CarDetailActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loadingDialog.close();
+    }
 }

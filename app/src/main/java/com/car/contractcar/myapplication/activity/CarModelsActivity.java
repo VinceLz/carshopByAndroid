@@ -80,19 +80,10 @@ public class CarModelsActivity extends AppCompatActivity {
 
     private void initView() {
 
-//设置播放时间间隔
         carModelsPagesCarousel.setPlayDelay(2500);
-        //设置透明度
         carModelsPagesCarousel.setAnimationDurtion(500);
-
-
-        //设置指示器（顺序依次）
-        //自定义指示器图片
-        //设置圆点指示器颜色
-        //设置文字指示器
-        //隐藏指示器
-        //mRollViewPager.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
         carModelsPagesCarousel.setHintView(new ColorPointHintView(this, Color.WHITE, Color.parseColor("#aacccccc")));
+
     }
 
     private void initData() {

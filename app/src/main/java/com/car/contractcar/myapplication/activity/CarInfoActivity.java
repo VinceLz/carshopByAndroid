@@ -63,22 +63,16 @@ public class CarInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_info);
         ButterKnife.bind(this);
-
         gid = getIntent().getIntExtra("gid", 1);
         initView();
         initData();
 
         shopCarList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            final LoadingDialog loadingDialog = new LoadingDialog(CarInfoActivity.this, "加载中...");
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-
+                final LoadingDialog loadingDialog = new LoadingDialog(CarInfoActivity.this, "加载中...");
                 HttpUtil.get(Constant.HTTP_BASE + Constant.HTTP_CAR_DETAIL + datas.get(position).getMid(), new HttpUtil.callBlack() {
-
-
                     @Override
                     public void succcess(final String code) {
 
@@ -133,14 +127,12 @@ public class CarInfoActivity extends AppCompatActivity {
     }
 
     private void refreshView() {
-//        dialog.close();
+
         if (carInfo != null) {
-
-
             final CarInfo.CarBean car = carInfo.getCar();
             if (car != null) {
                 carInfoName.setText(car.getGname());
-                carInfoPrice.setText("指导价 : " + car.getMinprice() + "~" + car.getMaxprice());
+                carInfoPrice.setText("指导价 : " + car.getMinprice() + "万~" + car.getMaxprice() + "万");
                 if (!TextUtils.isEmpty(car.getTitle())) {
                     carInfoTitle.setText(car.getTitle());
                 } else {

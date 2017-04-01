@@ -49,6 +49,8 @@
                             android:id="@+id/car_detail_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:padding="3dp"
                             android:text="某某4S经销店"
                             android:textColor="#fff"
@@ -58,6 +60,8 @@
                             android:id="@+id/car_detail_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:paddingLeft="3dp"
                             android:paddingTop="3dp"
                             android:text="指导价 : 30万~70万"
@@ -68,6 +72,8 @@
                             android:id="@+id/car_detail_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:paddingLeft="3dp"
                             android:paddingTop="5dp"
                             android:text="主营车型 : 玩玩"
@@ -188,9 +194,9 @@
             <Button
                 android:id="@+id/activity_car_conf"
                 android:layout_width="match_parent"
-                android:layout_margin="8dp"
                 android:layout_height="wrap_content"
-                android:text="详细配置"/>
+                android:layout_margin="8dp"
+                android:text="详细配置" />
 
         </LinearLayout>
     </ScrollView>
